@@ -21,6 +21,8 @@
 		3A73B0EE192BF4B1006230B5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A73B0D0192BF4B1006230B5 /* UIKit.framework */; };
 		3A73B0F6192BF4B1006230B5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3A73B0F4192BF4B1006230B5 /* InfoPlist.strings */; };
 		3A73B0F8192BF4B1006230B5 /* TestGrayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A73B0F7192BF4B1006230B5 /* TestGrayTests.m */; };
+		3A73B106192BF7BD006230B5 /* GrayScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A73B105192BF7BD006230B5 /* GrayScale.m */; };
+		3A73B10B192BFD54006230B5 /* image1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A73B10A192BFD54006230B5 /* image1.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,9 @@
 		3A73B0F3192BF4B1006230B5 /* TestGrayTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TestGrayTests-Info.plist"; sourceTree = "<group>"; };
 		3A73B0F5192BF4B1006230B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3A73B0F7192BF4B1006230B5 /* TestGrayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestGrayTests.m; sourceTree = "<group>"; };
+		3A73B104192BF7BD006230B5 /* GrayScale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrayScale.h; sourceTree = "<group>"; };
+		3A73B105192BF7BD006230B5 /* GrayScale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrayScale.m; sourceTree = "<group>"; };
+		3A73B10A192BFD54006230B5 /* image1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image1.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +124,8 @@
 				3A73B0E2192BF4B1006230B5 /* ViewController.m */,
 				3A73B0E4192BF4B1006230B5 /* Images.xcassets */,
 				3A73B0D3192BF4B1006230B5 /* Supporting Files */,
+				3A73B104192BF7BD006230B5 /* GrayScale.h */,
+				3A73B105192BF7BD006230B5 /* GrayScale.m */,
 			);
 			path = TestGray;
 			sourceTree = "<group>";
@@ -126,6 +133,7 @@
 		3A73B0D3192BF4B1006230B5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3A73B10A192BFD54006230B5 /* image1.jpg */,
 				3A73B0D4192BF4B1006230B5 /* TestGray-Info.plist */,
 				3A73B0D5192BF4B1006230B5 /* InfoPlist.strings */,
 				3A73B0D8192BF4B1006230B5 /* main.m */,
@@ -229,6 +237,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A73B0E5192BF4B1006230B5 /* Images.xcassets in Resources */,
+				3A73B10B192BFD54006230B5 /* image1.jpg in Resources */,
 				3A73B0D7192BF4B1006230B5 /* InfoPlist.strings in Resources */,
 				3A73B0E0192BF4B1006230B5 /* Main.storyboard in Resources */,
 			);
@@ -250,6 +259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A73B0E3192BF4B1006230B5 /* ViewController.m in Sources */,
+				3A73B106192BF7BD006230B5 /* GrayScale.m in Sources */,
 				3A73B0DD192BF4B1006230B5 /* AppDelegate.m in Sources */,
 				3A73B0D9192BF4B1006230B5 /* main.m in Sources */,
 			);

@@ -7,8 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "GrayScale.h"
 
 @interface ViewController ()
+
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 @end
 
@@ -18,6 +21,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    UIImage *img = [UIImage imageNamed:@"image1.jpg"];
+    GrayScale *grayimage = [[GrayScale alloc]init];
+    
+    
+    UIImage *outputimg =  [grayimage convertToGrayscale: img];
+    
+    [self.imageView setImage:outputimg];
 }
 
 - (void)didReceiveMemoryWarning
