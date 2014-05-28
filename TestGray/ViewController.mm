@@ -40,7 +40,7 @@
     NSString *image_7=@"image_white.png";
     
     // Load image
-    UIImage *img = [UIImage imageNamed: image_1];
+    UIImage *img = [UIImage imageNamed: image_0];
     
     
     //NSLog(@"test: %i", testMat.empty());
