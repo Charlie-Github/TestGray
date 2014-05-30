@@ -38,25 +38,10 @@
     NSString *image_5 =@"image_gauss_blur.png";
     NSString *image_6 =@"image_black.jpg";
     NSString *image_7=@"image_white.png";
+    NSString *image_8= @"IMG_0559.JPG";
     
     // Load image
-    UIImage *img = [UIImage imageNamed: image_0];
-    
-    
-    //NSLog(@"test: %i", testMat.empty());
-    /************************************* UIImage test Field Below ******************************************************/
-    
-    //GrayScale *grayimage = [[GrayScale alloc]init]; // GrayScale call
-    //UIImage *outputimg =  [grayimage convertToGrayscale: img]; // GrayScale call
-    //UIImage *outputimg = [img emboss]; // UIImage+vImage method call
-    
-    
-    /************************************* End UIImage test Field ******************************************************/
-    
-    
-    
-    
-    /************************************* OpenCV test Field Below ******************************************************/
+    UIImage *img = [UIImage imageNamed: image_7];
     
     
 	
@@ -65,40 +50,7 @@
     
     
     
-	
-	cv::Mat grayFrame, output;
-	cv::Size size;
-	size.height = 3;
-	size.width = 3;
-    
     ImagePreProcessor *ipp = [[ImagePreProcessor alloc]init];
-    
-    
-    //sample code Please do not modified
-	//cv::GaussianBlur(tempMat, tempMat, size, 0.8);
-	//cv::adaptiveThreshold(tempMat, output, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY, 25, 14);
-	//cv::GaussianBlur(output, output, size, 0.8);
-    //end of sample
-    
-    
-    
-    
-    // Wiener Filter remove noise
-    //UIImage *tempimg = [UIImage imageWithCVMat:tempMat];
-    //DeBlur *deb = [[DeBlur alloc] init];
-    //UIImage *outputDeblur = [deb wienerFilter:tempimg];
-    
-//    cv::Canny(tempMat, output, 0.8,0.5); // detect edge
-//    cv::GaussianBlur(output, output, cv::Size(0, 0), 3);
-//    cv::addWeighted(output, 3, output, 0.1, 0, output);
-    
-    //cv::adaptiveThreshold(tempMat, output, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY, 25, 14);
-    
-    
-
-    
-    
-    
     
     tempMat = [ipp processImage:tempMat];
 	
