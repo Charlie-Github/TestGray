@@ -22,14 +22,27 @@
     cv::Mat output;
     int isBlackBack =0;
     isBlackBack = [self checkBackground:inputImage];
-    if (isBlackBack == 0) {
-        
-        cv::fastNlMeansDenoisingColored(inputImage,output);
-        
+    if (isBlackBack == 1) {
         NSLog(@"Image Prepro: Menu is black");
+        
+        
+        
+        cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
+        
+        
+        
+        NSLog(@"channels is: %d", inputImage.channels());
+        
+        inputImage = [self increaseContrast:inputImage]; //return 3 channels
+        
+        output = [self sharpen:inputImage];
+        
+        
+        
+        
     }
     else{
-        
+        NSLog(@"Image Prepro: Menu is White");
         
         output = [self increaseContrast:inputImage]; //return 3 channels
         
@@ -41,7 +54,7 @@
         
         cv::cvtColor(output, output, cv::COLOR_GRAY2BGR);
         
-        NSLog(@"Image Prepro: Menu is White");
+        
         
     }
     
@@ -132,7 +145,7 @@
     }
     //count the average of the pixel
     int ave_pixl = sum_pixl/(rows*cols);
-    int pivot_pixl = ave_pixl * 3 / 2;
+    int pivot_pixl = ave_pixl * 1;
     //count_white the nuber of pixl which value are bigger than average
     int count_white = 0;
     //count_white the nuber of pixl which value is smaller than average
