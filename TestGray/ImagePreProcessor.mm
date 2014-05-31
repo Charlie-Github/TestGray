@@ -20,23 +20,24 @@
     // this function check the input image's style : black+white or white+black
     NSLog(@"PrePro: processImage called!");
     cv::Mat output;
-    int isBlackBack =0;
-    isBlackBack = [self checkBackground:inputImage];
+    int isBlackBack =1;
+    //isBlackBack = [self checkBackground:inputImage];
     if (isBlackBack == 1) {
         NSLog(@"Image Prepro: Menu is black");
         
+        //cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2GRAY);
+
         
         
-        cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
+        
+        output = [self increaseContrast:inputImage]; //return 3 channels
+        
+        cv::fastNlMeansDenoising(output, output);
+        
+        //output = [self sharpen:output];
         
         
-        
-        NSLog(@"channels is: %d", inputImage.channels());
-        
-        inputImage = [self increaseContrast:inputImage]; //return 3 channels
-        
-        output = [self sharpen:inputImage];
-        
+        //output = [self sharpen:output];
         
         
         
@@ -47,12 +48,17 @@
         output = [self increaseContrast:inputImage]; //return 3 channels
         
         
-        output = [self removeBackground:output]; //return 4 channels
+        output = [self removeBackground:output]; //return 3 channels
         
-
-        output = [self removeBackground2:output];
         
-        cv::cvtColor(output, output, cv::COLOR_GRAY2BGR);
+        
+        //output = [self removeBackground2:output];
+        
+        
+        
+        NSLog(@"chan is : %d", output.channels());
+        
+        //cv::cvtColor(output, output, cv::COLOR_GRAY2BGR);
         
         
         
