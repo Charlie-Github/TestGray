@@ -17,13 +17,14 @@
 
 
 -(cv::Mat)processImage: (cv::Mat)inputImage{
-    // this function check the input image's style : black+white or white+black
+    
     NSLog(@"PrePro: processImage called!");
+    
     cv::Mat output;
     int backGround =2;
     backGround = [self checkBackground:inputImage];
     if (backGround == 0) {
-        NSLog(@"Image Prepro: Dark");
+        NSLog(@"Prepro: Dark");
         
         //cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
         
@@ -32,7 +33,7 @@
         inputImage = [self sharpen:inputImage];
     }
     else if(backGround == 1){
-        NSLog(@"Image Prepro: Light");
+        NSLog(@"Prepro: Light");
         
         cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
         inputImage = [self removeBackground2:inputImage];
@@ -46,7 +47,7 @@
         inputImage = [self sharpen:inputImage];
         
     }else{
-        NSLog(@"Image Prepro: good catch");
+        NSLog(@"Prepro: good catch");
         inputImage = [self sharpen:inputImage];
     }
     
@@ -144,28 +145,30 @@
             uchar pixl = input.at<uchar>(i,j);
             int pixl_int = pixl - '0';
             
-            if (pixl_int < pivot_pixl_small) {
+            if (pixl_int <= pivot_pixl_small) {
                 count_small ++ ;
             }
-            else if(pixl_int > pivot_pixl_small && pixl_int < pivot_pixl_medium){
+            else if(pixl_int > pivot_pixl_medium - (pivot_pixl_medium - pivot_pixl_small )/3  &&
+                   pixl_int < pivot_pixl_medium + (pivot_pixl_large - pivot_pixl_medium)/3){
                 count_medium ++ ;
             }
-            else if(pixl_int > pivot_pixl_large){
+            else if(pixl_int >= pivot_pixl_large){
                 count_large ++ ;
             }
             
         }
     }
     
-    if (count_small <= count_large) {
+    if (count_small >= count_large + count_medium) {
         return 0;// too dark
     }
-    else if(count_large > count_small + count_medium) {
+    else if(count_large >= count_small + count_medium) {
         return 1;// too light
     }
-    else{
+    else if (count_medium > count_small && count_medium < count_large){
         return 2;// medium
-    }
+    }else
+        return 3;
 }
     
 
