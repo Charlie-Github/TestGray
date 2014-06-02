@@ -27,6 +27,11 @@
 -(cv::Mat)increaseContrast:(cv::Mat)inputMat;
 
 
+-(cv::Mat)removeBackgroundBlack:(cv::Mat) inputMat;
+
+-(cv::Mat)removeBackgroundWhite:(cv::Mat) inputMat;
+
 -(cv::Mat)removeBackground2:(cv::Mat) inputMat;
+
 -(cv::Mat)CalcBlockMeanVariance:(cv::Mat) Img : (float) blockSide;
 @end

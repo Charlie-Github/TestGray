@@ -31,32 +31,23 @@
     
     // Test Cases
     NSString *image_0 = @"lena.png";
-    NSString *image_1 = @"image_book.jpg";
-    NSString *image_2 = @"image_blue_poster.jpg";
-    NSString *image_3 = @"image_bubble_poster.jpg";
-    NSString *image_4 =@"image_blur.jpg";
-    NSString *image_5 =@"image_gauss_blur.png";
-    NSString *image_6 =@"image_black.jpg";
-    NSString *image_7=@"image_white.png";
-    NSString *image_8= @"IMG_0559.JPG";
+    NSString *image_1 = @"Menu_1.JPG";
+    NSString *image_2 = @"Menu_2.JPG";
+   // NSString *image_3 = @"Menu_3.JPG";
+    NSString *image_4 = @"Menu_4.PNG";
+    NSString *image_5 = @"Menu_5.JPG";
+    NSString *image_6 = @"Menu_6.PNG";
+    NSString *image_7 = @"Menu_7.PNG";
+    NSString *image_8 = @"IMG_0513.JPG";
     
     // Load image
-    UIImage *img = [UIImage imageNamed: image_7];
-    
-    
-	
+    UIImage *img = [UIImage imageNamed: image_8];
 	cv::Mat tempMat = [img CVMat];
-    
-    
-    
-    
     ImagePreProcessor *ipp = [[ImagePreProcessor alloc]init];
     
     tempMat = [ipp processImage:tempMat];
 	
-   
-	
-	img = [UIImage imageWithCVMat:tempMat]; //putting the image in an UIImage format
+    img = [UIImage imageWithCVMat:tempMat]; //putting the image in an UIImage format
 	
     
     
