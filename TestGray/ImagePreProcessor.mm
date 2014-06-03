@@ -132,7 +132,7 @@
     
     int pivot_pixl_small = ave_pixl * 1/3;
     int pivot_pixl_medium = ave_pixl* 1;
-    int pivot_pixl_large = ave_pixl * 3/2;
+    int pivot_pixl_large = ave_pixl * 1.5;
     
     //count_white the nuber of pixl which value are bigger than average
     int count_small = 0;
@@ -159,10 +159,12 @@
         }
     }
     
-    if (count_small >= count_large + count_medium) {
+    if (count_small >= count_large * 2 + count_medium) {
         return 0;// too dark
     }
-    else if(count_large >= count_small + count_medium) {
+    else if(count_large >= count_small * 2 + count_medium) {
+        NSLog(@"large: %d", count_large);
+        NSLog(@"small: %d", count_medium);
         return 1;// too light
     }
     else if (count_medium > count_small && count_medium < count_large){

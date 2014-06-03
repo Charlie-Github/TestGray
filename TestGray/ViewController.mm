@@ -13,6 +13,7 @@
 #import "UIImage+OpenCV.h"
 #import "ImagePreProcessor.h"
 
+
 #import <opencv2/core/core_c.h>
 
 
@@ -38,7 +39,7 @@
     NSString *image_5 = @"Menu_5.JPG";
     NSString *image_6 = @"Menu_6.PNG";
     NSString *image_7 = @"Menu_7.PNG";
-    NSString *image_8 = @"IMG_0555.JPG";
+    NSString *image_8 = @"IMG_0537.JPG";
     
     // Load image
     UIImage *img = [UIImage imageNamed: image_8];
@@ -49,6 +50,15 @@
 	
     img = [UIImage imageWithCVMat:tempMat]; //putting the image in an UIImage format
 	
+    for(int i = 0; i < 3000 ; i++){
+    
+    }
+    //NSLog(<#NSString *format, ...#>)
+    
+    
+    UIReferenceLibraryViewController *referenceLibraryViewController =
+    [[UIReferenceLibraryViewController alloc] initWithTerm:@"apple"];
+
     
     
     /************************************* End OpenCV test *******************************************************/
