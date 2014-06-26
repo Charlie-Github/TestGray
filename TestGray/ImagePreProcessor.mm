@@ -53,6 +53,8 @@
         inputImage = [self sharpen:inputImage];
     }
     
+    copyMakeBorder( inputImage, inputImage, 10, 10, 10, 10, cv::BORDER_REPLICATE, 0 );//add border
+    
     return inputImage;
 }
 
