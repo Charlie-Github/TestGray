@@ -48,10 +48,10 @@
 		3A85B61F192D3378003571F2 /* image_book.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A85B61E192D3378003571F2 /* image_book.jpg */; };
 		3A85B621192D3ABF003571F2 /* image_blue_poster.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A85B620192D3ABF003571F2 /* image_blue_poster.jpg */; };
 		3A85B623192D3AD8003571F2 /* image_bubble_poster.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A85B622192D3AD8003571F2 /* image_bubble_poster.jpg */; };
+		3A85B627192D3CD1003571F2 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A85B626192D3CD1003571F2 /* opencv2.framework */; };
 		3AB38820192E7D8E00A39BBA /* ImagePreProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AB3881F192E7D8E00A39BBA /* ImagePreProcessor.mm */; };
 		3ACA6A59192E586300A61982 /* image_blur.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3ACA6A58192E586300A61982 /* image_blur.jpg */; };
 		3ACA6A5B192E5AC700A61982 /* image_gauss_blur.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACA6A5A192E5AC700A61982 /* image_gauss_blur.png */; };
-		3B419D9D1951E5F4006E46BF /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B419D9C1951E5F4006E46BF /* opencv2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,11 +115,11 @@
 		3A85B61E192D3378003571F2 /* image_book.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_book.jpg; sourceTree = "<group>"; };
 		3A85B620192D3ABF003571F2 /* image_blue_poster.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_blue_poster.jpg; sourceTree = "<group>"; };
 		3A85B622192D3AD8003571F2 /* image_bubble_poster.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_bubble_poster.jpg; sourceTree = "<group>"; };
+		3A85B626192D3CD1003571F2 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = TestGray/opencv2.framework; sourceTree = "<group>"; };
 		3AB3881E192E7D8E00A39BBA /* ImagePreProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreProcessor.h; sourceTree = "<group>"; };
 		3AB3881F192E7D8E00A39BBA /* ImagePreProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImagePreProcessor.mm; sourceTree = "<group>"; };
 		3ACA6A58192E586300A61982 /* image_blur.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_blur.jpg; sourceTree = "<group>"; };
 		3ACA6A5A192E5AC700A61982 /* image_gauss_blur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_gauss_blur.png; sourceTree = "<group>"; };
-		3B419D9C1951E5F4006E46BF /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../../../Downloads/opencv2.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,7 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B419D9D1951E5F4006E46BF /* opencv2.framework in Frameworks */,
+				3A85B627192D3CD1003571F2 /* opencv2.framework in Frameworks */,
 				3A73B0CF192BF4B1006230B5 /* CoreGraphics.framework in Frameworks */,
 				3A73B0D1192BF4B1006230B5 /* UIKit.framework in Frameworks */,
 				3A73B0CD192BF4B1006230B5 /* Foundation.framework in Frameworks */,
@@ -169,7 +169,7 @@
 		3A73B0CB192BF4B1006230B5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3B419D9C1951E5F4006E46BF /* opencv2.framework */,
+				3A85B626192D3CD1003571F2 /* opencv2.framework */,
 				3A73B0CC192BF4B1006230B5 /* Foundation.framework */,
 				3A73B0CE192BF4B1006230B5 /* CoreGraphics.framework */,
 				3A73B0D0192BF4B1006230B5 /* UIKit.framework */,
@@ -519,7 +519,6 @@
 					"$(inherited)",
 					/Users/charliegao/Downloads/Libs,
 					"$(PROJECT_DIR)/TestGray",
-					/Users/wanfang/Downloads,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TestGray/TestGray-Prefix.pch";
@@ -541,7 +540,6 @@
 					"$(inherited)",
 					/Users/charliegao/Downloads/Libs,
 					"$(PROJECT_DIR)/TestGray",
-					/Users/wanfang/Downloads,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TestGray/TestGray-Prefix.pch";
