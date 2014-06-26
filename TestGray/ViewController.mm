@@ -39,10 +39,10 @@
     NSString *image_5 = @"Menu_5.JPG";
     NSString *image_6 = @"Menu_6.PNG";
     NSString *image_7 = @"Menu_7.PNG";
-    NSString *image_8 = @"IMG_0537.JPG";
+    NSString *image_8 = @"i_6.png";
     
     // Load image
-    UIImage *img = [UIImage imageNamed: image_8];
+    UIImage *img = [UIImage imageNamed: image_1];
 	cv::Mat tempMat = [img CVMat];
     ImagePreProcessor *ipp = [[ImagePreProcessor alloc]init];
     
