@@ -22,9 +22,19 @@
 
 -(cv::Mat)processImage: (cv::Mat)inputImage;
 
--(cv::Mat)sharpen:(cv::Mat)inputImage;
 
--(cv::Mat)increaseContrast:(cv::Mat)inputMat;
+//Fang
+-(cv::Mat)canny:(cv::Mat)input;
+
+-(cv::Mat)bilateralFilter:(cv::Mat)input;
+
+-(cv::Mat)boxFilter:(cv::Mat)input;
+
+-(cv::Mat)erode:(cv::Mat)input;
+
+-(cv::Mat)dilate:(cv::Mat)input;
+
+-(cv::Mat)laplacian2:(cv::Mat)input;
 
 
 -(cv::Mat)removeBackground2:(cv::Mat) inputMat;
