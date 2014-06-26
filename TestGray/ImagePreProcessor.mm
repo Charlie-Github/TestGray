@@ -11,7 +11,6 @@
 #import "UIImage+OpenCV.h"
 
 
-
 @implementation ImagePreProcessor
 
 
@@ -36,7 +35,7 @@
         NSLog(@"Prepro: Light");
         
         cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
-        inputImage = [self removeBackground2:inputImage];
+        //inputImage = [self removeBackground2:inputImage];
         
         //inputImage = [self increaseContrast:inputImage];
         
@@ -44,9 +43,9 @@
         
         //inputImage = [self increaseContrast:inputImage];
         
-        inputImage = [self testAdaptiveThreshold:inputImage];
+        inputImage = [self adaptiveThreshold:inputImage];
         
-        inputImage = [self sharpen:inputImage];
+        //inputImage = [self sharpen:inputImage];
         
     }
     else{
@@ -94,6 +93,9 @@
 }
 
 -(cv::Mat)increaseContrast:(cv::Mat)inputMat{
+    //input mat is in BGR format
+    //ouput mat is in BGR format
+    //the function converts BGR into YCrCb format, and then takes care of the first channel of it.
     
     cv::Mat output;
     
@@ -109,14 +111,18 @@
     
     cv::merge(channels,img_hist_equalized); //merge 3 channels including the modified 1st channel into one image
     
-    cv::cvtColor(img_hist_equalized, img_hist_equalized, CV_YCrCb2BGR); //change the color image from YCrCb to BGR format (to display image properly);
+    cv::cvtColor(img_hist_equalized, img_hist_equalized, CV_YCrCb2BGR); //change the color image from YCrCb to BGR format
     
     return img_hist_equalized;
     
 }
 
 
--(cv::Mat)testAdaptiveThreshold:(cv::Mat)inputMat{
+-(cv::Mat)adaptiveThreshold:(cv::Mat)inputMat{
+    //input mat is in BGR format
+    //ouput mat is in BGR format
+    //the function converts BGR into YCrCb format, and then takes care of the first channel of it.
+    //the first channel of YCrCb is for grayscale representation, feeding into adaptiveThrenshold function whose input is sigle channel
     
     cv::Mat output;
     
@@ -128,17 +134,30 @@
     
     cv::split(img_threshold,channels); //split the image into channels
     
+    //add simple threshold removing little
     
-    //(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,11,2)
-    cv::adaptiveThreshold(channels[0], channels[0], 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY, 11, 2);
-    //equlizeHist(channels[0], channels[0]); //equalize histogram on the 1st channel (Y)
+    cv::Size size;
+    size.height = 3;
+    size.width = 3;
+    
+    cv::GaussianBlur(channels[0], channels[0], size, 0.5);
+    cv::threshold(channels[0], channels[0], 0,255, cv::THRESH_TRUNC | cv::THRESH_OTSU);
+    
+    //simple end here
+    
+    cv::adaptiveThreshold(channels[0], channels[0], 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY,11, 2);
+    
+    
+    
+    
+    
     
     cv::merge(channels,img_threshold); //merge 3 channels including the modified 1st channel into one image
     
-    cv::cvtColor(img_threshold, img_threshold, CV_YCrCb2BGR); //change the color image from YCrCb to BGR format (to display image properly);
+    cv::cvtColor(img_threshold, img_threshold, CV_YCrCb2BGR); //change the color image from YCrCb to BGR format
     
     return img_threshold;
-    
+
 }
 
 
@@ -301,11 +320,15 @@
     res=1.0-res;
     res=Img+res;
     
-    cv::threshold(res,res,0.80,1,cv::THRESH_BINARY);
+    cv::threshold(res,res,0.80,1,cv::THRESH_BINARY );
+    
     res.convertTo(res, CV_8UC4,255);
     cv::cvtColor(res, res, cv::COLOR_GRAY2BGR);
     return res;
 }
+
+
+
 
 //-------/remove back ground v2
 
