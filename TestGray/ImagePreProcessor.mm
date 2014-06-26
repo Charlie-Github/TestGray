@@ -21,8 +21,8 @@
     NSLog(@"PrePro: processImage called!");
     
     cv::Mat output;
-    int backGround =2;
-    backGround = [self checkBackground:inputImage];
+    int backGround =1;
+    //backGround = [self checkBackground:inputImage];
     if (backGround == 0) {
         NSLog(@"Prepro: Dark");
         
@@ -38,15 +38,18 @@
         cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
         inputImage = [self removeBackground2:inputImage];
         
-        inputImage = [self increaseContrast:inputImage];
+        //inputImage = [self increaseContrast:inputImage];
         
-        inputImage = [self removeBackgroundWhite:inputImage];
+        //inputImage = [self removeBackgroundWhite:inputImage];
         
-        inputImage = [self increaseContrast:inputImage];
+        //inputImage = [self increaseContrast:inputImage];
+        
+        inputImage = [self testAdaptiveThreshold:inputImage];
         
         inputImage = [self sharpen:inputImage];
         
-    }else{
+    }
+    else{
         NSLog(@"Prepro: good catch");
         inputImage = [self sharpen:inputImage];
     }
@@ -109,6 +112,32 @@
     cv::cvtColor(img_hist_equalized, img_hist_equalized, CV_YCrCb2BGR); //change the color image from YCrCb to BGR format (to display image properly);
     
     return img_hist_equalized;
+    
+}
+
+
+-(cv::Mat)testAdaptiveThreshold:(cv::Mat)inputMat{
+    
+    cv::Mat output;
+    
+    cv::vector<cv::Mat> channels;
+    
+    cv::Mat img_threshold;
+    
+    cv::cvtColor(inputMat, img_threshold, CV_BGR2YCrCb); //change the color image from BGR to YCrCb format
+    
+    cv::split(img_threshold,channels); //split the image into channels
+    
+    
+    //(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,11,2)
+    cv::adaptiveThreshold(channels[0], channels[0], 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY, 11, 2);
+    //equlizeHist(channels[0], channels[0]); //equalize histogram on the 1st channel (Y)
+    
+    cv::merge(channels,img_threshold); //merge 3 channels including the modified 1st channel into one image
+    
+    cv::cvtColor(img_threshold, img_threshold, CV_YCrCb2BGR); //change the color image from YCrCb to BGR format (to display image properly);
+    
+    return img_threshold;
     
 }
 
