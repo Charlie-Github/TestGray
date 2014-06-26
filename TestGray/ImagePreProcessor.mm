@@ -11,49 +11,54 @@
 #import "UIImage+OpenCV.h"
 
 
+
 @implementation ImagePreProcessor
 
 
 
 -(cv::Mat)processImage: (cv::Mat)inputImage{
-    
+    // this function check the input image's style : black+white or white+black
     NSLog(@"PrePro: processImage called!");
-    
     cv::Mat output;
-    int backGround =1;
-    //backGround = [self checkBackground:inputImage];
-    if (backGround == 0) {
-        NSLog(@"Prepro: Dark");
+    int isBlackBack =0;
+    isBlackBack = [self checkBackground:inputImage];
+    if (isBlackBack == 1) {
+        NSLog(@"Image Prepro: Menu is black");
         
-        //cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
         
-        inputImage = [self removeBackgroundBlack:inputImage];
-        
-        inputImage = [self sharpen:inputImage];
-    }
-    else if(backGround == 1){
-        NSLog(@"Prepro: Light");
         
         cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
-        //inputImage = [self removeBackground2:inputImage];
         
-        //inputImage = [self increaseContrast:inputImage];
         
-        //inputImage = [self removeBackgroundWhite:inputImage];
         
-        //inputImage = [self increaseContrast:inputImage];
+        NSLog(@"channels is: %d", inputImage.channels());
         
-        inputImage = [self adaptiveThreshold:inputImage];
+        inputImage = [self increaseContrast:inputImage]; //return 3 channels
         
-        //inputImage = [self sharpen:inputImage];
+        output = [self sharpen:inputImage];
+        
+        
+        
         
     }
     else{
-        NSLog(@"Prepro: good catch");
-        inputImage = [self sharpen:inputImage];
+        NSLog(@"Image Prepro: Menu is White");
+        
+        output = [self increaseContrast:inputImage]; //return 3 channels
+        
+        
+        output = [self removeBackground:output]; //return 4 channels
+        
+
+        output = [self removeBackground2:output];
+        
+        cv::cvtColor(output, output, cv::COLOR_GRAY2BGR);
+        
+        
+        
     }
     
-    return inputImage;
+    return output;
 }
 
 -(cv::Mat)toGrayMat:(UIImage *) inputImage{
@@ -92,12 +97,17 @@
     return output;
 }
 
+
+
+
+
+
+
 -(cv::Mat)increaseContrast:(cv::Mat)inputMat{
-    //input mat is in BGR format
-    //ouput mat is in BGR format
-    //the function converts BGR into YCrCb format, and then takes care of the first channel of it.
     
     cv::Mat output;
+    
+    
     
     cv::vector<cv::Mat> channels;
     
@@ -111,60 +121,18 @@
     
     cv::merge(channels,img_hist_equalized); //merge 3 channels including the modified 1st channel into one image
     
-    cv::cvtColor(img_hist_equalized, img_hist_equalized, CV_YCrCb2BGR); //change the color image from YCrCb to BGR format
+    cv::cvtColor(img_hist_equalized, img_hist_equalized, CV_YCrCb2BGR); //change the color image from YCrCb to BGR format (to display image properly);
     
     return img_hist_equalized;
     
 }
 
 
--(cv::Mat)adaptiveThreshold:(cv::Mat)inputMat{
-    //input mat is in BGR format
-    //ouput mat is in BGR format
-    //the function converts BGR into YCrCb format, and then takes care of the first channel of it.
-    //the first channel of YCrCb is for grayscale representation, feeding into adaptiveThrenshold function whose input is sigle channel
-    
-    cv::Mat output;
-    
-    cv::vector<cv::Mat> channels;
-    
-    cv::Mat img_threshold;
-    
-    cv::cvtColor(inputMat, img_threshold, CV_BGR2YCrCb); //change the color image from BGR to YCrCb format
-    
-    cv::split(img_threshold,channels); //split the image into channels
-    
-    //add simple threshold removing little
-    
-    cv::Size size;
-    size.height = 3;
-    size.width = 3;
-    
-    cv::GaussianBlur(channels[0], channels[0], size, 0.5);
-    cv::threshold(channels[0], channels[0], 0,255, cv::THRESH_TRUNC | cv::THRESH_OTSU);
-    
-    //simple end here
-    
-    cv::adaptiveThreshold(channels[0], channels[0], 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY,11, 2);
-    
-    
-    
-    
-    
-    
-    cv::merge(channels,img_threshold); //merge 3 channels including the modified 1st channel into one image
-    
-    cv::cvtColor(img_threshold, img_threshold, CV_YCrCb2BGR); //change the color image from YCrCb to BGR format
-    
-    return img_threshold;
-
-}
-
-
--(int)checkBackground:(cv::Mat )input
+-(int)checkBackground:(cv::Mat )input //Fang's
 {
     int rows = input.rows;
     int cols = input.cols;
+    
     
     //count the sum of the pixl
     int sum_pixl = 0;
@@ -177,76 +145,45 @@
     }
     //count the average of the pixel
     int ave_pixl = sum_pixl/(rows*cols);
-    
-    int pivot_pixl_small = ave_pixl * 1/3;
-    int pivot_pixl_medium = ave_pixl* 1;
-    int pivot_pixl_large = ave_pixl * 1.5;
-    
+    int pivot_pixl = ave_pixl * 1;
     //count_white the nuber of pixl which value are bigger than average
-    int count_small = 0;
-    int count_medium = 0;
-    int count_large = 0;
-
+    int count_white = 0;
+    //count_white the nuber of pixl which value is smaller than average
+    int count_black = 0;
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
             
             uchar pixl = input.at<uchar>(i,j);
             int pixl_int = pixl - '0';
             
-            if (pixl_int <= pivot_pixl_small) {
-                count_small ++ ;
-            }
-            else if(pixl_int > pivot_pixl_medium - (pivot_pixl_medium - pivot_pixl_small )/3  &&
-                   pixl_int < pivot_pixl_medium + (pivot_pixl_large - pivot_pixl_medium)/3){
-                count_medium ++ ;
-            }
-            else if(pixl_int >= pivot_pixl_large){
-                count_large ++ ;
+            if (pixl_int > pivot_pixl) {
+                count_white = count_white + 1;
+            }else{
+                count_black = count_black + 1;
             }
             
         }
     }
+    //if more white then （0） others 黑字（1）
     
-    if (count_small >= count_large * 2 + count_medium) {
-        return 0;// too dark
+    
+    if (count_black <= count_white) {
+        return 0;
+    } else {
+        return 1;
     }
-    else if(count_large >= count_small * 2 + count_medium) {
-        NSLog(@"large: %d", count_large);
-        NSLog(@"small: %d", count_medium);
-        return 1;// too light
-    }
-    else if (count_medium > count_small && count_medium < count_large){
-        return 2;// medium
-    }else
-        return 3;
+    
 }
-    
 
-
-
--(cv::Mat)removeBackgroundBlack:(cv::Mat)inputImage{
+-(cv::Mat)removeBackground:(cv::Mat)inputImage{
     
     cv::Size size;
     size.height = 3;
     size.width = 3;
     
-    cv::GaussianBlur(inputImage, inputImage, size, 0.5);
-    cv::threshold(inputImage, inputImage, 220,255, cv::THRESH_TRUNC);
-    //cv::GaussianBlur(inputImage, inputImage, size, 0.8);
-    
-    return inputImage;
-    
-}
-
--(cv::Mat)removeBackgroundWhite:(cv::Mat)inputImage{
-    
-    cv::Size size;
-    size.height = 3;
-    size.width = 3;
-    
-    cv::GaussianBlur(inputImage, inputImage, size, 0.5);
-    cv::threshold(inputImage, inputImage, 190,255, cv::THRESH_TRUNC);
-    //cv::GaussianBlur(inputImage, inputImage, size, 0.8);
+    cv::GaussianBlur(inputImage, inputImage, size, 0.8);
+    cv::threshold(inputImage, inputImage, 200,255, cv::THRESH_TRUNC);
+    cv::GaussianBlur(inputImage, inputImage, size, 0.8);
     
     return inputImage;
     
@@ -316,19 +253,15 @@
     
     Img.convertTo(Img,CV_32FC1,1.0/255.0);
    
-    res = [self CalcBlockMeanVariance:Img:21];
+    res = [self CalcBlockMeanVariance:Img:25];
     res=1.0-res;
     res=Img+res;
     
-    cv::threshold(res,res,0.80,1,cv::THRESH_BINARY );
-    
+    cv::threshold(res,res,0.80,1,cv::THRESH_BINARY);
     res.convertTo(res, CV_8UC4,255);
-    cv::cvtColor(res, res, cv::COLOR_GRAY2BGR);
+    
     return res;
 }
-
-
-
 
 //-------/remove back ground v2
 
