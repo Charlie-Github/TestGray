@@ -31,15 +31,17 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     // Test Cases
-    NSString *image_0 = @"lena.png";
-    NSString *image_1 = @"Menu_1.JPG";
-    NSString *image_2 = @"Menu_2.JPG";
-    NSString *image_3 = @"image_black.jpg";
-    NSString *image_4 = @"Menu_4.PNG";
-    NSString *image_5 = @"Menu_5.JPG";
-    NSString *image_6 = @"Menu_6.PNG";
-    NSString *image_7 = @"Menu_7.PNG";
-    NSString *image_8 = @"IMG_0537.JPG";
+    
+//    NSString *image_0 = @"lena.png";
+//    NSString *image_1 = @"Menu_1.JPG";
+//    NSString *image_2 = @"Menu_2.JPG";
+//    NSString *image_3 = @"image_black.jpg";
+//    NSString *image_4 = @"Menu_4.PNG";
+//    NSString *image_5 = @"Menu_5.JPG";
+//    NSString *image_6 = @"Menu_6.PNG";
+//    NSString *image_7 = @"Menu_7.PNG";
+    NSString *image_8 = @"IMG_0521.JPG";
+//    NSString *image_9 = @"image_book.jpg";
     
     // Load image
     UIImage *img = [UIImage imageNamed: image_8];

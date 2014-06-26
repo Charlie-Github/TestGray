@@ -34,4 +34,5 @@
 -(cv::Mat)removeBackground2:(cv::Mat) inputMat;
 
 -(cv::Mat)CalcBlockMeanVariance:(cv::Mat) Img : (float) blockSide;
+
 @end
