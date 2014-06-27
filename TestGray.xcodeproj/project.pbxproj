@@ -51,7 +51,9 @@
 		3AB38820192E7D8E00A39BBA /* ImagePreProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AB3881F192E7D8E00A39BBA /* ImagePreProcessor.mm */; };
 		3ACA6A59192E586300A61982 /* image_blur.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3ACA6A58192E586300A61982 /* image_blur.jpg */; };
 		3ACA6A5B192E5AC700A61982 /* image_gauss_blur.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACA6A5A192E5AC700A61982 /* image_gauss_blur.png */; };
-		3BD056F0195C64D300C716DF /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD056EF195C64D300C716DF /* opencv2.framework */; };
+		3AF9C12A195DD0930011339E /* IMG_2018.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 3AF9C129195DD0930011339E /* IMG_2018.JPG */; };
+		3AF9C12F195DE2FB0011339E /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF9C12D195DDACB0011339E /* opencv2.framework */; };
+		3AF9C133195DF98F0011339E /* WordCorrector.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF9C132195DF98F0011339E /* WordCorrector.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,7 +121,10 @@
 		3AB3881F192E7D8E00A39BBA /* ImagePreProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImagePreProcessor.mm; sourceTree = "<group>"; };
 		3ACA6A58192E586300A61982 /* image_blur.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_blur.jpg; sourceTree = "<group>"; };
 		3ACA6A5A192E5AC700A61982 /* image_gauss_blur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_gauss_blur.png; sourceTree = "<group>"; };
-		3BD056EF195C64D300C716DF /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../../../Downloads/opencv2.framework; sourceTree = "<group>"; };
+		3AF9C129195DD0930011339E /* IMG_2018.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_2018.JPG; sourceTree = "<group>"; };
+		3AF9C12D195DDACB0011339E /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		3AF9C131195DF98F0011339E /* WordCorrector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCorrector.h; sourceTree = "<group>"; };
+		3AF9C132195DF98F0011339E /* WordCorrector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordCorrector.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,7 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BD056F0195C64D300C716DF /* opencv2.framework in Frameworks */,
+				3AF9C12F195DE2FB0011339E /* opencv2.framework in Frameworks */,
 				3A73B0CF192BF4B1006230B5 /* CoreGraphics.framework in Frameworks */,
 				3A73B0D1192BF4B1006230B5 /* UIKit.framework in Frameworks */,
 				3A73B0CD192BF4B1006230B5 /* Foundation.framework in Frameworks */,
@@ -150,6 +155,7 @@
 		3A73B0C0192BF4B0006230B5 = {
 			isa = PBXGroup;
 			children = (
+				3AF9C130195DF9610011339E /* WordCorrector */,
 				3A73B0D2192BF4B1006230B5 /* TestGray */,
 				3A73B0F1192BF4B1006230B5 /* TestGrayTests */,
 				3A73B0CB192BF4B1006230B5 /* Frameworks */,
@@ -169,7 +175,7 @@
 		3A73B0CB192BF4B1006230B5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3BD056EF195C64D300C716DF /* opencv2.framework */,
+				3AF9C12D195DDACB0011339E /* opencv2.framework */,
 				3A73B0CC192BF4B1006230B5 /* Foundation.framework */,
 				3A73B0CE192BF4B1006230B5 /* CoreGraphics.framework */,
 				3A73B0D0192BF4B1006230B5 /* UIKit.framework */,
@@ -205,6 +211,7 @@
 		3A73B0D3192BF4B1006230B5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3AF9C129195DD0930011339E /* IMG_2018.JPG */,
 				3A5654D4193A98C90085CC87 /* Menu_1.JPG */,
 				3A5654D5193A98C90085CC87 /* Menu_2.JPG */,
 				3A5654D7193A98C90085CC87 /* Menu_4.PNG */,
@@ -254,6 +261,15 @@
 				3A73B0F4192BF4B1006230B5 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3AF9C130195DF9610011339E /* WordCorrector */ = {
+			isa = PBXGroup;
+			children = (
+				3AF9C131195DF98F0011339E /* WordCorrector.h */,
+				3AF9C132195DF98F0011339E /* WordCorrector.m */,
+			);
+			name = WordCorrector;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -352,6 +368,7 @@
 				3A5654CE1937ABE10085CC87 /* IMG_0537.JPG in Resources */,
 				3A85B61F192D3378003571F2 /* image_book.jpg in Resources */,
 				3A5654CB1937ABE10085CC87 /* IMG_0519.JPG in Resources */,
+				3AF9C12A195DD0930011339E /* IMG_2018.JPG in Resources */,
 				3A85B621192D3ABF003571F2 /* image_blue_poster.jpg in Resources */,
 				3A5654E0193A98C90085CC87 /* Menu_6.PNG in Resources */,
 				3A5654E1193A98C90085CC87 /* Menu_7.PNG in Resources */,
@@ -387,6 +404,7 @@
 				3A85B610192CFDBB003571F2 /* UIImage+vImage.m in Sources */,
 				3A73B106192BF7BD006230B5 /* GrayScale.m in Sources */,
 				3A85B61D192D0FD9003571F2 /* UIImage+OpenCV.mm in Sources */,
+				3AF9C133195DF98F0011339E /* WordCorrector.m in Sources */,
 				3A73B0DD192BF4B1006230B5 /* AppDelegate.m in Sources */,
 				3A73B0D9192BF4B1006230B5 /* main.m in Sources */,
 			);
@@ -520,6 +538,7 @@
 					/Users/charliegao/Downloads/Libs,
 					"$(PROJECT_DIR)/TestGray",
 					/Users/wanfang/Downloads,
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TestGray/TestGray-Prefix.pch";
@@ -542,6 +561,7 @@
 					/Users/charliegao/Downloads/Libs,
 					"$(PROJECT_DIR)/TestGray",
 					/Users/wanfang/Downloads,
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TestGray/TestGray-Prefix.pch";

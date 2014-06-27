@@ -20,25 +20,20 @@
     NSLog(@"PrePro: processImage called!");
     
     cv::Mat output;
-    int backGround =0;
+    int backGround =2;
     backGround = [self checkBackground:inputImage];
+    
     if (backGround == 0) {
         NSLog(@"Prepro: Black backgroud");
-        
         inputImage = [self increaseContrast:inputImage];
-        
         inputImage = [self erode:inputImage];
         inputImage = [self dilate:inputImage];
-        
         inputImage = [self removeBackgroundBlack:inputImage];
-        
-        
-        
     }
     else if(backGround == 1){
         NSLog(@"Prepro: Dark");
-        
         cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
+        
         inputImage = [self adaptiveThreshold:inputImage];
         inputImage = [self erode:inputImage];
         inputImage = [self dilate:inputImage];
@@ -46,11 +41,10 @@
     }
     else if(backGround == 2 ){
         NSLog(@"Prepro: White words");
-        
+        cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
         
         //inputImage = [self increaseContrast:inputImage];
-        inputImage = [self adaptiveThresholdLight:inputImage];
-//        inputImage = [self increaseContrast:inputImage];
+        inputImage = [self adaptiveThreshold:inputImage];
         inputImage = [self erode:inputImage];
         inputImage = [self dilate:inputImage];
         
@@ -64,14 +58,15 @@
     return inputImage;
 }
 
+
+
+//------------Basic method
+
 -(cv::Mat)toGrayMat:(UIImage *) inputImage{
     
     cv::Mat matImage = [inputImage CVGrayscaleMat];
     return matImage;
 }
-
-
-
 
 -(cv::Mat)erode:(cv::Mat)img{
    
@@ -97,7 +92,7 @@
 
     cv::Mat dilation_dst;
     int dilation_type;
-    int dilation_elem = 0;
+    int dilation_elem = 1;
     int dilation_size = 1;
     
     if( dilation_elem == 0 ){ dilation_type = cv::MORPH_RECT; }
@@ -168,7 +163,10 @@
     return img_hist_equalized;
     
 }
+//------------/Basic method
 
+
+//------Threshold method
 
 -(cv::Mat)adaptiveThreshold:(cv::Mat)inputMat{
     //input mat is in BGR format
@@ -177,11 +175,11 @@
     //the first channel of YCrCb is for grayscale representation, feeding into adaptiveThrenshold function whose input is sigle channel
     
 
-    cv::vector<cv::Mat> channels;
+    std::vector<cv::Mat> channels;
     
     cv::Mat img_threshold;
     
-    cv::cvtColor(inputMat, img_threshold, CV_BGR2YCrCb); //change the color image from BGR to YCrCb format
+    cv::cvtColor(inputMat, img_threshold, cv::COLOR_YCrCb2BGR); //change the color image from BGR to YCrCb format
     
     cv::split(img_threshold,channels); //split the image into channels
     
@@ -200,7 +198,7 @@
     
     cv::merge(channels,img_threshold); //merge 3 channels including the modified 1st channel into one image
     
-    cv::cvtColor(img_threshold, img_threshold, CV_YCrCb2BGR); //change the color image from YCrCb to BGR format
+    cv::cvtColor(img_threshold, img_threshold, cv::COLOR_YCrCb2BGR); //change the color image from YCrCb to BGR format
     
     return img_threshold;
 
@@ -214,11 +212,11 @@
     //the function converts BGR into YCrCb format, and then takes care of the first channel of it.
     //the first channel of YCrCb is for grayscale representation, feeding into adaptiveThrenshold function whose input is sigle channel
     
-    cv::vector<cv::Mat> channels;
+    std::vector<cv::Mat> channels;
     
     cv::Mat img_threshold;
     
-    cv::cvtColor(inputMat, img_threshold, CV_BGR2YCrCb); //change the color image from BGR to YCrCb format
+    cv::cvtColor(inputMat, img_threshold, cv::COLOR_YCrCb2BGR); //change the color image from BGR to YCrCb format
     
     cv::split(img_threshold,channels); //split the image into channels
     
@@ -237,27 +235,20 @@
     
     cv::merge(channels,img_threshold); //merge 3 channels including the modified 1st channel into one image
     
-    cv::cvtColor(img_threshold, img_threshold, CV_YCrCb2BGR); //change the color image from YCrCb to BGR format
+    cv::cvtColor(img_threshold, img_threshold, cv::COLOR_YCrCb2BGR); //change the color image from YCrCb to BGR format
 
     return img_threshold;
     
 }
 
-
--(cv::Mat) fillContour: (cv::Mat)image {
-    
-
-
-    return image;
-}
-
+//------/Threshold method
 
 
 -(int)checkBackground:(cv::Mat )input
 {
     
     
-    cv::vector<cv::Mat> channels;
+    std::vector<cv::Mat> channels;
     
     cv::cvtColor(input, input, CV_BGR2YCrCb); //change the color image from BGR to YCrCb format
     
@@ -339,7 +330,7 @@
 }
     
 
-
+//-------/Remove Back ground version1
 
 -(cv::Mat)removeBackgroundBlack:(cv::Mat)inputImage{
     
@@ -368,6 +359,8 @@
     return inputImage;
     
 }
+
+//-------/Remove Back ground version1
 
 //-------below is remove back ground version 2  stable version
 

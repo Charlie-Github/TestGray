@@ -12,7 +12,7 @@
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
 #import "ImagePreProcessor.h"
-
+#import "WordCorrector.h"
 
 #import <opencv2/core/core_c.h>
 
@@ -41,10 +41,10 @@
     NSString *image_6 = @"Menu_6.PNG";
 //    NSString *image_7 = @"Menu_7.PNG";
     NSString *image_8 = @"IMG_0521.JPG";
-    NSString *image_9 = @"IMG_0537.jpg";
+    NSString *image_9 = @"IMG_2018.jpg";
     
     // Load image
-    UIImage *img = [UIImage imageNamed: image_6];
+    UIImage *img = [UIImage imageNamed: image_9];
 	cv::Mat tempMat = [img CVMat];
     ImagePreProcessor *ipp = [[ImagePreProcessor alloc]init];
     
@@ -55,7 +55,16 @@
     for(int i = 0; i < 3000 ; i++){
     
     }
-    //NSLog(<#NSString *format, ...#>)
+    
+    
+    
+    //Text detector
+    NSString *wrong_word = @"tost";
+    WordCorrector *wc = [[WordCorrector alloc]init];
+    NSString *correct_word = [wc correctWord: wrong_word];
+    NSLog(@"correct_word is: %@", correct_word);
+    
+    //End
     
     
     UIReferenceLibraryViewController *referenceLibraryViewController =
