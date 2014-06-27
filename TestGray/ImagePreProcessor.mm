@@ -21,7 +21,7 @@
     
     cv::Mat output;
     int backGround =0;
-    //backGround = [self checkBackground:inputImage];
+    backGround = [self checkBackground:inputImage];
     if (backGround == 0) {
         NSLog(@"Prepro: Black backgroud");
         
@@ -36,7 +36,7 @@
         
     }
     else if(backGround == 1){
-        NSLog(@"Prepro: Light Dark");
+        NSLog(@"Prepro: Dark");
         
         cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
         inputImage = [self adaptiveThreshold:inputImage];
@@ -47,10 +47,13 @@
     else if(backGround == 2 ){
         NSLog(@"Prepro: White words");
         
-        inputImage = [self removeBackgroundWhite:inputImage];
-        inputImage = [self increaseContrast:inputImage];
+        
+        //inputImage = [self increaseContrast:inputImage];
+        inputImage = [self adaptiveThresholdLight:inputImage];
+//        inputImage = [self increaseContrast:inputImage];
         inputImage = [self erode:inputImage];
         inputImage = [self dilate:inputImage];
+        
     }
     else{
         NSLog(@"Prepro: good catch");
@@ -227,7 +230,7 @@
     
     cv::GaussianBlur(channels[0], channels[0], size, 0.5);
     cv::threshold(channels[0], channels[0], 0,255, cv::THRESH_TRUNC | cv::THRESH_OTSU);
-    
+    cv::GaussianBlur(channels[0], channels[0], size, 0.5);
     //simple end here
     
     cv::adaptiveThreshold(channels[0], channels[0], 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY,11, 2);
@@ -291,7 +294,7 @@
     int count_medium = 0;
     int count_large = 0;
     int count_xlarge = 0;
-    int count_average = rows * cols / 5;
+    
     
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
@@ -322,18 +325,17 @@
         }
     }
     
-    if (count_xsmall >= count_large  + count_medium) {
+    if (count_xsmall >= count_large + count_xlarge + count_medium) {
         return 0;// too dark
     }
-    else if(count_large >= count_small * 2 + count_medium) {
+    else if(count_xlarge >= count_xsmall + count_small + count_medium) {
         NSLog(@"large: %d", count_large);
         NSLog(@"small: %d", count_medium);
         return 1;// too light
     }
-    else if (count_medium > count_small && count_medium < count_large){
+    else{
         return 2;// medium
-    }else
-        return 3;
+    }
 }
     
 
@@ -360,7 +362,7 @@
     size.width = 3;
     
     cv::GaussianBlur(inputImage, inputImage, size, 0.5);
-    cv::threshold(inputImage, inputImage, 190,255, cv::THRESH_TRUNC);
+    cv::threshold(inputImage, inputImage, 220,255, cv::THRESH_TRUNC);
     cv::GaussianBlur(inputImage, inputImage, size, 0.8);
     
     return inputImage;
