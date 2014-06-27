@@ -12,9 +12,7 @@
 
 -(cv::Mat)toGrayMat:(UIImage *) inputImage;
 
--(cv::Mat)threadholdControl:(cv::Mat) inputImage;
-
--(cv::Mat)gaussianBlur:(cv::Mat)inputImage :(int)h :(int)w; // size.height size.weight
+-(cv::Mat)gaussianBlur:(cv::Mat) inputImage :(int)h :(int)w; // size.height size.weight
 
 -(cv::Mat)laplacian:(cv::Mat) inputImage;
 
@@ -22,21 +20,18 @@
 
 -(cv::Mat)processImage: (cv::Mat)inputImage;
 
+-(cv::Mat)sharpen:(cv::Mat)inputImage;
 
-//Fang
--(cv::Mat)canny:(cv::Mat)input;
+-(cv::Mat)increaseContrast:(cv::Mat)inputMat;
 
--(cv::Mat)bilateralFilter:(cv::Mat)input;
+-(cv::Mat)adaptiveThreshold:(cv::Mat)inputMat;
 
--(cv::Mat)boxFilter:(cv::Mat)input;
 
--(cv::Mat)erode:(cv::Mat)input;
+-(cv::Mat)removeBackgroundBlack:(cv::Mat) inputMat;
 
--(cv::Mat)dilate:(cv::Mat)input;
-
--(cv::Mat)laplacian2:(cv::Mat)input;
-
+-(cv::Mat)removeBackgroundWhite:(cv::Mat) inputMat;
 
 -(cv::Mat)removeBackground2:(cv::Mat) inputMat;
+
 -(cv::Mat)CalcBlockMeanVariance:(cv::Mat) Img : (float) blockSide;
 @end
