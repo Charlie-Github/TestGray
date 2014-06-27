@@ -146,11 +146,11 @@
     //the function converts BGR into YCrCb format, and then takes care of the first channel of it.
     
     
-    cv::vector<cv::Mat> channels;
+    std::vector<cv::Mat> channels;
     
     cv::Mat img_hist_equalized;
     
-    cv::cvtColor(inputMat, img_hist_equalized, CV_BGR2YCrCb); //change the color image from BGR to YCrCb format
+    cv::cvtColor(inputMat, img_hist_equalized, cv::COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
     
     cv::split(img_hist_equalized,channels); //split the image into channels
     
@@ -158,7 +158,7 @@
     
     cv::merge(channels,img_hist_equalized); //merge 3 channels including the modified 1st channel into one image
     
-    cv::cvtColor(img_hist_equalized, img_hist_equalized, CV_YCrCb2BGR); //change the color image from YCrCb to BGR format
+    cv::cvtColor(img_hist_equalized, img_hist_equalized, cv::COLOR_YCrCb2BGR); //change the color image from YCrCb to BGR format
     
     return img_hist_equalized;
     
@@ -250,7 +250,7 @@
     
     std::vector<cv::Mat> channels;
     
-    cv::cvtColor(input, input, CV_BGR2YCrCb); //change the color image from BGR to YCrCb format
+    cv::cvtColor(input, input, cv::COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
     
     cv::split(input,channels); //split the image into channels
     

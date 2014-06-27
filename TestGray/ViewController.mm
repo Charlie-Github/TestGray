@@ -62,7 +62,7 @@
     NSString *wrong_word = @"tost";
     WordCorrector *wc = [[WordCorrector alloc]init];
     NSString *correct_word = [wc correctWord: wrong_word];
-    NSLog(@"correct_word is: %@", correct_word);
+//   NSLog(@"correct_word is: %@", correct_word);
     
     //End
     
