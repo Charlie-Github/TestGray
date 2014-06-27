@@ -51,7 +51,7 @@
 		3AB38820192E7D8E00A39BBA /* ImagePreProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AB3881F192E7D8E00A39BBA /* ImagePreProcessor.mm */; };
 		3ACA6A59192E586300A61982 /* image_blur.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3ACA6A58192E586300A61982 /* image_blur.jpg */; };
 		3ACA6A5B192E5AC700A61982 /* image_gauss_blur.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACA6A5A192E5AC700A61982 /* image_gauss_blur.png */; };
-		3BD056F0195C64D300C716DF /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD056EF195C64D300C716DF /* opencv2.framework */; };
+		3BD056F2195DC5D000C716DF /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD056F1195DC5D000C716DF /* opencv2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,7 +119,7 @@
 		3AB3881F192E7D8E00A39BBA /* ImagePreProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImagePreProcessor.mm; sourceTree = "<group>"; };
 		3ACA6A58192E586300A61982 /* image_blur.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_blur.jpg; sourceTree = "<group>"; };
 		3ACA6A5A192E5AC700A61982 /* image_gauss_blur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_gauss_blur.png; sourceTree = "<group>"; };
-		3BD056EF195C64D300C716DF /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../../../Downloads/opencv2.framework; sourceTree = "<group>"; };
+		3BD056F1195DC5D000C716DF /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = "../../../Downloads/android-support-v13/opencv2.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,7 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BD056F0195C64D300C716DF /* opencv2.framework in Frameworks */,
+				3BD056F2195DC5D000C716DF /* opencv2.framework in Frameworks */,
 				3A73B0CF192BF4B1006230B5 /* CoreGraphics.framework in Frameworks */,
 				3A73B0D1192BF4B1006230B5 /* UIKit.framework in Frameworks */,
 				3A73B0CD192BF4B1006230B5 /* Foundation.framework in Frameworks */,
@@ -169,7 +169,7 @@
 		3A73B0CB192BF4B1006230B5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3BD056EF195C64D300C716DF /* opencv2.framework */,
+				3BD056F1195DC5D000C716DF /* opencv2.framework */,
 				3A73B0CC192BF4B1006230B5 /* Foundation.framework */,
 				3A73B0CE192BF4B1006230B5 /* CoreGraphics.framework */,
 				3A73B0D0192BF4B1006230B5 /* UIKit.framework */,
@@ -520,6 +520,7 @@
 					/Users/charliegao/Downloads/Libs,
 					"$(PROJECT_DIR)/TestGray",
 					/Users/wanfang/Downloads,
+					"/Users/wanfang/Downloads/android-support-v13",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TestGray/TestGray-Prefix.pch";
@@ -542,6 +543,7 @@
 					/Users/charliegao/Downloads/Libs,
 					"$(PROJECT_DIR)/TestGray",
 					/Users/wanfang/Downloads,
+					"/Users/wanfang/Downloads/android-support-v13",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TestGray/TestGray-Prefix.pch";
