@@ -40,11 +40,11 @@
     NSString *image_5 = @"Menu_5.JPG";
     NSString *image_6 = @"Menu_6.PNG";
 //    NSString *image_7 = @"Menu_7.PNG";
-    NSString *image_8 = @"IMG_0521.JPG";
-    NSString *image_9 = @"IMG_2018.jpg";
+    NSString *image_8 = @"IMG_0533.JPG";
+    NSString *image_9 = @"IMG_0521.jpg";
     
     // Load image
-    UIImage *img = [UIImage imageNamed: image_9];
+    UIImage *img = [UIImage imageNamed: image_8];
 	cv::Mat tempMat = [img CVMat];
     ImagePreProcessor *ipp = [[ImagePreProcessor alloc]init];
     
@@ -58,12 +58,21 @@
     
     
     
+<<<<<<< HEAD
     //Text detector
     NSString *wrong_word = @"tost";
     WordCorrector *wc = [[WordCorrector alloc]init];
     NSString *correct_word = [wc correctWord: wrong_word];
 //   NSLog(@"correct_word is: %@", correct_word);
     
+=======
+//    //Text detector
+//    NSString *wrong_word = @"tost";
+//    WordCorrector *wc = [[WordCorrector alloc]init];
+//    NSString *correct_word = [wc correctWord: wrong_word];
+//    NSLog(@"correct_word is: %@", correct_word);
+//    
+>>>>>>> Charlie-Branch
     //End
     
     
