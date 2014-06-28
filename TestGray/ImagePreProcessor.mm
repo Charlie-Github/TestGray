@@ -15,6 +15,44 @@
 
 
 
+-(cv::Mat)findtheContour:(cv::Mat) src{
+    
+    using namespace cv;
+    using namespace std;
+    cv::Size size;
+    size.height = 3;
+    size.width = 3;
+    blur( src, src, size);
+    
+    
+    Mat canny_output;
+    canny_output = src;
+    vector<vector<Point> > contours;
+    vector<Vec4i> hierarchy;
+    
+    /// Detect edges using canny
+    Canny( src_gray, canny_output, thresh, thresh*2, 3 );
+    /// Find contours
+    findContours( canny_output, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
+    
+    /// Draw contours
+    Mat drawing = Mat::zeros( canny_output.size(), CV_8UC3 );
+    for( int i = 0; i< contours.size(); i++ )
+    {
+        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+        drawContours( drawing, contours, i, color, 2, 8, hierarchy, 0, Point() );
+    }
+    
+    /// Show in a window
+    namedWindow( "Contours", CV_WINDOW_AUTOSIZE );
+    imshow( "Contours", drawing );
+    
+    return src_gray;
+}
+
+
+
+
 -(cv::Mat)processImage: (cv::Mat)inputImage{
     
     NSLog(@"PrePro: processImage called!");
