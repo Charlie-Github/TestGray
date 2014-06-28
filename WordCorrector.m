@@ -18,7 +18,7 @@
     NSString *testString = input;
     NSString *output = @"";
     int mark=0;
-    testString = @"opplc";
+    testString = @"portner";
     NSRange checkRange = NSMakeRange(0, testString.length);
     NSRange misspelledRange = [checker rangeOfMisspelledWordInString:testString
                                                                range:checkRange
@@ -36,41 +36,16 @@
             count = 20;
         }
         
-        NSMutableArray *arrayOfStringsToReplace = [NSMutableArray arrayWithObjects:
-                                                   [NSArray arrayWithObjects:@"a",@" ",nil],
-                                                   [NSArray arrayWithObjects:@"e",@" ",nil],
-                                                   [NSArray arrayWithObjects:@"c",@" ",nil],
-                                                   [NSArray arrayWithObjects:@"o",@" ",nil],
-                                                   [NSArray arrayWithObjects:@"u",@" ",nil],
-                                                   nil];
+        testString = [self replaceWord:testString];
         
-        // For or while loop to Find and Replace strings
-       
-        while ([arrayOfStringsToReplace count] >= 1) {
-            testString = [testString stringByReplacingOccurrencesOfString:[[arrayOfStringsToReplace objectAtIndex:0] objectAtIndex:0]
-                                                                       withString:[[arrayOfStringsToReplace objectAtIndex:0] objectAtIndex:1]];
-            [arrayOfStringsToReplace removeObjectAtIndex:0];
-        }
-
+        
         for (int i=0; i<count; i++) {
             NSString *originalString = arrGuessed[i];
             
             // Method Start
             // MutableArray of String-pairs Arrays
-            NSMutableArray *arrayOfStringsToReplace = [NSMutableArray arrayWithObjects:
-                                                       [NSArray arrayWithObjects:@"a",@" ",nil],
-                                                       [NSArray arrayWithObjects:@"e",@" ",nil],
-                                                       [NSArray arrayWithObjects:@"c",@" ",nil],
-                                                       [NSArray arrayWithObjects:@"o",@" ",nil],
-                                                       [NSArray arrayWithObjects:@"u",@" ",nil],
-                                                       nil];
+            originalString = [self replaceWord: originalString];
             
-                       // For or while loop to Find and Replace strings
-            while ([arrayOfStringsToReplace count] >= 1) {
-                originalString = [originalString stringByReplacingOccurrencesOfString:[[arrayOfStringsToReplace objectAtIndex:0] objectAtIndex:0]
-                                                                           withString:[[arrayOfStringsToReplace objectAtIndex:0] objectAtIndex:1]];
-                [arrayOfStringsToReplace removeObjectAtIndex:0];
-            }
             if ([originalString isEqualToString:testString]){
                 NSLog(@"Word correction: %@",arrGuessed[i]);
                 output = arrGuessed[i];
@@ -88,4 +63,31 @@
     return output;
     
 }
+
+
+-(NSString*)replaceWord: (NSString*)input{
+    
+    NSString *testString = input;
+    
+    NSMutableArray *arrayOfStringsToReplace = [NSMutableArray arrayWithObjects:
+                                               [NSArray arrayWithObjects:@"a",@" ",nil],
+                                               [NSArray arrayWithObjects:@"e",@" ",nil],
+                                               [NSArray arrayWithObjects:@"c",@" ",nil],
+                                               [NSArray arrayWithObjects:@"o",@" ",nil],
+                                               [NSArray arrayWithObjects:@"u",@" ",nil],
+                                               nil];
+    
+    // For or while loop to Find and Replace strings
+    
+    while ([arrayOfStringsToReplace count] >= 1) {
+        testString = [testString stringByReplacingOccurrencesOfString:[[arrayOfStringsToReplace objectAtIndex:0] objectAtIndex:0]
+                                                           withString:[[arrayOfStringsToReplace objectAtIndex:0] objectAtIndex:1]];
+        [arrayOfStringsToReplace removeObjectAtIndex:0];
+    }
+
+    return testString;
+    
+}
+
+
 @end

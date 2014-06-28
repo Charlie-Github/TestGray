@@ -13,4 +13,6 @@
 
 -(NSString*)correctWord: (NSString*)input;
 
+-(NSString*)replaceWord: (NSString*)input;
+
 @end
