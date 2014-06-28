@@ -20,8 +20,8 @@
     NSLog(@"PrePro: processImage called!");
     
     cv::Mat output;
-    int backGround =2;
-    backGround = [self checkBackground:inputImage];
+    int backGround =10;
+    //backGround = [self checkBackground:inputImage];
     
     if (backGround == 0) {
         NSLog(@"Prepro: Black backgroud");
@@ -49,8 +49,11 @@
         inputImage = [self dilate:inputImage];
         
     }
-    else{
-        NSLog(@"Prepro: good catch");
+    else if(backGround == 10){
+        NSLog(@"Prepro: Test mode");
+        int back = 0;
+        //back = [self checkBackground2:inputImage];
+        inputImage = [self findContour:inputImage];
     }
     
     copyMakeBorder( inputImage, inputImage, 10, 10, 10, 10, cv::BORDER_REPLICATE, 0 );//add border
@@ -179,7 +182,7 @@
     
     cv::Mat img_threshold;
     
-    cv::cvtColor(inputMat, img_threshold, cv::COLOR_YCrCb2BGR); //change the color image from BGR to YCrCb format
+    cv::cvtColor(inputMat, img_threshold, cv::COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
     
     cv::split(img_threshold,channels); //split the image into channels
     
@@ -216,7 +219,7 @@
     
     cv::Mat img_threshold;
     
-    cv::cvtColor(inputMat, img_threshold, cv::COLOR_YCrCb2BGR); //change the color image from BGR to YCrCb format
+    cv::cvtColor(inputMat, img_threshold, cv::COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
     
     cv::split(img_threshold,channels); //split the image into channels
     
@@ -328,7 +331,148 @@
         return 2;// medium
     }
 }
+//-----------Check background version2
+
+-(int)checkBackground2:(cv::Mat )input
+{
     
+    
+    std::vector<cv::Mat> channels;
+    
+    cv::cvtColor(input, input, CV_BGR2YCrCb); //change the color image from BGR to YCrCb format
+    
+    cv::split(input,channels); //split the image into channels
+    
+    input = channels[0]; //keep gray image
+    
+    int rows = input.rows;
+    int cols = input.cols;
+    
+    //convert pixl to int and put into ns mutable array
+    int sum_pixl = 0;
+    int sum_diff = 0;
+    NSMutableArray *pixls_mutable = [NSMutableArray arrayWithObjects:nil];
+    
+    for (int i = 0; i < rows; i++) {
+        for (int j = 1; j < cols+1; j++) {
+            uchar pixl0 = input.at<uchar>(i,j);
+            uchar pixl1 = input.at<uchar>(i,j-1);
+            int pixl_int0 = pixl0 - '0';
+            int pixl_int1 = pixl1 - '0';
+            int temp_diff = pixl_int0 - pixl_int1;
+            NSLog(@"temp_diff = %d",temp_diff);
+            sum_diff = sum_diff + temp_diff;
+            
+           [pixls_mutable addObject:[NSNumber numberWithInt:temp_diff]];
+            
+        }
+    }
+    int mean_diff = sum_diff/(rows * cols-rows-cols);
+    NSLog(@"sum_diff = %d",sum_diff);
+    
+    return mean_diff;
+}
+
+
+- (NSNumber *)meanOf:(NSArray *)array
+{
+    double runningTotal = 0.0;
+    
+    for(NSNumber *number in array)
+    {
+        runningTotal += [number doubleValue];
+    }
+    
+    return [NSNumber numberWithDouble:(runningTotal / [array count])];
+}
+
+- (NSNumber *)standardDeviationOf:(NSArray *)array
+{
+    if(![array count]) return nil;
+    
+    double mean = [[self meanOf:array] doubleValue];
+    double sumOfSquaredDifferences = 0.0;
+    
+    for(NSNumber *number in array)
+    {
+        double valueOfNumber = [number doubleValue];
+        double difference = valueOfNumber - mean;
+        sumOfSquaredDifferences += difference * difference;
+    }
+    
+    return [NSNumber numberWithDouble:sqrt(sumOfSquaredDifferences / [array count])];
+}
+    
+    
+
+//-----------/check v2
+
+
+//-----------find contour
+
+
+-(cv::Mat)findContour:(cv::Mat)inputImage{
+    
+    
+    cv::cvtColor( inputImage, inputImage, CV_BGR2GRAY );
+
+    cv::RNG rng(12345);
+    int thresh = 100;
+    cv::Mat canny_output;
+    //cv::vector<cv::vector<Point> > contours;
+    cv::vector<cv::Vec4i> hierarchy;
+    
+    /// Detect edges using canny
+    Canny( inputImage, canny_output, thresh, thresh*2, 3 );
+    
+    typedef cv::vector<cv::vector<cv::Point> > TContours;
+    TContours contours;
+    
+    
+    /// Find contours
+    findContours( canny_output, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
+    
+    
+    
+    /// Draw contours
+    cv::Mat drawing = cv::Mat::zeros( canny_output.size(), CV_8UC3 );
+   
+    if ( !contours.empty() && !hierarchy.empty() ) {
+        
+        // loop through the contours/hierarchy
+        for ( int i=0; i<contours.size(); i++ ) {
+           
+            int epsilon = 0.005*cv::arcLength(contours[i],true);
+            
+            cv::approxPolyDP(contours[i],contours[i],epsilon,true);
+            
+            // look for hierarchy[i][3]==-1, ie external boundaries
+            if ( hierarchy[i][3] == -1 ) {
+                
+                
+                
+            }
+            else{
+                cv::Scalar color( 255, 255 ,255);
+                cv::drawContours( drawing, contours, i, color, 1, 8, hierarchy, 0, cv::Point() );
+
+            }
+        }
+    }
+    
+    
+    
+   
+  
+    /// Show in a window
+   
+    return drawing;
+    
+
+}
+//-----------/find contour
+
+
 
 //-------/Remove Back ground version1
 
@@ -345,6 +489,7 @@
     return inputImage;
     
 }
+
 
 -(cv::Mat)removeBackgroundWhite:(cv::Mat)inputImage{
     
