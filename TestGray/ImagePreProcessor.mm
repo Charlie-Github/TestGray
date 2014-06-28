@@ -52,9 +52,14 @@
     else if(backGround == 10){
         NSLog(@"Prepro: Test mode");
         int back = 0;
-        //back = [self checkBackground2:inputImage];
+        
+        inputImage = [self adaptiveThreshold:inputImage];
+        inputImage = [self erode:inputImage];
+        inputImage = [self dilate:inputImage];
+        
         inputImage = [self findContour:inputImage];
-    }
+        
+}
     
     copyMakeBorder( inputImage, inputImage, 10, 10, 10, 10, cv::BORDER_REPLICATE, 0 );//add border
     
@@ -436,28 +441,24 @@
     
     /// Draw contours
     cv::Mat drawing = cv::Mat::zeros( canny_output.size(), CV_8UC3 );
-   
-    if ( !contours.empty() && !hierarchy.empty() ) {
+       if ( !contours.empty() && !hierarchy.empty() ) {
         
         // loop through the contours/hierarchy
         for ( int i=0; i<contours.size(); i++ ) {
            
-            int epsilon = 0.005*cv::arcLength(contours[i],true);
+            int epsilon = 0.005 * cv::arcLength(contours[i],true);
             
-            cv::approxPolyDP(contours[i],contours[i],epsilon,true);
-            
-            // look for hierarchy[i][3]==-1, ie external boundaries
-            if ( hierarchy[i][3] == -1 ) {
-                
-                
-                
-            }
-            else{
-                cv::Scalar color( 255, 255 ,255);
-                cv::drawContours( drawing, contours, i, color, 1, 8, hierarchy, 0, cv::Point() );
 
-            }
+            cv::approxPolyDP(contours[i],contours[i],epsilon,true);
+          
+            
+                cv::Scalar color( 255, 255 ,255);
+                cv::drawContours( drawing, contours, i, color, 1, 8, hierarchy,1);
+
+
+            
         }
+        
     }
     
     
@@ -470,6 +471,8 @@
     
 
 }
+
+
 //-----------/find contour
 
 
