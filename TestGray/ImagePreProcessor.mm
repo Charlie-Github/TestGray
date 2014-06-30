@@ -455,10 +455,8 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
         approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
         boundRect[i] = boundingRect( Mat(contours_poly[i]) );
     }
-    
-    
-    /// Draw polygonal contour + bonding rects + circles
-    //Scalar color = Scalar( 255,255,255 );
+
+   
     int k = 0;
     for( int i = 0; i< contours.size(); i++ )
     {
@@ -491,11 +489,18 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
     }
     cv::Vector<cv::Rect> merged_rects;
     
+    //----merge near
     merged_rects = [self mergeNeighbors:outRect];
     
-    for(int i = 0; i< outRect.size(); i++){
     
-        rectangle( drawing, outRect[i].tl(), outRect[i].br(), Scalar(255,255,255), 1, 8, 0 );
+    //----remove overlap again
+    merged_rects = [self removeOverlape:merged_rects];
+    
+    
+    
+    for(int i = 0; i< merged_rects.size(); i++){
+    
+        rectangle( drawing, merged_rects[i].tl(), merged_rects[i].br(), Scalar(255,0,255), 1, 8, 0 );
     
     }
         
@@ -506,6 +511,42 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
 
 }
 
+
+-(cv::Vector<cv::Rect>)removeOverlape:(cv::Vector<cv::Rect>)rects{
+    
+    vector<cv::Rect> outRect(rects.size());
+    cv::Rect bigRect; //temp
+    
+    for( int i = 0; i< rects.size(); i++ )
+    {
+        
+        cv::Rect rect0 = rects[i]; //temp
+        
+        for(int j = 0; j< rects.size(); j++)
+        {
+            if(i != j){
+                cv::Rect intersection = rect0 & rects[j];
+                    
+                if(intersection.area() > 0)
+                {
+                    
+                    rect0 |= rects[j];
+                    
+                    
+                }
+                else{
+                    rect0 = rect0 ;
+                   
+                }
+            }
+        }
+        rects[i] = rect0;
+    }
+    
+    return rects;
+    
+
+}
 
 -(cv::Vector<cv::Rect>)mergeNeighbors:(cv::Vector<cv::Rect>)rects{
     
@@ -524,27 +565,11 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
             int distance_y = abs(br0.y-pl1.y);
             
             cv::Rect newRect;
-            if( distance_x < 15 && index != index_in)
+            if( distance_x < 7 && index != index_in)
             {
-                //NSLog(@"rects = %d",index);
-                newRect = rects[index] | rects[index_in];
                 
-                cv::Vector<cv::Rect> newRects(rects.size()-1);
-                for(int loop = 0; loop < rects.size()-1;loop++){
-                    
-                    if(loop < index){
-                        newRects[loop] = rects[loop];
-                    }
-                    if(loop > index){
-                        newRects[loop] = rects[loop+1];
-                    }
-                    if(loop == index){
-                        newRects[loop] = newRect;
-                    }
-                }
+                rects[index] = rects[index] | rects[index_in];
                 
-                rects = [self mergeNeighbors:newRects];
-                //newRect = cv::Rect(pl0.x,pl0.y,abs(br1.x-pl0.x),abs(br1.y-pl0.y));
             }
         }
     
