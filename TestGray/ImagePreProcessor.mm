@@ -447,7 +447,7 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
     vector<cv::Rect> boundRect( contours.size() );
     vector<Point2f>center( contours.size() );
     vector<float>radius( contours.size() );
-    vector<cv::Rect> outRect( contours.size());
+    
     
     for( int i = 0; i < contours.size(); i++ )
     {
@@ -457,6 +457,11 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
     }
 
    
+    //---remove insider rects
+    cv::Vector<cv::Rect> outRect;
+    outRect = [self removeInsider:boundRect];
+
+    /*
     int k = 0;
     for( int i = 0; i< contours.size(); i++ )
     {
@@ -465,19 +470,15 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
         for(int j = 0; j< contours.size(); j++)
         {
             if(i != j){
-                
                 cv::Rect rect1 = boundRect[j];
                 cv::Rect intersection = rect0 & rect1;
                 
                 if(intersection == rect0 && rect0 != rect1)
                 {// if one rect is inside the other one
                     flag =1;
-                    //NSLog(@"-i= %d j= %d ",i,j);
-                    continue;
+                    
                 }
-                
             }
-            
         }
         
         if (flag == 0){
@@ -487,9 +488,9 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
             //NSLog(@"i= %d j= ",i);
         }
     }
-    cv::Vector<cv::Rect> merged_rects;
-    
+     */
     //----merge near
+    cv::Vector<cv::Rect> merged_rects;
     merged_rects = [self mergeNeighbors:outRect];
     
     
@@ -497,24 +498,56 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
     merged_rects = [self removeOverlape:merged_rects];
     
     
-    
+    //---draw rects
     for(int i = 0; i< merged_rects.size(); i++){
     
         rectangle( drawing, merged_rects[i].tl(), merged_rects[i].br(), Scalar(255,0,255), 1, 8, 0 );
     
     }
-        
-
-   
+    
     return drawing;
     
 
 }
 
 
+-(Vector<cv::Rect>)removeInsider:(Vector<cv::Rect>)rects{
+
+    
+    cv::Rect bigRect; //temp
+    
+    for( int i = 0; i< rects.size(); i++ )
+    {
+        
+        cv::Rect rect0 = rects[i]; //temp
+        
+        for(int j = 0; j< rects.size(); j++)
+        {
+            if(i != j){
+                cv::Rect intersection = rect0 & rects[j];
+                
+                if(intersection == rects[j])
+                {
+                    
+                    rect0 |= rects[j];
+                    
+                    
+                }
+                else{
+                    rect0 = rect0 ;
+                    
+                }
+            }
+        }
+        rects[i] = rect0;
+    }
+    
+    return rects;
+}
+
 -(cv::Vector<cv::Rect>)removeOverlape:(cv::Vector<cv::Rect>)rects{
     
-    vector<cv::Rect> outRect(rects.size());
+    //vector<cv::Rect> outRect(rects.size());
     cv::Rect bigRect; //temp
     
     for( int i = 0; i< rects.size(); i++ )
