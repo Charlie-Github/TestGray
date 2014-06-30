@@ -447,15 +447,19 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
     vector<cv::Rect> boundRect( contours.size() );
     vector<Point2f>center( contours.size() );
     vector<float>radius( contours.size() );
+    vector<cv::Rect> outRect( contours.size());
     
     for( int i = 0; i < contours.size(); i++ )
-    { approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
+    {
+        drawContours( drawing, contours, i, Scalar(255,0,0), 1, 8, hierarchy, 0, cv::Point() );
+        approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
         boundRect[i] = boundingRect( Mat(contours_poly[i]) );
     }
     
     
     /// Draw polygonal contour + bonding rects + circles
     //Scalar color = Scalar( 255,255,255 );
+    int k = 0;
     for( int i = 0; i< contours.size(); i++ )
     {
         int flag = 0;
@@ -463,15 +467,14 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
         for(int j = 0; j< contours.size(); j++)
         {
             if(i != j){
-            
                 
                 cv::Rect rect1 = boundRect[j];
                 cv::Rect intersection = rect0 & rect1;
                 
-                if(intersection == rect0)
-                {
+                if(intersection == rect0 && rect0 != rect1)
+                {// if one rect is inside the other one
                     flag =1;
-                    NSLog(@"-i= %d j= %d ",i,j);
+                    //NSLog(@"-i= %d j= %d ",i,j);
                     continue;
                 }
                 
@@ -480,14 +483,73 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
         }
         
         if (flag == 0){
-            rectangle( drawing, boundRect[i].tl(), boundRect[i].br(), Scalar(255), 1, 8, 0 );
-             NSLog(@"i= %d j= ",i);
+            //rectangle( drawing, boundRect[i].tl(), boundRect[i].br(), Scalar(255), 1, 8, 0 );
+            outRect[k] = boundRect[i];
+            k ++;
+            //NSLog(@"i= %d j= ",i);
         }
     }
+    cv::Vector<cv::Rect> merged_rects;
+    
+    merged_rects = [self mergeNeighbors:outRect];
+    
+    for(int i = 0; i< outRect.size(); i++){
+    
+        rectangle( drawing, outRect[i].tl(), outRect[i].br(), Scalar(255,255,255), 1, 8, 0 );
+    
+    }
+        
+
    
     return drawing;
     
 
+}
+
+
+-(cv::Vector<cv::Rect>)mergeNeighbors:(cv::Vector<cv::Rect>)rects{
+    
+    int index = 0;
+    for(index= 0; index<rects.size();index++){
+        for(int index_in=0;index_in<rects.size();index_in++){
+            
+            cv::Point pl0 = rects[index].tl();
+            cv::Point br0 = rects[index].br();
+            
+            
+            cv::Point pl1 = rects[index_in].tl();
+            cv::Point br1 = rects[index_in].br();
+            
+            int distance_x = abs(br0.x-pl1.x);
+            int distance_y = abs(br0.y-pl1.y);
+            
+            cv::Rect newRect;
+            if( distance_x < 15 && index != index_in)
+            {
+                //NSLog(@"rects = %d",index);
+                newRect = rects[index] | rects[index_in];
+                
+                cv::Vector<cv::Rect> newRects(rects.size()-1);
+                for(int loop = 0; loop < rects.size()-1;loop++){
+                    
+                    if(loop < index){
+                        newRects[loop] = rects[loop];
+                    }
+                    if(loop > index){
+                        newRects[loop] = rects[loop+1];
+                    }
+                    if(loop == index){
+                        newRects[loop] = newRect;
+                    }
+                }
+                
+                rects = [self mergeNeighbors:newRects];
+                //newRect = cv::Rect(pl0.x,pl0.y,abs(br1.x-pl0.x),abs(br1.y-pl0.y));
+            }
+        }
+    
+    }
+    return rects;
 }
 
 
