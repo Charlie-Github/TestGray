@@ -439,35 +439,35 @@
     
     
     
-    /// Draw contours
-    cv::Mat drawing = cv::Mat::zeros( canny_output.size(), CV_8UC3 );
-       if ( !contours.empty() && !hierarchy.empty() ) {
-        
-        // loop through the contours/hierarchy
-        for ( int i=0; i<contours.size(); i++ ) {
-           
-            int epsilon = 0.005 * cv::arcLength(contours[i],true);
+    int maxX = 0, minX = canny_output.cols, maxY=0, minY = canny_output.rows;
+    
+    for(int i=0; i<contours.size(); i++)
+        for(int j=0; j<contours[i].size(); j++)
+        {
+            cv::Point p = contours[i][j];
             
-
-            cv::approxPolyDP(contours[i],contours[i],epsilon,true);
-          
+            maxX = cv::max(maxX, p.x);
+            minX = cv::min(minX, p.x);
             
-                cv::Scalar color( 255, 255 ,255);
-                cv::drawContours( drawing, contours, i, color, 1, 8, hierarchy,1);
-
-
-            
+            maxY = cv::max(maxY, p.y);
+            minY = cv::min(minY, p.y);
         }
-        
-    }
     
+    int x_diff = maxX - minX;
+    int y_diff = maxY - minY;
     
+    int constant_x = 5;
+    int constant_y = 5;
     
+    minX = minX - constant_x;
+    minY = minY - constant_y;
+    
+    maxX = maxX + constant_x;
+    maxY = maxY + constant_y;
+    
+    rectangle( canny_output, cv::Point(minX,minY), cv::Point(maxX, maxY), cv::Scalar(255) );
    
-  
-    /// Show in a window
-   
-    return drawing;
+    return canny_output;
     
 
 }
