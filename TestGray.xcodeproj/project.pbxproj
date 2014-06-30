@@ -53,7 +53,7 @@
 		3ACA6A5B192E5AC700A61982 /* image_gauss_blur.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACA6A5A192E5AC700A61982 /* image_gauss_blur.png */; };
 		3AF9C12A195DD0930011339E /* IMG_2018.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 3AF9C129195DD0930011339E /* IMG_2018.JPG */; };
 		3AF9C133195DF98F0011339E /* WordCorrector.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF9C132195DF98F0011339E /* WordCorrector.m */; };
-		3BB4A4DF195E02D00072C59F /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BB4A4DE195E02D00072C59F /* opencv2.framework */; };
+		3BB4A4E1195F778B0072C59F /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BB4A4E0195F778B0072C59F /* opencv2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,7 +124,7 @@
 		3AF9C129195DD0930011339E /* IMG_2018.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_2018.JPG; sourceTree = "<group>"; };
 		3AF9C131195DF98F0011339E /* WordCorrector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCorrector.h; sourceTree = "<group>"; };
 		3AF9C132195DF98F0011339E /* WordCorrector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordCorrector.m; sourceTree = "<group>"; };
-		3BB4A4DE195E02D00072C59F /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = "../../../Downloads/android-support-v13/opencv2.framework"; sourceTree = "<group>"; };
+		3BB4A4E0195F778B0072C59F /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = "../../../Downloads/android-support-v13/opencv2.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,7 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BB4A4DF195E02D00072C59F /* opencv2.framework in Frameworks */,
+				3BB4A4E1195F778B0072C59F /* opencv2.framework in Frameworks */,
 				3A73B0CF192BF4B1006230B5 /* CoreGraphics.framework in Frameworks */,
 				3A73B0D1192BF4B1006230B5 /* UIKit.framework in Frameworks */,
 				3A73B0CD192BF4B1006230B5 /* Foundation.framework in Frameworks */,
@@ -175,7 +175,7 @@
 		3A73B0CB192BF4B1006230B5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3BB4A4DE195E02D00072C59F /* opencv2.framework */,
+				3BB4A4E0195F778B0072C59F /* opencv2.framework */,
 				3A73B0CC192BF4B1006230B5 /* Foundation.framework */,
 				3A73B0CE192BF4B1006230B5 /* CoreGraphics.framework */,
 				3A73B0D0192BF4B1006230B5 /* UIKit.framework */,

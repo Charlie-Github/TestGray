@@ -15,44 +15,6 @@
 
 
 
--(cv::Mat)findtheContour:(cv::Mat) src{
-    
-    using namespace cv;
-    using namespace std;
-    cv::Size size;
-    size.height = 3;
-    size.width = 3;
-    blur( src, src, size);
-    
-    
-    Mat canny_output;
-    canny_output = src;
-    vector<vector<Point> > contours;
-    vector<Vec4i> hierarchy;
-    
-    /// Detect edges using canny
-    Canny( src_gray, canny_output, thresh, thresh*2, 3 );
-    /// Find contours
-    findContours( canny_output, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
-    
-    /// Draw contours
-    Mat drawing = Mat::zeros( canny_output.size(), CV_8UC3 );
-    for( int i = 0; i< contours.size(); i++ )
-    {
-        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
-        drawContours( drawing, contours, i, color, 2, 8, hierarchy, 0, Point() );
-    }
-    
-    /// Show in a window
-    namedWindow( "Contours", CV_WINDOW_AUTOSIZE );
-    imshow( "Contours", drawing );
-    
-    return src_gray;
-}
-
-
-
-
 -(cv::Mat)processImage: (cv::Mat)inputImage{
     
     NSLog(@"PrePro: processImage called!");
@@ -377,7 +339,7 @@
     
     std::vector<cv::Mat> channels;
     
-    cv::cvtColor(input, input, CV_BGR2YCrCb); //change the color image from BGR to YCrCb format
+    cv::cvtColor(input, input, cv::COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
     
     cv::split(input,channels); //split the image into channels
     
@@ -452,24 +414,23 @@
 -(cv::Mat)findContour:(cv::Mat)inputImage{
     
     
-    cv::cvtColor( inputImage, inputImage, CV_BGR2GRAY );
+    cv::cvtColor( inputImage, inputImage, cv::COLOR_BGR2GRAY );
 
     cv::RNG rng(12345);
     int thresh = 100;
     cv::Mat canny_output;
     //cv::vector<cv::vector<Point> > contours;
-    cv::vector<cv::Vec4i> hierarchy;
+    std::vector<cv::Vec4i> hierarchy;
     
     /// Detect edges using canny
     Canny( inputImage, canny_output, thresh, thresh*2, 3 );
     
-    typedef cv::vector<cv::vector<cv::Point> > TContours;
+    typedef std::vector<std::vector<cv::Point> > TContours;
     TContours contours;
     
     
     /// Find contours
-    findContours( canny_output, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
-    
+    findContours( canny_output, contours, hierarchy, cv::RETR_CCOMP, cv::CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
     
     
     /// Draw contours
@@ -492,9 +453,11 @@
             }
             else{
                 cv::Scalar color( 255, 255 ,255);
-                cv::drawContours( drawing, contours, i, color, 1, 8, hierarchy, 0, cv::Point() );
+                cv::drawContours( drawing, contours, i, color, -1, 8, hierarchy, 0, cv::Point() );
 
             }
+            CvPoint seedPoint = cvPoint(200,200);
+            cv::floodF  2ill(drawing, seedPoint, CV_RGB(255,0,0), CV_RGB(8,90,60), CV_RGB(10,100,70),NULL,4,NULL);
         }
     }
     

@@ -26,7 +26,6 @@
 
 -(cv::Mat)adaptiveThreshold:(cv::Mat)inputMat;
 
--(cv::Mat)findtheContour:(cv::Mat) inputImage;
 
 
 -(cv::Mat)removeBackgroundBlack:(cv::Mat) inputMat;
