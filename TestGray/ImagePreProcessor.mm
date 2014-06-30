@@ -435,7 +435,7 @@
     
     
     /// Find contours
-    findContours( canny_output, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
+    findContours( canny_output, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
     
     
     
@@ -470,6 +470,39 @@
     return drawing;
     
 
+}
+
+
+
+-(cv::Mat)fillContour:(cv::Mat)input{
+    
+    std::vector<cv::Mat> channels;
+    
+    cv::cvtColor(input, input, CV_BGR2YCrCb); //change the color image from BGR to YCrCb format
+    
+    cv::split(input,channels); //split the image into channels
+    
+    input = channels[0]; //keep gray image
+    
+    int rows = input.rows;
+    int cols = input.cols;
+    
+    //count the sum of the pixl
+    int sum_pixl = 0;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 1; j < cols+1; j++) {
+            uchar pixl = input.at<uchar>(i,j);
+            int pixl_int = pixl - '0';
+            
+            if (pixl_int < 10){
+                input.at<uchar>(i,j);
+            }
+            
+        }
+    }
+
+
+    return input;
 }
 
 
