@@ -39,9 +39,10 @@
     NSString *image_4 = @"Menu_4.PNG";
     NSString *image_5 = @"Menu_5.JPG";
     NSString *image_6 = @"Menu_6.PNG";
-//    NSString *image_7 = @"Menu_7.PNG";
+    NSString *image_7 = @"IMG_2018.PNG";
     NSString *image_8 = @"IMG_0533.JPG";
-    NSString *image_9 = @"IMG_0521.jpg";
+    NSString *image_9 = @"IMG_0513.jpg";
+    NSString *image_10 = @"image_book.jpg";
     
     // Load image
     UIImage *img = [UIImage imageNamed: image_8];

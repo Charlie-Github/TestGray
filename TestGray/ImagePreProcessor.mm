@@ -10,6 +10,8 @@
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
 
+using namespace cv;
+using namespace std;
 
 @implementation ImagePreProcessor
 
@@ -51,11 +53,10 @@
     }
     else if(backGround == 10){
         NSLog(@"Prepro: Test mode");
-        int back = 0;
-        
-        inputImage = [self adaptiveThreshold:inputImage];
-        inputImage = [self erode:inputImage];
-        inputImage = [self dilate:inputImage];
+ //       inputImage = [self increaseContrast:inputImage];
+ //       inputImage = [self adaptiveThreshold:inputImage];
+ //       inputImage = [self erode:inputImage];
+ //       inputImage = [self dilate:inputImage];
         
         inputImage = [self findContour:inputImage];
         
@@ -415,7 +416,7 @@
 
 //-----------find contour
 
-
+typedef cv::vector<cv::vector<cv::Point> > TContours;
 -(cv::Mat)findContour:(cv::Mat)inputImage{
     
     
@@ -430,7 +431,7 @@
     /// Detect edges using canny
     Canny( inputImage, canny_output, thresh, thresh*2, 3 );
     
-    typedef cv::vector<cv::vector<cv::Point> > TContours;
+    //typedef cv::vector<cv::vector<cv::Point> > TContours;
     TContours contours;
     
     
@@ -438,39 +439,59 @@
     findContours( canny_output, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
     
     
+    Mat drawing = Mat::zeros( canny_output.size(), CV_8UC3 );
     
-    int maxX = 0, minX = canny_output.cols, maxY=0, minY = canny_output.rows;
     
-    for(int i=0; i<contours.size(); i++)
-        for(int j=0; j<contours[i].size(); j++)
+    /// Approximate contours to polygons + get bounding rects and circles
+    vector<vector<cv::Point> > contours_poly( contours.size() );
+    vector<cv::Rect> boundRect( contours.size() );
+    vector<Point2f>center( contours.size() );
+    vector<float>radius( contours.size() );
+    
+    for( int i = 0; i < contours.size(); i++ )
+    { approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
+        boundRect[i] = boundingRect( Mat(contours_poly[i]) );
+    }
+    
+    
+    /// Draw polygonal contour + bonding rects + circles
+    //Scalar color = Scalar( 255,255,255 );
+    for( int i = 0; i< contours.size(); i++ )
+    {
+        int flag = 0;
+        cv::Rect rect0 = boundRect[i];
+        for(int j = 0; j< contours.size(); j++)
         {
-            cv::Point p = contours[i][j];
+            if(i != j){
             
-            maxX = cv::max(maxX, p.x);
-            minX = cv::min(minX, p.x);
+                
+                cv::Rect rect1 = boundRect[j];
+                cv::Rect intersection = rect0 & rect1;
+                
+                if(intersection == rect0)
+                {
+                    flag =1;
+                    NSLog(@"-i= %d j= %d ",i,j);
+                    continue;
+                }
+                
+            }
             
-            maxY = cv::max(maxY, p.y);
-            minY = cv::min(minY, p.y);
         }
-    
-    int x_diff = maxX - minX;
-    int y_diff = maxY - minY;
-    
-    int constant_x = 5;
-    int constant_y = 5;
-    
-    minX = minX - constant_x;
-    minY = minY - constant_y;
-    
-    maxX = maxX + constant_x;
-    maxY = maxY + constant_y;
-    
-    rectangle( canny_output, cv::Point(minX,minY), cv::Point(maxX, maxY), cv::Scalar(255) );
+        
+        if (flag == 0){
+            rectangle( drawing, boundRect[i].tl(), boundRect[i].br(), Scalar(255), 1, 8, 0 );
+             NSLog(@"i= %d j= ",i);
+        }
+    }
    
-    return canny_output;
+    return drawing;
     
 
 }
+
+
+
 
 
 
