@@ -461,48 +461,21 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
     cv::Vector<cv::Rect> outRect;
     outRect = [self removeInsider:boundRect];
 
-    /*
-    int k = 0;
-    for( int i = 0; i< contours.size(); i++ )
-    {
-        int flag = 0;
-        cv::Rect rect0 = boundRect[i];
-        for(int j = 0; j< contours.size(); j++)
-        {
-            if(i != j){
-                cv::Rect rect1 = boundRect[j];
-                cv::Rect intersection = rect0 & rect1;
-                
-                if(intersection == rect0 && rect0 != rect1)
-                {// if one rect is inside the other one
-                    flag =1;
-                    
-                }
-            }
-        }
-        
-        if (flag == 0){
-            //rectangle( drawing, boundRect[i].tl(), boundRect[i].br(), Scalar(255), 1, 8, 0 );
-            outRect[k] = boundRect[i];
-            k ++;
-            //NSLog(@"i= %d j= ",i);
-        }
-    }
-     */
     //----merge near
     cv::Vector<cv::Rect> merged_rects;
-    merged_rects = [self mergeNeighbors:outRect];
+    //merged_rects = [self mergeNeighbors:outRect];
     
     
     //----remove overlap again
-    merged_rects = [self removeOverlape:merged_rects];
+    //merged_rects = [self removeOverlape:merged_rects];
     
     
     //---draw rects
-    for(int i = 0; i< merged_rects.size(); i++){
-    
-        rectangle( drawing, merged_rects[i].tl(), merged_rects[i].br(), Scalar(255,0,255), 1, 8, 0 );
-    
+    for(int i = 0; i< outRect.size(); i++){
+        if(outRect[i].tl().x > 0){//skip null
+        //rectangle( drawing, merged_rects[i].tl(), merged_rects[i].br(), Scalar(0,0,255), 1, 8, 0 );
+            rectangle( drawing, outRect[i].tl(), outRect[i].br(), Scalar(0,0,255), 1, 8, 0 );
+        }
     }
     
     return drawing;
@@ -515,37 +488,50 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
 
     
     cv::Rect bigRect; //temp
+    Vector<cv::Rect> newRects(rects.size());
+    int newIndex = 0;
+    int flag;
     
     for( int i = 0; i< rects.size(); i++ )
     {
-        
+        flag = 0;
         cv::Rect rect0 = rects[i]; //temp
         
-        for(int j = 0; j< rects.size(); j++)
-        {
+        if(i == 0){
+            newRects[0] = rect0;
+        }
+        
+        for(int j = 0; j< rects.size(); j++){
             if(i != j){
                 cv::Rect intersection = rect0 & rects[j];
                 
-                if(intersection == rects[j])
+                if(intersection == rect0 && (rect0.area()!=rects[j].area()))//current is insider
                 {
-                    
-                    rect0 |= rects[j];
-                    
+                    flag += 1;
+                    //NSLog(@"j : %d",j);
                     
                 }
                 else{
-                    rect0 = rect0 ;
-                    
+                    //if current rect is not a insider, then add it to newRect
+                    flag += 0;
+                   
                 }
             }
         }
-        rects[i] = rect0;
+        
+        if(flag == 0){
+            newRects[newIndex] = rect0;
+            NSLog(@"i : %d",i);
+            NSLog(@"newIndex : %d",newIndex);
+            newIndex ++;
+        }
+        
     }
     
-    return rects;
+    return newRects;
 }
 
--(cv::Vector<cv::Rect>)removeOverlape:(cv::Vector<cv::Rect>)rects{
+-(Vector<cv::Rect>)removeOverlape:(Vector<cv::Rect>)rects{
     
     //vector<cv::Rect> outRect(rects.size());
     cv::Rect bigRect; //temp
@@ -565,7 +551,6 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
                     
                     rect0 |= rects[j];
                     
-                    
                 }
                 else{
                     rect0 = rect0 ;
@@ -581,71 +566,52 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
 
 }
 
--(cv::Vector<cv::Rect>)mergeNeighbors:(cv::Vector<cv::Rect>)rects{
+-(Vector<cv::Rect>)mergeNeighbors:(Vector<cv::Rect>)rects{
     
     int index = 0;
+    int count_rect = 0;
+    Vector<cv::Rect> newRects(rects.size());//this vector store merged rects. initial size is bigger than it needs
+    
     for(index= 0; index<rects.size();index++){
+        
+        cv::Rect tempRect = rects[index];
+        
         for(int index_in=0;index_in<rects.size();index_in++){
             
-            cv::Point pl0 = rects[index].tl();
-            cv::Point br0 = rects[index].br();
+            if(index == 0){//first rect
+                count_rect ++;
+                newRects[0] = rects[0];
+            }
             
-            
+            //cv::Point pl0 = rects[index].tl();
+            cv::Point br0 = tempRect.br();
             cv::Point pl1 = rects[index_in].tl();
-            cv::Point br1 = rects[index_in].br();
-            
+            //cv::Point br1 = rects[index_in].br();
             int distance_x = abs(br0.x-pl1.x);
-            int distance_y = abs(br0.y-pl1.y);
+            //int distance_y = abs(br0.y-pl1.y);
             
-            cv::Rect newRect;
-            if( distance_x < 7 && index != index_in)
+            
+            if( (distance_x < 7) && index != index_in)
             {
-                
-                rects[index] = rects[index] | rects[index_in];
-                
+                //if two rects are close, then merge the insider to the current,
+                // counter dose not increas
+                tempRect = tempRect | rects[index_in];
+                newRects[count_rect] = tempRect;
+                index ++;
             }
-        }
-    
-    }
-    return rects;
-}
-
-
-
-
-
-
--(cv::Mat)fillContour:(cv::Mat)input{
-    
-    std::vector<cv::Mat> channels;
-    
-    cv::cvtColor(input, input, CV_BGR2YCrCb); //change the color image from BGR to YCrCb format
-    
-    cv::split(input,channels); //split the image into channels
-    
-    input = channels[0]; //keep gray image
-    
-    int rows = input.rows;
-    int cols = input.cols;
-    
-    //count the sum of the pixl
-    int sum_pixl = 0;
-    for (int i = 0; i < rows; i++) {
-        for (int j = 1; j < cols+1; j++) {
-            uchar pixl = input.at<uchar>(i,j);
-            int pixl_int = pixl - '0';
-            
-            if (pixl_int < 10){
-                input.at<uchar>(i,j);
+            else{
+                //if current rect is far from the second rect, then count ++
+                newRects[count_rect] = tempRect;
+               
             }
             
         }
+        count_rect ++;
+        NSLog(@"count_rect: %d",index);
+       
     }
-
-
-    return input;
+    return newRects;
 }
-
 
 //-----------/find contour
 
