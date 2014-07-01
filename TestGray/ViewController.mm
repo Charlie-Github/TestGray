@@ -13,6 +13,7 @@
 #import "UIImage+OpenCV.h"
 #import "ImagePreProcessor.h"
 #import "WordCorrector.h"
+#import "TextDetector.h"
 
 #import <opencv2/core/core_c.h>
 
@@ -54,10 +55,14 @@
     // Load image
     UIImage *img = [UIImage imageNamed: image_8];
 	cv::Mat tempMat = [img CVMat];
-    ImagePreProcessor *ipp = [[ImagePreProcessor alloc]init];
+    //ImagePreProcessor *ipp = [[ImagePreProcessor alloc]init];
     
-    tempMat = [ipp processImage:tempMat];
+    //tempMat = [ipp processImage:tempMat];
+    //img = [UIImage imageWithCVMat:tempMat]; //putting the image in an UIImage format
+    
+    TextDetector *td = [[TextDetector alloc]init];
 	
+    tempMat = [td findTextArea:tempMat]; //putting the image in an UIImage format
     img = [UIImage imageWithCVMat:tempMat]; //putting the image in an UIImage format
 	
     for(int i = 0; i < 3000 ; i++){
