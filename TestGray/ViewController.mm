@@ -45,7 +45,7 @@
     NSString *image_10 = @"image_book.jpg";
     
     // Load image
-    UIImage *img = [UIImage imageNamed: image_8];
+    UIImage *img = [UIImage imageNamed: image_9];
 	cv::Mat tempMat = [img CVMat];
     ImagePreProcessor *ipp = [[ImagePreProcessor alloc]init];
     
