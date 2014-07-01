@@ -461,20 +461,22 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
     cv::Vector<cv::Rect> outRect;
     outRect = [self removeInsider:boundRect];
 
+    
+    //----remove overlap
+    cv::Vector<cv::Rect> split_rects;
+    split_rects = [self removeOverlape:outRect];
+    
     //----merge near
     cv::Vector<cv::Rect> merged_rects;
     //merged_rects = [self mergeNeighbors:outRect];
     
     
-    //----remove overlap again
-    //merged_rects = [self removeOverlape:merged_rects];
-    
-    
     //---draw rects
-    for(int i = 0; i< outRect.size(); i++){
-        if(outRect[i].tl().x > 0){//skip null
+    for(int i = 0; i< split_rects.size(); i++){
+        //if(outRect[i].tl().x > 0)
+        {//skip null
         //rectangle( drawing, merged_rects[i].tl(), merged_rects[i].br(), Scalar(0,0,255), 1, 8, 0 );
-            rectangle( drawing, outRect[i].tl(), outRect[i].br(), Scalar(0,0,255), 1, 8, 0 );
+            rectangle( drawing, split_rects[i].tl(), split_rects[i].br(), Scalar(0,0,255), 1, 8, 0 );
         }
     }
     
@@ -485,7 +487,6 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
 
 
 -(Vector<cv::Rect>)removeInsider:(Vector<cv::Rect>)rects{
-
     
     cv::Rect bigRect; //temp
     Vector<cv::Rect> newRects(rects.size());
@@ -521,8 +522,6 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
         
         if(flag == 0){
             newRects[newIndex] = rect0;
-            NSLog(@"i : %d",i);
-            NSLog(@"newIndex : %d",newIndex);
             newIndex ++;
         }
         
@@ -533,35 +532,51 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
 
 -(Vector<cv::Rect>)removeOverlape:(Vector<cv::Rect>)rects{
     
-    //vector<cv::Rect> outRect(rects.size());
     cv::Rect bigRect; //temp
+    Vector<cv::Rect> newRects(rects.size());
+    int newIndex = 0;
+    int flag;
     
     for( int i = 0; i< rects.size(); i++ )
     {
-        
+        flag = 0;
         cv::Rect rect0 = rects[i]; //temp
         
-        for(int j = 0; j< rects.size(); j++)
-        {
+        if(i == 0){
+            newRects[0] = rect0;
+        }
+        
+        for(int j = 0; j< rects.size(); j++){
             if(i != j){
                 cv::Rect intersection = rect0 & rects[j];
-                    
-                if(intersection.area() > 0)
+                
+                if(intersection.area() > 0 && (rect0.area()!=rects[j].area()))//current is overlaped with some
                 {
-                    
+                    flag += 1;
                     rect0 |= rects[j];
+                    i++;
                     
                 }
                 else{
-                    rect0 = rect0 ;
-                   
+                    flag += 0;
+                    //nothing
                 }
             }
         }
-        rects[i] = rect0;
+        
+        //if(flag == 0){
+            newRects[newIndex] = rect0;
+            NSLog(@"i : %d",i);
+            NSLog(@"newIndex : %d",newIndex);
+            newIndex ++;
+        //}
+        //else{
+           // newRects[newIndex] = rect0;
+       // }
+        
     }
     
-    return rects;
+    return newRects;
     
 
 }
@@ -569,17 +584,19 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
 -(Vector<cv::Rect>)mergeNeighbors:(Vector<cv::Rect>)rects{
     
     int index = 0;
-    int count_rect = 0;
-    Vector<cv::Rect> newRects(rects.size());//this vector store merged rects. initial size is bigger than it needs
+    int newIndex = 0;
+    int flag = 0;
+    Vector<cv::Rect> newRects(rects.size());
     
     for(index= 0; index<rects.size();index++){
         
+        flag = 0;
         cv::Rect tempRect = rects[index];
         
         for(int index_in=0;index_in<rects.size();index_in++){
             
             if(index == 0){//first rect
-                count_rect ++;
+                
                 newRects[0] = rects[0];
             }
             
@@ -595,20 +612,22 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
             {
                 //if two rects are close, then merge the insider to the current,
                 // counter dose not increas
-                tempRect = tempRect | rects[index_in];
-                newRects[count_rect] = tempRect;
+                
+                tempRect |= rects[index_in];
+                flag += 1;
                 index ++;
             }
             else{
                 //if current rect is far from the second rect, then count ++
-                newRects[count_rect] = tempRect;
+                flag +=0;
                
             }
             
         }
-        count_rect ++;
-        NSLog(@"count_rect: %d",index);
-       
+        
+        newRects[newIndex] = tempRect;
+        
+        
     }
     return newRects;
 }
