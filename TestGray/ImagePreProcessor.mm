@@ -565,11 +565,10 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
             }
         }
         if(flag == 0){
-            NSLog(@"newIndex: %d",newIndex);
+            //NSLog(@"newIndex: %d",newIndex);
             newRects[newIndex] = rect0;
             newIndex ++;
         }
-        
     }
     
     return newRects;
@@ -604,7 +603,7 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
             //int distance_y = abs(br0.y-pl1.y);
             
             
-            if( (distance_x < 3) && index != index_in)
+            if( (distance_x < 8) && index != index_in)
             {
                 //if two rects are close, then merge the insider to the current,
                 // counter dose not increas

@@ -30,6 +30,13 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    
+    
+    NSDate *tdStart = [NSDate date];
+    
+    
+    
+    
     // Test Cases
     
 //    NSString *image_0 = @"lena.png";
@@ -45,7 +52,7 @@
     NSString *image_10 = @"image_book.jpg";
     
     // Load image
-    UIImage *img = [UIImage imageNamed: image_9];
+    UIImage *img = [UIImage imageNamed: image_8];
 	cv::Mat tempMat = [img CVMat];
     ImagePreProcessor *ipp = [[ImagePreProcessor alloc]init];
     
@@ -67,6 +74,10 @@
 //    
     //End
     
+    
+    NSDate *tdFinish = [NSDate date];
+    NSTimeInterval tdTime = [tdFinish timeIntervalSinceDate:tdStart];
+    NSLog(@"<<<<<<<<<<ImagePrePro Time = %f", tdTime);
     
     UIReferenceLibraryViewController *referenceLibraryViewController =
     [[UIReferenceLibraryViewController alloc] initWithTerm:@"apple"];
