@@ -428,12 +428,14 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
 
     cv::RNG rng(12345);
     int thresh = 100;
+    double high_thres = cv::threshold( inputImage, inputImage, 0, 255, CV_THRESH_BINARY+CV_THRESH_OTSU );
+    
     cv::Mat canny_output;
     //cv::vector<cv::vector<Point> > contours;
     cv::vector<cv::Vec4i> hierarchy;
     
     /// Detect edges using canny
-    Canny( inputImage, canny_output, thresh, thresh*2, 3 );
+    Canny( inputImage, canny_output, high_thres/2, high_thres, 3 );
     
     //typedef cv::vector<cv::vector<cv::Point> > TContours;
     TContours contours;

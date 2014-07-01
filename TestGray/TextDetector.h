@@ -14,7 +14,7 @@
 
 -(cv::Mat)gaussianBlur:(cv::Mat) inputImage :(int)h :(int)w; // size.height size.weight
 
--(cv::Mat)laplacian:(cv::Mat) inputImage;
+
 
 
 
@@ -26,13 +26,8 @@
 
 -(cv::Mat)adaptiveThreshold:(cv::Mat)inputMat;
 
+-(cv::Mat)removeBackground:(cv::Mat) inputMat;
 
--(cv::Mat)removeBackgroundBlack:(cv::Mat) inputMat;
 
--(cv::Mat)removeBackgroundWhite:(cv::Mat) inputMat;
-
--(cv::Mat)removeBackground2:(cv::Mat) inputMat;
-
--(cv::Mat)CalcBlockMeanVariance:(cv::Mat) Img : (float) blockSide;
 
 @end
