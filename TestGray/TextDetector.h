@@ -18,7 +18,7 @@
 
 
 
--(cv::Mat)findTextArea: (cv::Mat)inputImage; // main
+-(NSArray*)findTextArea: (UIImage*)inputImage; // main
 
 -(cv::Mat)sharpen:(cv::Mat)inputImage;
 
