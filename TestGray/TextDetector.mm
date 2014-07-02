@@ -27,7 +27,7 @@ using namespace std;
     
     NSArray *imgArray = [NSArray arrayWithArray:imgUIArray]; // output
     
-    UIImage* testUIImage = [imgUIArray objectAtIndex:2];
+    UIImage* testUIImage = [imgUIArray objectAtIndex:3];
         
     inputImage = [testUIImage CVMat];
     

@@ -19,54 +19,51 @@ using namespace std;
 
 -(cv::Mat)processImage: (cv::Mat)inputImage{
     
-    NSLog(@"PrePro: processImage called!");
+    NSLog(@"ImagePrePro: Called!");
     
     cv::Mat output;
-    int backGround =10;
-    //backGround = [self checkBackground:inputImage];
+    int backGround = 1;
+    backGround = [self checkBackground:inputImage];
     
     if (backGround == 0) {
-        NSLog(@"Prepro: Black backgroud");
+        NSLog(@"ImagePrePro: Black Backgroud");
+        
         inputImage = [self increaseContrast:inputImage];
-        inputImage = [self erode:inputImage];
-        inputImage = [self dilate:inputImage];
+        //inputImage = [self erode:inputImage];
+        //inputImage = [self dilate:inputImage];
         inputImage = [self removeBackgroundBlack:inputImage];
     }
     else if(backGround == 1){
-        NSLog(@"Prepro: Dark");
-        cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
+        NSLog(@"ImagePrePro: Normal Image");
         
+        inputImage = [self increaseContrast:inputImage];
         inputImage = [self adaptiveThreshold:inputImage];
         inputImage = [self erode:inputImage];
         inputImage = [self dilate:inputImage];
         
     }
     else if(backGround == 2 ){
-        NSLog(@"Prepro: White words");
+        //test case.
+        NSLog(@"ImagePrePro: Test mode 1 ");
         cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
-        
-        //inputImage = [self increaseContrast:inputImage];
+
         inputImage = [self adaptiveThreshold:inputImage];
         inputImage = [self erode:inputImage];
         inputImage = [self dilate:inputImage];
         
     }
     else if(backGround == 10){
-        NSLog(@"Prepro: Test mode");
- //       inputImage = [self increaseContrast:inputImage];
- //       inputImage = [self adaptiveThreshold:inputImage];
- //       inputImage = [self erode:inputImage];
- //       inputImage = [self dilate:inputImage];
+        NSLog(@"ImagePrePro: Test mode 2");
+//       inputImage = [self adaptiveThreshold:inputImage];
+//       inputImage = [self erode:inputImage];
+//       inputImage = [self dilate:inputImage];
         NSMutableArray *imgUIArray;
-        
         imgUIArray = [self findContour:inputImage:inputImage];
         UIImage* testUIImage = [imgUIArray objectAtIndex:1];
         
         inputImage = [testUIImage CVMat];
         
-}
-    
-    //copyMakeBorder( inputImage, inputImage, 10, 10, 10, 10, cv::BORDER_REPLICATE, 0 );//add border
+    }
     
     return inputImage;
 }
@@ -187,16 +184,13 @@ using namespace std;
     //the function converts BGR into YCrCb format, and then takes care of the first channel of it.
     //the first channel of YCrCb is for grayscale representation, feeding into adaptiveThrenshold function whose input is sigle channel
     
-
     std::vector<cv::Mat> channels;
     
     cv::Mat img_threshold;
-    
     cv::cvtColor(inputMat, img_threshold, cv::COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
-    
     cv::split(img_threshold,channels); //split the image into channels
     
-    //add simple threshold removing little
+    //--Simple threshold, removing little noisy
     
     cv::Size size;
     size.height = 3;
@@ -205,16 +199,13 @@ using namespace std;
     cv::GaussianBlur(channels[0], channels[0], size, 0.5);
     cv::threshold(channels[0], channels[0], 0,255, cv::THRESH_TRUNC | cv::THRESH_OTSU);
     
-    //simple end here
+    //--Simple end here
     
     cv::adaptiveThreshold(channels[0], channels[0], 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY,11, 2);
-    
     cv::merge(channels,img_threshold); //merge 3 channels including the modified 1st channel into one image
-    
     cv::cvtColor(img_threshold, img_threshold, cv::COLOR_YCrCb2BGR); //change the color image from YCrCb to BGR format
     
     return img_threshold;
-
 }
 
 
@@ -257,17 +248,14 @@ using namespace std;
 //------/Threshold method
 
 
--(int)checkBackground:(cv::Mat )input
-{
-    
+-(int)checkBackground:(cv::Mat )input{
+    //this function check image background is black or white
     
     std::vector<cv::Mat> channels;
-    
     cv::cvtColor(input, input, CV_BGR2YCrCb); //change the color image from BGR to YCrCb format
-    
     cv::split(input,channels); //split the image into channels
     
-    input = channels[0]; //keep gray image
+    input = channels[0]; //keep gray channel
     
     int rows = input.rows;
     int cols = input.cols;
@@ -324,21 +312,14 @@ using namespace std;
             else if(pixl_int > pivot_pixl_xlarge) {
                 count_xlarge ++;
             }
-            
-            
         }
     }
     
-    if (count_xsmall >= count_large + count_xlarge + count_medium) {
-        return 0;// too dark
-    }
-    else if(count_xlarge >= count_xsmall + count_small + count_medium) {
-        NSLog(@"large: %d", count_large);
-        NSLog(@"small: %d", count_medium);
-        return 1;// too light
+    if (count_xsmall >= count_large + count_xlarge) {
+        return 0;// Black background
     }
     else{
-        return 2;// medium
+        return 1;// Normal light
     }
 }
 //-----------Check background version2
@@ -423,11 +404,8 @@ using namespace std;
 typedef cv::vector<cv::vector<cv::Point> > TContours;
 -(NSMutableArray*)findContour:(cv::Mat)inputImage:(cv::Mat)orgImage{
     
-    
     cv::cvtColor( inputImage, inputImage, CV_BGR2GRAY );
-
-    cv::RNG rng(12345);
-    int thresh = 100;
+    
     double high_thres = cv::threshold( inputImage, inputImage, 0, 255, CV_THRESH_BINARY+CV_THRESH_OTSU );
     
     cv::Mat canny_output;
@@ -488,7 +466,7 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
             
             //convert to mat pointer and stored in NSarray
             cv::Mat tmpMat;
-            NSLog(@"rect: %d", sigle_rects[i].tl().x);
+           
             orgImage(sigle_rects[i]).copyTo(tmpMat);
             
             [UIRects addObject:[UIImage imageWithCVMat:tmpMat]];
@@ -649,9 +627,11 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
 
 
 
-//-------/Remove Back ground version1
+///Remove Back ground version1
 
 -(cv::Mat)removeBackgroundBlack:(cv::Mat)inputImage{
+    //This function removes background for images with black background.
+    //Reverse color function is adopt in this section
     
     cv::Size size;
     size.height = 3;
@@ -659,7 +639,7 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
     
     cv::GaussianBlur(inputImage, inputImage, size, 0.5);
     cv::threshold(inputImage, inputImage, 125,255, cv::THRESH_BINARY_INV);
-    //cv::GaussianBlur(inputImage, inputImage, size, 0.8);
+    cv::GaussianBlur(inputImage, inputImage, size, 0.5);
     
     return inputImage;
     
@@ -680,11 +660,9 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
     
 }
 
-//-------/Remove Back ground version1
+///Remove Back ground version1 ends here
 
 //-------below is remove back ground version 2  stable version
-
-
 
 -(cv::Mat)removeBackground2:(cv::Mat) inputMat
 {
@@ -753,8 +731,6 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
     Res.convertTo(Res,CV_32FC1,1.0/255.0);
     return Res;
 }
-
-
 
 
 //-------/remove back ground v2
