@@ -55,36 +55,36 @@
     // Load image
     UIImage *img = [UIImage imageNamed: image_9];
 	cv::Mat tempMat = [img CVMat];
-    //ImagePreProcessor *ipp = [[ImagePreProcessor alloc]init];
-    //tempMat = [ipp processImage:tempMat];
-    //img = [UIImage imageWithCVMat:tempMat]; //putting the image in an UIImage format
     
+    
+    //charlie's image pre pro starts here
+    ImagePreProcessor *ipp = [[ImagePreProcessor alloc]init];
+    tempMat = [ipp processImage:tempMat];
+    img = [UIImage imageWithCVMat:tempMat]; //convert UIimage into CV mat
+    //charlie's image pre pro ends here
+     
+     
+    /*
+    //charlie's text detection call
     TextDetector *td = [[TextDetector alloc]init];
-	
     tempMat = [td findTextArea:tempMat]; //putting the image in an UIImage format
+    //text detection call end here
+    */
     
-    
-    
-    img = [UIImage imageWithCVMat:tempMat]; //putting the image in an UIImage format
+    img = [UIImage imageWithCVMat:tempMat]; //convert the mat back into UIImage format
 	
-    for(int i = 0; i < 3000 ; i++){
-    
-    }
-    
-    
-    
-//    //Text detector
-//    NSString *wrong_word = @"tost";
-//    WordCorrector *wc = [[WordCorrector alloc]init];
-//    NSString *correct_word = [wc correctWord: wrong_word];
-//    NSLog(@"correct_word is: %@", correct_word);
-//    
-    //End
-    
+    /*
+    //Text corrector
+    NSString *wrong_word = @"tost";
+    WordCorrector *wc = [[WordCorrector alloc]init];
+    NSString *correct_word = [wc correctWord: wrong_word];
+    NSLog(@"correct_word is: %@", correct_word);
+    // text corrector ends here
+    */
     
     NSDate *tdFinish = [NSDate date];
     NSTimeInterval tdTime = [tdFinish timeIntervalSinceDate:tdStart];
-    NSLog(@"<<<<<<<<<<ImagePrePro Time = %f", tdTime);
+    NSLog(@"-----------------ImagePrePro Time = %f", tdTime);
     
     UIReferenceLibraryViewController *referenceLibraryViewController =
     [[UIReferenceLibraryViewController alloc] initWithTerm:@"apple"];
