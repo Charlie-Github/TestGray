@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TextDetector : UIImage
+@interface TextDetector2 : UIImage
 
 -(cv::Mat)toGrayMat:(UIImage *) inputImage;
 
@@ -18,13 +18,11 @@
 
 
 
--(NSArray*)findTextArea: (UIImage*)inputImage; // main
+-(cv::Mat)findTextArea: (cv::Mat)inputImage; // main
 
 -(cv::Mat)sharpen:(cv::Mat)inputImage;
 
 -(cv::Mat)increaseContrast:(cv::Mat)inputMat;
-
--(cv::Mat)adaptiveThreshold:(cv::Mat)inputMat;
 
 -(cv::Mat)removeBackground:(cv::Mat) inputMat;
 

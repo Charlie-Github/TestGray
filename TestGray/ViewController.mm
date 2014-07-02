@@ -13,7 +13,7 @@
 #import "UIImage+OpenCV.h"
 #import "ImagePreProcessor.h"
 #import "WordCorrector.h"
-#import "TextDetector.h"
+#import "TextDetector2.h"
 
 #import <opencv2/core/core_c.h>
 
@@ -54,7 +54,7 @@
     NSString *image_11 = @"IMG_reverse.PNG";
     
     // Load image
-    UIImage *img = [UIImage imageNamed: image_8];
+    UIImage *img = [UIImage imageNamed: image_7];
 	cv::Mat tempMat = [img CVMat];
     
     /*
@@ -67,7 +67,7 @@
      
     
     //charlie's text detection call
-    TextDetector *td = [[TextDetector alloc]init];
+    TextDetector2 *td = [[TextDetector2 alloc]init];
     tempMat = [td findTextArea:tempMat]; //putting the image in an UIImage format
     //text detection call end here
     

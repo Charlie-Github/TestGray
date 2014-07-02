@@ -48,7 +48,7 @@
 		3A85B623192D3AD8003571F2 /* image_bubble_poster.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A85B622192D3AD8003571F2 /* image_bubble_poster.jpg */; };
 		3AB38820192E7D8E00A39BBA /* ImagePreProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AB3881F192E7D8E00A39BBA /* ImagePreProcessor.mm */; };
 		3ACA6A5B192E5AC700A61982 /* image_gauss_blur.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACA6A5A192E5AC700A61982 /* image_gauss_blur.png */; };
-		3AF2589F1963590B00D05180 /* TextDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AF2589E1963590B00D05180 /* TextDetector.mm */; };
+		3AF2589F1963590B00D05180 /* TextDetector2.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AF2589E1963590B00D05180 /* TextDetector2.mm */; };
 		3AF9C12A195DD0930011339E /* IMG_2018.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 3AF9C129195DD0930011339E /* IMG_2018.JPG */; };
 		3AF9C12F195DE2FB0011339E /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF9C12D195DDACB0011339E /* opencv2.framework */; };
 		3AF9C133195DF98F0011339E /* WordCorrector.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF9C132195DF98F0011339E /* WordCorrector.m */; };
@@ -115,8 +115,8 @@
 		3AB3881E192E7D8E00A39BBA /* ImagePreProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreProcessor.h; sourceTree = "<group>"; };
 		3AB3881F192E7D8E00A39BBA /* ImagePreProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImagePreProcessor.mm; sourceTree = "<group>"; };
 		3ACA6A5A192E5AC700A61982 /* image_gauss_blur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_gauss_blur.png; sourceTree = "<group>"; };
-		3AF2589D1963590B00D05180 /* TextDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDetector.h; sourceTree = "<group>"; };
-		3AF2589E1963590B00D05180 /* TextDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextDetector.mm; sourceTree = "<group>"; };
+		3AF2589D1963590B00D05180 /* TextDetector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDetector2.h; sourceTree = "<group>"; };
+		3AF2589E1963590B00D05180 /* TextDetector2.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextDetector2.mm; sourceTree = "<group>"; };
 		3AF9C129195DD0930011339E /* IMG_2018.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_2018.JPG; sourceTree = "<group>"; };
 		3AF9C12D195DDACB0011339E /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		3AF9C131195DF98F0011339E /* WordCorrector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCorrector.h; sourceTree = "<group>"; };
@@ -261,8 +261,8 @@
 				3A85B61C192D0FD9003571F2 /* UIImage+OpenCV.mm */,
 				3AB3881E192E7D8E00A39BBA /* ImagePreProcessor.h */,
 				3AB3881F192E7D8E00A39BBA /* ImagePreProcessor.mm */,
-				3AF2589D1963590B00D05180 /* TextDetector.h */,
-				3AF2589E1963590B00D05180 /* TextDetector.mm */,
+				3AF2589D1963590B00D05180 /* TextDetector2.h */,
+				3AF2589E1963590B00D05180 /* TextDetector2.mm */,
 			);
 			name = ImagePreProcessor;
 			sourceTree = "<group>";
@@ -415,7 +415,7 @@
 				3A85B61D192D0FD9003571F2 /* UIImage+OpenCV.mm in Sources */,
 				3AF9C133195DF98F0011339E /* WordCorrector.m in Sources */,
 				3A73B0DD192BF4B1006230B5 /* AppDelegate.m in Sources */,
-				3AF2589F1963590B00D05180 /* TextDetector.mm in Sources */,
+				3AF2589F1963590B00D05180 /* TextDetector2.mm in Sources */,
 				3A73B0D9192BF4B1006230B5 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

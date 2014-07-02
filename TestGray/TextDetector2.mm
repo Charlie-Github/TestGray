@@ -6,33 +6,33 @@
 //  Copyright (c) 2014 Edible Innovations. All rights reserved.
 //
 
-#import "TextDetector.h"
+#import "TextDetector2.h"
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
 
 using namespace cv;
 using namespace std;
 
-@implementation TextDetector
+@implementation TextDetector2
 
 
 
--(NSArray*)findTextArea: (UIImage*)inputImage{
+-(cv::Mat)findTextArea: (cv::Mat)inputImage{
     
     NSLog(@"TextDetector: Called!");
     
-    cv::Mat inputMat = [inputImage CVMat];
+    //cv::Mat inputMat = [inputImage CVMat];
 
     
     NSMutableArray *imgUIArray;
-    imgUIArray = [self findContour:inputMat:inputMat];
-    NSArray *imgArray = [NSArray arrayWithArray:imgUIArray]; // output
+    //imgUIArray = [self findContour:inputImage:inputImage];
+   // NSArray *imgArray = [NSArray arrayWithArray:imgUIArray]; // output
     
-    //UIImage* testUIImage = [imgUIArray objectAtIndex:0];
+   // UIImage* testUIImage = [imgUIArray objectAtIndex:0];
     //inputImage = [testUIImage CVMat];
+    inputImage = [self findContour:inputImage:inputImage];
     
-    
-    return imgArray;
+    return inputImage;
 }
 
 
@@ -156,7 +156,7 @@ using namespace std;
 //-----------find contour
 
 typedef cv::vector<cv::vector<cv::Point> > TContours;//global
--(NSMutableArray*)findContour:(cv::Mat)inputImg:(cv::Mat)orgImage{
+-(cv::Mat)findContour:(cv::Mat)inputImg:(cv::Mat)orgImage{
     
     cv::cvtColor( inputImg, inputImg, CV_BGR2GRAY );
 
@@ -215,14 +215,14 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;//global
     for(int i = 0; i< sigle_rects.size(); i++){
         if(sigle_rects[i].tl().x > 0 && sigle_rects[i].tl().y > 0)
         {//skip null
-            //rectangle(drawing, sigle_rects[i].tl(), sigle_rects[i].br(), Scalar(255,255,255), 1, 8, 0 );
+            rectangle(drawing, sigle_rects[i].tl(), sigle_rects[i].br(), Scalar(255,255,255), 1, 8, 0 );
             
             //convert to mat pointer and stored in NSarray
             cv::Mat tmpMat;
-            cv::Rect tempRect = cv::Rect(sigle_rects[i].x-3,sigle_rects[i].y-2,sigle_rects[i].width+6,sigle_rects[i].height+4);
-            orgImage(tempRect).copyTo(tmpMat); //resized rect
+            //cv::Rect tempRect = cv::Rect(sigle_rects[i].x,sigle_rects[i].y,sigle_rects[i].width,sigle_rects[i].height);
+            //orgImage(tempRect).copyTo(tmpMat); //resized rect
             
-            [UIRects addObject:[UIImage imageWithCVMat:tmpMat]];
+            //[UIRects addObject:[UIImage imageWithCVMat:tmpMat]];
             
         }
         else{
@@ -230,7 +230,7 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;//global
         }
     }
     
-    return UIRects;
+    return drawing;
     
     
 }
@@ -344,15 +344,16 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;//global
                 newRects[0] = rects[0];
             }
             
-            //cv::Point pl0 = rects[index].tl();
+            cv::Point pl0 = rects[index].tl();
             cv::Point br0 = tempRect.br();
             cv::Point pl1 = rects[index_in].tl();
             //cv::Point br1 = rects[index_in].br();
             int distance_x = abs(br0.x-pl1.x);
-            //int distance_y = abs(br0.y-pl1.y);
+            int distance_y = abs(pl0.y-pl1.y);
             
             
-            if( (distance_x < 8) && index != index_in)
+            if( distance_x <20 && distance_y < (rects[index].height/2-3) && index != index_in)
+               //(rects[index].width/1.5) || distance_x < (rects[index_in].width/1.5) )
             {
                 //if two rects are close, then merge the insider to the current,
                 // counter dose not increas
@@ -375,7 +376,6 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;//global
     }
     return newRects;
 }
-
 //-----------/find contour
 
 
