@@ -17,22 +17,22 @@ using namespace std;
 
 
 
--(cv::Mat)findTextArea: (cv::Mat)inputImage{
+-(NSArray*)findTextArea: (UIImage*)inputImage{
     
-    NSLog(@"TextDetector: called!");
+    NSLog(@"TextDetector: Called!");
+    
+    cv::Mat inputMat = [inputImage CVMat];
+
     
     NSMutableArray *imgUIArray;
-        
-    imgUIArray = [self findContour:inputImage:inputImage];
-    
+    imgUIArray = [self findContour:inputMat:inputMat];
     NSArray *imgArray = [NSArray arrayWithArray:imgUIArray]; // output
     
-    UIImage* testUIImage = [imgUIArray objectAtIndex:3];
-        
-    inputImage = [testUIImage CVMat];
+    //UIImage* testUIImage = [imgUIArray objectAtIndex:0];
+    //inputImage = [testUIImage CVMat];
     
     
-    return inputImage;
+    return imgArray;
 }
 
 

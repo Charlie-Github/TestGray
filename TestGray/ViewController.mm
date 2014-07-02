@@ -54,23 +54,23 @@
     NSString *image_11 = @"IMG_reverse.PNG";
     
     // Load image
-    UIImage *img = [UIImage imageNamed: image_3];
+    UIImage *img = [UIImage imageNamed: image_8];
 	cv::Mat tempMat = [img CVMat];
     
-    
+    /*
     //charlie's image pre pro starts here
     ImagePreProcessor *ipp = [[ImagePreProcessor alloc]init];
     tempMat = [ipp processImage:tempMat];
     img = [UIImage imageWithCVMat:tempMat]; //convert UIimage into CV mat
     //charlie's image pre pro ends here
+    */
      
-     
-    /*
+    
     //charlie's text detection call
     TextDetector *td = [[TextDetector alloc]init];
     tempMat = [td findTextArea:tempMat]; //putting the image in an UIImage format
     //text detection call end here
-    */
+    
     
     img = [UIImage imageWithCVMat:tempMat]; //convert the mat back into UIImage format
 	
