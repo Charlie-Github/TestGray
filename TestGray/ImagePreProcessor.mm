@@ -24,19 +24,25 @@ using namespace std;
     cv::Mat output;
     int backGround = 1;
     backGround = [self checkBackground:inputImage];
+
+    
     
     if (backGround == 0) {
         NSLog(@"ImagePrePro: Black Backgroud");
         
-        inputImage = [self increaseContrast:inputImage];
+        //inputImage = [self increaseContrast:inputImage];
         //inputImage = [self erode:inputImage];
         //inputImage = [self dilate:inputImage];
         inputImage = [self removeBackgroundBlack:inputImage];
+        
+        inputImage = [self erode:inputImage];
+        inputImage = [self dilate:inputImage];
+        
     }
     else if(backGround == 1){
         NSLog(@"ImagePrePro: Normal Image");
         
-        inputImage = [self increaseContrast:inputImage];
+        //inputImage = [self increaseContrast:inputImage];
         inputImage = [self adaptiveThreshold:inputImage];
         inputImage = [self erode:inputImage];
         inputImage = [self dilate:inputImage];
@@ -45,11 +51,9 @@ using namespace std;
     else if(backGround == 2 ){
         //test case.
         NSLog(@"ImagePrePro: Test mode 1 ");
-        cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
-
-        inputImage = [self adaptiveThreshold:inputImage];
-        inputImage = [self erode:inputImage];
-        inputImage = [self dilate:inputImage];
+       
+       
+        
         
     }
     else if(backGround == 10){
@@ -209,8 +213,7 @@ using namespace std;
 }
 
 
--(cv::Mat)adaptiveThresholdLight:(cv::Mat)inputMat{
-    //currently same as adaptiveThreshold()
+-(cv::Mat)adaptiveThresholdBlack:(cv::Mat)inputMat{
     //input mat is in BGR format
     //ouput mat is in BGR format
     //the function converts BGR into YCrCb format, and then takes care of the first channel of it.
@@ -219,12 +222,10 @@ using namespace std;
     std::vector<cv::Mat> channels;
     
     cv::Mat img_threshold;
-    
     cv::cvtColor(inputMat, img_threshold, cv::COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
-    
     cv::split(img_threshold,channels); //split the image into channels
     
-    //add simple threshold removing little
+    //--Simple threshold, removing little noisy
     
     cv::Size size;
     size.height = 3;
@@ -232,19 +233,15 @@ using namespace std;
     
     cv::GaussianBlur(channels[0], channels[0], size, 0.5);
     cv::threshold(channels[0], channels[0], 0,255, cv::THRESH_TRUNC | cv::THRESH_OTSU);
-    cv::GaussianBlur(channels[0], channels[0], size, 0.5);
-    //simple end here
+    
+    //--Simple ends here
     
     cv::adaptiveThreshold(channels[0], channels[0], 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY,11, 2);
-    
     cv::merge(channels,img_threshold); //merge 3 channels including the modified 1st channel into one image
-    
     cv::cvtColor(img_threshold, img_threshold, cv::COLOR_YCrCb2BGR); //change the color image from YCrCb to BGR format
-
-    return img_threshold;
     
+    return img_threshold;
 }
-
 //------/Threshold method
 
 
@@ -637,9 +634,9 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
     size.height = 3;
     size.width = 3;
     
-    cv::GaussianBlur(inputImage, inputImage, size, 0.5);
-    cv::threshold(inputImage, inputImage, 125,255, cv::THRESH_BINARY_INV);
-    cv::GaussianBlur(inputImage, inputImage, size, 0.5);
+    //cv::GaussianBlur(inputImage, inputImage, size, 0.5);
+    cv::threshold(inputImage, inputImage, 0,255, CV_THRESH_BINARY+CV_THRESH_OTSU );
+    //cv::GaussianBlur(inputImage, inputImage, size, 0.5);
     
     return inputImage;
     

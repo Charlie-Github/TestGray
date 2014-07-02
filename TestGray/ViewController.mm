@@ -46,7 +46,7 @@
     NSString *image_3 = @"image_black.jpg";
     NSString *image_4 = @"Menu_4.PNG";
     NSString *image_5 = @"Menu_5.JPG";
-    NSString *image_6 = @"Menu_6.PNG";
+    NSString *image_6 = @"IMG_2227.JPG";
     NSString *image_7 = @"IMG_2018.JPG";
     NSString *image_8 = @"IMG_0533.JPG";
     NSString *image_9 = @"IMG_0513.jpg";
@@ -54,23 +54,23 @@
     NSString *image_11 = @"IMG_reverse.PNG";
     
     // Load image
-    UIImage *img = [UIImage imageNamed: image_7];
+    UIImage *img = [UIImage imageNamed: image_3];
 	cv::Mat tempMat = [img CVMat];
     
-    /*
+    
     //charlie's image pre pro starts here
     ImagePreProcessor *ipp = [[ImagePreProcessor alloc]init];
     tempMat = [ipp processImage:tempMat];
     img = [UIImage imageWithCVMat:tempMat]; //convert UIimage into CV mat
     //charlie's image pre pro ends here
-    */
-     
     
+     
+    /*
     //charlie's text detection call
     TextDetector2 *td = [[TextDetector2 alloc]init];
     tempMat = [td findTextArea:tempMat]; //putting the image in an UIImage format
     //text detection call end here
-    
+    */
     
     img = [UIImage imageWithCVMat:tempMat]; //convert the mat back into UIImage format
 	

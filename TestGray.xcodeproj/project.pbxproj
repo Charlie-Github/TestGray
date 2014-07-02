@@ -53,6 +53,7 @@
 		3AF9C12F195DE2FB0011339E /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF9C12D195DDACB0011339E /* opencv2.framework */; };
 		3AF9C133195DF98F0011339E /* WordCorrector.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF9C132195DF98F0011339E /* WordCorrector.m */; };
 		3AFE5A7919645F16000B9526 /* IMG_reverse.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 3AFE5A7819645F16000B9526 /* IMG_reverse.PNG */; };
+		3AFE5A7E1964B631000B9526 /* IMG_2227.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 3AFE5A7D1964B631000B9526 /* IMG_2227.JPG */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +123,7 @@
 		3AF9C131195DF98F0011339E /* WordCorrector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCorrector.h; sourceTree = "<group>"; };
 		3AF9C132195DF98F0011339E /* WordCorrector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordCorrector.m; sourceTree = "<group>"; };
 		3AFE5A7819645F16000B9526 /* IMG_reverse.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_reverse.PNG; sourceTree = "<group>"; };
+		3AFE5A7D1964B631000B9526 /* IMG_2227.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_2227.JPG; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +204,7 @@
 		3A73B0D3192BF4B1006230B5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3AFE5A7D1964B631000B9526 /* IMG_2227.JPG */,
 				3AFE5A7819645F16000B9526 /* IMG_reverse.PNG */,
 				3AF9C129195DD0930011339E /* IMG_2018.JPG */,
 				3A5654D4193A98C90085CC87 /* Menu_1.JPG */,
@@ -364,6 +367,7 @@
 			files = (
 				3A5654D31937ABE10085CC87 /* IMG_0559.JPG in Resources */,
 				3A5654D21937ABE10085CC87 /* IMG_0555.JPG in Resources */,
+				3AFE5A7E1964B631000B9526 /* IMG_2227.JPG in Resources */,
 				3A5654CA1937ABE10085CC87 /* IMG_0513.JPG in Resources */,
 				3A85B623192D3AD8003571F2 /* image_bubble_poster.jpg in Resources */,
 				3A5654CD1937ABE10085CC87 /* IMG_0533.JPG in Resources */,
