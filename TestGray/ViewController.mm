@@ -51,10 +51,10 @@
     NSString *image_8 = @"IMG_0533.JPG";
     NSString *image_9 = @"IMG_0513.jpg";
     NSString *image_10 = @"image_book.jpg";
-    NSString *image_11 = @"IMG_reverse.PNG";
+    NSString *image_11 = @"IMG_black_test.JPG";
     
     // Load image
-    UIImage *img = [UIImage imageNamed: image_8];
+    UIImage *img = [UIImage imageNamed: image_11];
 	cv::Mat tempMat = [img CVMat];
     
     

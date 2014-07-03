@@ -24,8 +24,6 @@ using namespace std;
     cv::Mat output;
     int backGround = 1;
     backGround = [self checkBackground2:inputImage];
-
-    
     
     if (backGround == 0) {
         NSLog(@"ImagePrePro: Black Backgroud");
@@ -33,9 +31,15 @@ using namespace std;
         //inputImage = [self increaseContrast:inputImage];
         //inputImage = [self erode:inputImage];
         //inputImage = [self dilate:inputImage];
+        /*
         inputImage = [self removeBackgroundBlack:inputImage];
         inputImage = [self erode:inputImage];
         inputImage = [self dilate:inputImage];
+         */
+        inputImage = [self adaptiveThresholdBlack:inputImage];
+        inputImage = [self erode:inputImage];
+        inputImage = [self dilate:inputImage];
+        
         
     }
     else if(backGround == 1){
@@ -50,7 +54,9 @@ using namespace std;
     else if(backGround == 2 ){
         //test case.
         NSLog(@"ImagePrePro: Test mode 1 ");
-       
+        inputImage = [self adaptiveThresholdBlack:inputImage];
+        inputImage = [self erode:inputImage];
+        inputImage = [self dilate:inputImage];
        
         
         
@@ -231,15 +237,20 @@ using namespace std;
     size.width = 3;
     
     cv::GaussianBlur(channels[0], channels[0], size, 0.5);
+    //reverse color
+    
+    cv::bitwise_not(channels[0], channels[0]);
+    
     cv::threshold(channels[0], channels[0], 0,255, cv::THRESH_TRUNC | cv::THRESH_OTSU);
     
-    //--Simple ends here
+    //--Simple end here
     
     cv::adaptiveThreshold(channels[0], channels[0], 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY,11, 2);
     cv::merge(channels,img_threshold); //merge 3 channels including the modified 1st channel into one image
     cv::cvtColor(img_threshold, img_threshold, cv::COLOR_YCrCb2BGR); //change the color image from YCrCb to BGR format
     
     return img_threshold;
+
 }
 //------/Threshold method
 
@@ -340,7 +351,7 @@ using namespace std;
             uchar pixl = inputRectImg.at<uchar>(i,j);
             int pixl_int = pixl - '0';
             
-            if(i <= 2 || j <=2 ){
+            if(i < 2 || j <2 ){
                 sum_outer_pixl = sum_outer_pixl + pixl_int;
             }
             
@@ -350,7 +361,9 @@ using namespace std;
     }
     //count the average of the pixels
     int ave_pixl = sum_pixl/(rows*cols);
-    int ave_outer_pixl = sum_outer_pixl/2*(rows+cols-1);
+    int ave_outer_pixl = sum_outer_pixl / (4*(rows+cols-1));
+    NSLog(@"all: %d",ave_pixl);
+    NSLog(@"out: %d",ave_outer_pixl);
     
     if(ave_pixl < ave_outer_pixl){
         
