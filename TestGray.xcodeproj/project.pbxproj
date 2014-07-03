@@ -48,9 +48,6 @@
 		3A85B623192D3AD8003571F2 /* image_bubble_poster.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A85B622192D3AD8003571F2 /* image_bubble_poster.jpg */; };
 		3AB38820192E7D8E00A39BBA /* ImagePreProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AB3881F192E7D8E00A39BBA /* ImagePreProcessor.mm */; };
 		3ACA6A5B192E5AC700A61982 /* image_gauss_blur.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACA6A5A192E5AC700A61982 /* image_gauss_blur.png */; };
-<<<<<<< HEAD
-		3BD056F2195DC5D000C716DF /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD056F1195DC5D000C716DF /* opencv2.framework */; };
-=======
 		3AF2589F1963590B00D05180 /* TextDetector2.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AF2589E1963590B00D05180 /* TextDetector2.mm */; };
 		3AF9C12A195DD0930011339E /* IMG_2018.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 3AF9C129195DD0930011339E /* IMG_2018.JPG */; };
 		3AF9C12F195DE2FB0011339E /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF9C12D195DDACB0011339E /* opencv2.framework */; };
@@ -58,7 +55,6 @@
 		3AFE5A7919645F16000B9526 /* IMG_reverse.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 3AFE5A7819645F16000B9526 /* IMG_reverse.PNG */; };
 		3AFE5A7E1964B631000B9526 /* IMG_2227.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 3AFE5A7D1964B631000B9526 /* IMG_2227.JPG */; };
 		3AFE5A801965B02B000B9526 /* IMG_black_test.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 3AFE5A7F1965B02B000B9526 /* IMG_black_test.JPG */; };
->>>>>>> Charlie-Rectangle
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,9 +117,7 @@
 		3AB3881E192E7D8E00A39BBA /* ImagePreProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreProcessor.h; sourceTree = "<group>"; };
 		3AB3881F192E7D8E00A39BBA /* ImagePreProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImagePreProcessor.mm; sourceTree = "<group>"; };
 		3ACA6A5A192E5AC700A61982 /* image_gauss_blur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_gauss_blur.png; sourceTree = "<group>"; };
-<<<<<<< HEAD
-		3BD056F1195DC5D000C716DF /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = "../../../Downloads/android-support-v13/opencv2.framework"; sourceTree = "<group>"; };
-=======
+
 		3AF2589D1963590B00D05180 /* TextDetector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDetector2.h; sourceTree = "<group>"; };
 		3AF2589E1963590B00D05180 /* TextDetector2.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextDetector2.mm; sourceTree = "<group>"; };
 		3AF9C129195DD0930011339E /* IMG_2018.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_2018.JPG; sourceTree = "<group>"; };
@@ -133,7 +127,7 @@
 		3AFE5A7819645F16000B9526 /* IMG_reverse.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_reverse.PNG; sourceTree = "<group>"; };
 		3AFE5A7D1964B631000B9526 /* IMG_2227.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_2227.JPG; sourceTree = "<group>"; };
 		3AFE5A7F1965B02B000B9526 /* IMG_black_test.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_black_test.JPG; sourceTree = "<group>"; };
->>>>>>> Charlie-Rectangle
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,11 +135,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
-				3BD056F2195DC5D000C716DF /* opencv2.framework in Frameworks */,
-=======
+
 				3AF9C12F195DE2FB0011339E /* opencv2.framework in Frameworks */,
->>>>>>> Charlie-Rectangle
 				3A73B0CF192BF4B1006230B5 /* CoreGraphics.framework in Frameworks */,
 				3A73B0D1192BF4B1006230B5 /* UIKit.framework in Frameworks */,
 				3A73B0CD192BF4B1006230B5 /* Foundation.framework in Frameworks */,
@@ -188,11 +179,9 @@
 		3A73B0CB192BF4B1006230B5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
-				3BD056F1195DC5D000C716DF /* opencv2.framework */,
-=======
+
 				3AF9C12D195DDACB0011339E /* opencv2.framework */,
->>>>>>> Charlie-Rectangle
+
 				3A73B0CC192BF4B1006230B5 /* Foundation.framework */,
 				3A73B0CE192BF4B1006230B5 /* CoreGraphics.framework */,
 				3A73B0D0192BF4B1006230B5 /* UIKit.framework */,
@@ -572,11 +561,9 @@
 					/Users/charliegao/Downloads/Libs,
 					"$(PROJECT_DIR)/TestGray",
 					/Users/wanfang/Downloads,
-<<<<<<< HEAD
-					"/Users/wanfang/Downloads/android-support-v13",
-=======
+
 					"$(PROJECT_DIR)",
->>>>>>> Charlie-Rectangle
+
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TestGray/TestGray-Prefix.pch";
@@ -599,11 +586,9 @@
 					/Users/charliegao/Downloads/Libs,
 					"$(PROJECT_DIR)/TestGray",
 					/Users/wanfang/Downloads,
-<<<<<<< HEAD
-					"/Users/wanfang/Downloads/android-support-v13",
-=======
+
 					"$(PROJECT_DIR)",
->>>>>>> Charlie-Rectangle
+
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TestGray/TestGray-Prefix.pch";
