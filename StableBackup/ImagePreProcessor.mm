@@ -351,7 +351,7 @@ using namespace std;
             uchar pixl = inputRectImg.at<uchar>(i,j);
             int pixl_int = pixl - '0';
             
-            if(i < 2 || j <2 ){
+            if(i < 3 || j <3 ){
                 sum_outer_pixl = sum_outer_pixl + pixl_int;
             }
             
@@ -361,7 +361,7 @@ using namespace std;
     }
     //count the average of the pixels
     int ave_pixl = sum_pixl/(rows*cols);
-    int ave_outer_pixl = sum_outer_pixl/(4*(rows+cols-1));
+    int ave_outer_pixl = sum_outer_pixl/(3*(rows+cols-1));
     
     if(ave_pixl < ave_outer_pixl){
         
