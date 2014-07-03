@@ -12,7 +12,8 @@
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
 #import "ImagePreProcessor.h"
-
+#import "WordCorrector.h"
+#import "TextDetector2.h"
 
 #import <opencv2/core/core_c.h>
 
@@ -30,31 +31,61 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    
+    
+    NSDate *tdStart = [NSDate date];
+    
+    
+    
+    
     // Test Cases
-    NSString *image_0 = @"lena.png";
-    NSString *image_1 = @"Menu_1.JPG";
-    NSString *image_2 = @"Menu_2.JPG";
+    
+//    NSString *image_0 = @"lena.png";
+//    NSString *image_1 = @"Menu_1.JPG";
+//    NSString *image_2 = @"Menu_2.JPG";
     NSString *image_3 = @"image_black.jpg";
     NSString *image_4 = @"Menu_4.PNG";
     NSString *image_5 = @"Menu_5.JPG";
-    NSString *image_6 = @"Menu_6.PNG";
-    NSString *image_7 = @"Menu_7.PNG";
-    NSString *image_8 = @"IMG_0537.JPG";
+    NSString *image_6 = @"IMG_2227.JPG";
+    NSString *image_7 = @"IMG_2018.JPG";
+    NSString *image_8 = @"IMG_0533.JPG";
+    NSString *image_9 = @"IMG_0513.jpg";
+    NSString *image_10 = @"image_book.jpg";
+    NSString *image_11 = @"IMG_black_test.JPG";
     
     // Load image
-    UIImage *img = [UIImage imageNamed: image_8];
+    UIImage *img = [UIImage imageNamed: image_11];
 	cv::Mat tempMat = [img CVMat];
+    
+    
+    //charlie's image pre pro starts here
     ImagePreProcessor *ipp = [[ImagePreProcessor alloc]init];
-    
     tempMat = [ipp processImage:tempMat];
-	
-    img = [UIImage imageWithCVMat:tempMat]; //putting the image in an UIImage format
-	
-    for(int i = 0; i < 3000 ; i++){
+    img = [UIImage imageWithCVMat:tempMat]; //convert UIimage into CV mat
+    //charlie's image pre pro ends here
     
-    }
-    //NSLog(<#NSString *format, ...#>)
+     
+    /*
+    //charlie's text detection call
+    TextDetector2 *td = [[TextDetector2 alloc]init];
+    tempMat = [td findTextArea:tempMat]; //putting the image in an UIImage format
+    //text detection call end here
+    */
     
+    img = [UIImage imageWithCVMat:tempMat]; //convert the mat back into UIImage format
+	
+    /*
+    //Text corrector
+    NSString *wrong_word = @"tost";
+    WordCorrector *wc = [[WordCorrector alloc]init];
+    NSString *correct_word = [wc correctWord: wrong_word];
+    NSLog(@"correct_word is: %@", correct_word);
+    // text corrector ends here
+    */
+    
+    NSDate *tdFinish = [NSDate date];
+    NSTimeInterval tdTime = [tdFinish timeIntervalSinceDate:tdStart];
+    NSLog(@"-----------------ImagePrePro Time = %f", tdTime);
     
     UIReferenceLibraryViewController *referenceLibraryViewController =
     [[UIReferenceLibraryViewController alloc] initWithTerm:@"apple"];
