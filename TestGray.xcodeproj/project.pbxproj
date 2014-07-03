@@ -117,7 +117,6 @@
 		3AB3881E192E7D8E00A39BBA /* ImagePreProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreProcessor.h; sourceTree = "<group>"; };
 		3AB3881F192E7D8E00A39BBA /* ImagePreProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImagePreProcessor.mm; sourceTree = "<group>"; };
 		3ACA6A5A192E5AC700A61982 /* image_gauss_blur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_gauss_blur.png; sourceTree = "<group>"; };
-
 		3AF2589D1963590B00D05180 /* TextDetector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDetector2.h; sourceTree = "<group>"; };
 		3AF2589E1963590B00D05180 /* TextDetector2.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextDetector2.mm; sourceTree = "<group>"; };
 		3AF9C129195DD0930011339E /* IMG_2018.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_2018.JPG; sourceTree = "<group>"; };
@@ -127,7 +126,6 @@
 		3AFE5A7819645F16000B9526 /* IMG_reverse.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_reverse.PNG; sourceTree = "<group>"; };
 		3AFE5A7D1964B631000B9526 /* IMG_2227.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_2227.JPG; sourceTree = "<group>"; };
 		3AFE5A7F1965B02B000B9526 /* IMG_black_test.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_black_test.JPG; sourceTree = "<group>"; };
-
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,7 +133,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-
 				3AF9C12F195DE2FB0011339E /* opencv2.framework in Frameworks */,
 				3A73B0CF192BF4B1006230B5 /* CoreGraphics.framework in Frameworks */,
 				3A73B0D1192BF4B1006230B5 /* UIKit.framework in Frameworks */,
@@ -179,9 +176,7 @@
 		3A73B0CB192BF4B1006230B5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-
 				3AF9C12D195DDACB0011339E /* opencv2.framework */,
-
 				3A73B0CC192BF4B1006230B5 /* Foundation.framework */,
 				3A73B0CE192BF4B1006230B5 /* CoreGraphics.framework */,
 				3A73B0D0192BF4B1006230B5 /* UIKit.framework */,
@@ -193,7 +188,6 @@
 		3A73B0D2192BF4B1006230B5 /* TestGray */ = {
 			isa = PBXGroup;
 			children = (
-				3AF25893196348DF00D05180 /* TextDetector */,
 				3A73B104192BF7BD006230B5 /* GrayScale.h */,
 				3A73B105192BF7BD006230B5 /* GrayScale.m */,
 				3A73B0DB192BF4B1006230B5 /* AppDelegate.h */,
@@ -276,13 +270,6 @@
 				3AF2589E1963590B00D05180 /* TextDetector2.mm */,
 			);
 			name = ImagePreProcessor;
-			sourceTree = "<group>";
-		};
-		3AF25893196348DF00D05180 /* TextDetector */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = TextDetector;
 			sourceTree = "<group>";
 		};
 		3AF9C130195DF9610011339E /* WordCorrector */ = {
@@ -561,9 +548,7 @@
 					/Users/charliegao/Downloads/Libs,
 					"$(PROJECT_DIR)/TestGray",
 					/Users/wanfang/Downloads,
-
 					"$(PROJECT_DIR)",
-
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TestGray/TestGray-Prefix.pch";
@@ -586,9 +571,7 @@
 					/Users/charliegao/Downloads/Libs,
 					"$(PROJECT_DIR)/TestGray",
 					/Users/wanfang/Downloads,
-
 					"$(PROJECT_DIR)",
-
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TestGray/TestGray-Prefix.pch";

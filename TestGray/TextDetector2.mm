@@ -30,7 +30,7 @@ using namespace std;
     
    // UIImage* testUIImage = [imgUIArray objectAtIndex:0];
     //inputImage = [testUIImage CVMat];
-    inputImage = [self findContour:inputImage:inputImage];
+    inputImage = [self findContour:inputImage original:inputImage];
     
     return inputImage;
 }
@@ -156,7 +156,7 @@ using namespace std;
 //-----------find contour
 
 typedef cv::vector<cv::vector<cv::Point> > TContours;//global
--(cv::Mat)findContour:(cv::Mat)inputImg:(cv::Mat)orgImage{
+-(cv::Mat)findContour:(cv::Mat)inputImg original:(cv::Mat)orgImage{
     
     cv::cvtColor( inputImg, inputImg, CV_BGR2GRAY );
 
@@ -208,6 +208,7 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;//global
     vector<cv::Rect> sigle_rects;
     sigle_rects = [self removeOverlape:merged_rects];
     
+    std::sort(sigle_rects.begin(), sigle_rects.end(), compareLoc);
     
     
     //---draw rects
@@ -233,6 +234,19 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;//global
     return drawing;
     
     
+}
+
+//Comparison function for std::sort
+//Sort regions y-axis desc. and x-axis asce.
+bool compareLoc(const cv::Rect &a,const cv::Rect &b)
+{
+    if (a.y < b.y) return true;
+    else if (a.y == b.y)
+    {
+        if(a.x < b.x) return true;
+        else return false;
+    }
+    else return false;
 }
 
 
@@ -376,6 +390,8 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;//global
     }
     return newRects;
 }
+
+
 //-----------/find contour
 
 
