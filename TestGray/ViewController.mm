@@ -54,7 +54,7 @@
     NSString *image_11 = @"IMG_reverse.PNG";
     
     // Load image
-    UIImage *img = [UIImage imageNamed: image_3];
+    UIImage *img = [UIImage imageNamed: image_8];
 	cv::Mat tempMat = [img CVMat];
     
     

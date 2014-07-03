@@ -23,7 +23,7 @@ using namespace std;
     
     cv::Mat output;
     int backGround = 1;
-    backGround = [self checkBackground:inputImage];
+    backGround = [self checkBackground2:inputImage];
 
     
     
@@ -34,7 +34,6 @@ using namespace std;
         //inputImage = [self erode:inputImage];
         //inputImage = [self dilate:inputImage];
         inputImage = [self removeBackgroundBlack:inputImage];
-        
         inputImage = [self erode:inputImage];
         inputImage = [self dilate:inputImage];
         
@@ -42,7 +41,7 @@ using namespace std;
     else if(backGround == 1){
         NSLog(@"ImagePrePro: Normal Image");
         
-        //inputImage = [self increaseContrast:inputImage];
+        
         inputImage = [self adaptiveThreshold:inputImage];
         inputImage = [self erode:inputImage];
         inputImage = [self dilate:inputImage];
@@ -321,46 +320,50 @@ using namespace std;
 }
 //-----------Check background version2
 
--(int)checkBackground2:(cv::Mat )input
-{
-    
+-(int)checkBackground2:(cv::Mat)inputRectImg{
     
     std::vector<cv::Mat> channels;
+    cv::cvtColor(inputRectImg, inputRectImg, COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
+    cv::split(inputRectImg,channels); //split the image into channels
     
-    cv::cvtColor(input, input, CV_BGR2YCrCb); //change the color image from BGR to YCrCb format
+    inputRectImg = channels[0]; //keep gray channel
     
-    cv::split(input,channels); //split the image into channels
+    int rows = inputRectImg.rows;
+    int cols = inputRectImg.cols;
     
-    input = channels[0]; //keep gray image
-    
-    int rows = input.rows;
-    int cols = input.cols;
-    
-    //convert pixl to int and put into ns mutable array
+    //count the sum of the pixl for the whole rect img
     int sum_pixl = 0;
-    int sum_diff = 0;
-    NSMutableArray *pixls_mutable = [NSMutableArray arrayWithObjects:nil];
+    int sum_outer_pixl = 0;
     
     for (int i = 0; i < rows; i++) {
-        for (int j = 1; j < cols+1; j++) {
-            uchar pixl0 = input.at<uchar>(i,j);
-            uchar pixl1 = input.at<uchar>(i,j-1);
-            int pixl_int0 = pixl0 - '0';
-            int pixl_int1 = pixl1 - '0';
-            int temp_diff = pixl_int0 - pixl_int1;
-            NSLog(@"temp_diff = %d",temp_diff);
-            sum_diff = sum_diff + temp_diff;
+        for (int j = 0; j < cols; j++) {
+            uchar pixl = inputRectImg.at<uchar>(i,j);
+            int pixl_int = pixl - '0';
             
-           [pixls_mutable addObject:[NSNumber numberWithInt:temp_diff]];
+            if(i <= 2 || j <=2 ){
+                sum_outer_pixl = sum_outer_pixl + pixl_int;
+            }
+            
+            sum_pixl = sum_pixl + pixl_int;
             
         }
     }
-    int mean_diff = sum_diff/(rows * cols-rows-cols);
-    NSLog(@"sum_diff = %d",sum_diff);
+    //count the average of the pixels
+    int ave_pixl = sum_pixl/(rows*cols);
+    int ave_outer_pixl = sum_outer_pixl/2*(rows+cols-1);
     
-    return mean_diff;
+    if(ave_pixl < ave_outer_pixl){
+        
+        return 1;// normal i.e. white paper black words
+    }
+    if(ave_pixl >= ave_outer_pixl){
+        return 0;// black paper white words
+    }
+    else{
+        return 2;//test mode
+    }
+    
 }
-
 
 - (NSNumber *)meanOf:(NSArray *)array
 {
@@ -634,9 +637,9 @@ typedef cv::vector<cv::vector<cv::Point> > TContours;
     size.height = 3;
     size.width = 3;
     
-    //cv::GaussianBlur(inputImage, inputImage, size, 0.5);
-    cv::threshold(inputImage, inputImage, 0,255, CV_THRESH_BINARY+CV_THRESH_OTSU );
-    //cv::GaussianBlur(inputImage, inputImage, size, 0.5);
+    cv::GaussianBlur(inputImage, inputImage, size, 0.5);
+    cv::threshold(inputImage, inputImage, 125,255, THRESH_BINARY_INV );
+    cv::GaussianBlur(inputImage, inputImage, size, 0.5);
     
     return inputImage;
     
