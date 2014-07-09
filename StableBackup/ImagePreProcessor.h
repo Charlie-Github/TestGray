@@ -2,8 +2,8 @@
 //  ImagePreProcessor.h
 //  
 //
-//  Created by CharlieGao on 06/01/14.
-//  Copyright (c) 2014 Edible Innovations. All rights reserved.
+//  Created by CharlieGao on 06/30/14.
+//  Copyright (c) 2014 Edible Innovations LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -16,14 +16,11 @@
 
 -(cv::Mat)laplacian:(cv::Mat) inputImage;
 
-
-
 -(cv::Mat)processImage: (cv::Mat)inputImage;
 
 -(cv::Mat)sharpen:(cv::Mat)inputImage;
 
 -(cv::Mat)increaseContrast:(cv::Mat)inputMat;
-
 
 -(cv::Mat)removeBackgroundBlack:(cv::Mat) inputMat;
 

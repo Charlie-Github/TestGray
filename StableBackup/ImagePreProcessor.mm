@@ -2,10 +2,9 @@
 //  ImagePreProcessor.m
 //
 //
-//  Created by CharlieGao on 6/27/14.
+//  Created by CharlieGao on 6/30/14.
 //  Copyright (c) 2014 Edible Innovations. All rights reserved.
 //
-
 #import "ImagePreProcessor.h"
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
@@ -351,7 +350,7 @@ using namespace std;
             uchar pixl = inputRectImg.at<uchar>(i,j);
             int pixl_int = pixl - '0';
             
-            if(i < 3 || j <3 ){
+            if(i < 2 || j < 2 ){
                 sum_outer_pixl = sum_outer_pixl + pixl_int;
             }
             
@@ -361,13 +360,16 @@ using namespace std;
     }
     //count the average of the pixels
     int ave_pixl = sum_pixl/(rows*cols);
-    int ave_outer_pixl = sum_outer_pixl/(3*(rows+cols-1));
+    int ave_outer_pixl = sum_outer_pixl/(2*(rows+cols));
+    //NSLog(@"ImagePrePro: all: %d",ave_pixl);
+    //NSLog(@"ImagePrePro: out: %d",ave_outer_pixl);
     
-    if(ave_pixl < ave_outer_pixl){
+    
+    if(ave_pixl <= ave_outer_pixl){
         
         return 1;// normal i.e. white paper black words
     }
-    if(ave_pixl >= ave_outer_pixl){
+    if(ave_pixl > ave_outer_pixl){
         return 0;// black paper white words
     }
     else{
@@ -500,7 +502,7 @@ using namespace std;
 //-----------find contour
 
 typedef vector<vector<cv::Point> > TContours;
--(NSMutableArray*)findContour:(cv::Mat)inputImage:(cv::Mat)orgImage{
+-(NSMutableArray*)findContour:(cv::Mat)inputImage :(cv::Mat)orgImage{
     
     cv::cvtColor( inputImage, inputImage, COLOR_BGR2GRAY );
     
