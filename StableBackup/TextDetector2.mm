@@ -59,9 +59,10 @@ typedef vector<vector<cv::Point> > TContours;//global
     
     cv::cvtColor( inputImg, inputImg, cv::COLOR_BGR2GRAY );
 
-    double high_thres = cv::threshold( inputImg, inputImg, 0, 255, THRESH_BINARY+THRESH_OTSU );
+    double high_thres = cv::threshold( inputImg, inputImg, 0, 255, THRESH_BINARY|THRESH_OTSU );
     
     cv::Mat canny_output;
+    NSMutableArray *UIRects = [[NSMutableArray alloc] init];
     vector<cv::Vec4i> hierarchy;
     
     /// Detect edges using canny
@@ -80,79 +81,85 @@ typedef vector<vector<cv::Point> > TContours;//global
     
     /// Approximate contours to polygons + get bounding rects and circles
     vector<vector<cv::Point> > contours_poly( contours.size() );
-    vector<cv::Rect> boundRect( contours.size() );
+    vector<cv::Rect> boundRect(contours.size() );
     vector<Point2f>center( contours.size() );
     vector<float>radius( contours.size() );
     
+    int counter_noise = 0;
     
     for( int i = 0; i < contours.size(); i++ )
     {
         //drawContours( drawing, contours, i, Scalar(255,0,0), 1, 8, hierarchy, 0, cv::Point() );
         approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
-        boundRect[i] = boundingRect( Mat(contours_poly[i]) );
+        cv::Rect tempRect = boundingRect( Mat(contours_poly[i]));
+        if(tempRect.width < 3 || tempRect.height < 3){
+            counter_noise ++;
+            continue;
+        }
+        
+        boundRect[i] = tempRect;
     }
     
+    NSLog(@"noise times: %d",counter_noise);
     
-    //---remove insider rects
-    vector<cv::Rect> outRect;
-    outRect = [self removeInsider:boundRect];
-    
-    
-    //----merge near
-    vector<cv::Rect> merged_rects;
-    merged_rects = [self mergeNeighbors:outRect];
+    if(counter_noise < 500){
+        //---remove insider rects
+        vector<cv::Rect> outRect;
+        outRect = [self removeInsider:boundRect];
     
     
-    //----merge overlap
-    vector<cv::Rect> sigle_rects;
-    sigle_rects = [self removeOverlape:merged_rects];
+        //----merge near
+        vector<cv::Rect> merged_rects;
+        merged_rects = [self mergeNeighbors:outRect];
+        
+        //----merge overlap
+        vector<cv::Rect> sigle_rects;
+        sigle_rects = [self removeOverlape:merged_rects];
 
-    //----sort vectors
-    std::sort(sigle_rects.begin(), sigle_rects.end(), compareLoc);
-    
-    
-    NSMutableArray *UIRects = [[NSMutableArray alloc] init];
-    for(int i = 0; i< sigle_rects.size(); i++){
-        if(sigle_rects[i].width > 10 && sigle_rects[i].height > 15 )
-        {
-            
-            
-            
-            cv::Mat tmpMat;
-            
-            int x = cv::max(sigle_rects[i].x-3,0);
-            int y = cv::max(sigle_rects[i].y-3,0);
-            int w = sigle_rects[i].width;
-            int h = sigle_rects[i].height;
-            
-            if( x+w+6 > orgImage.cols){
-                w = w;
+        //----sort vectors
+        std::sort(sigle_rects.begin(), sigle_rects.end(), compareLoc);
+        
+        
+        
+        for(int i = 0; i< sigle_rects.size(); i++){
+            if(sigle_rects[i].width > 10 && sigle_rects[i].height > 15 )
+            {
+                
+                cv::Mat tmpMat;
+                
+                int x = cv::max(sigle_rects[i].x-3,0);
+                int y = cv::max(sigle_rects[i].y-3,0);
+                int w = sigle_rects[i].width;
+                int h = sigle_rects[i].height;
+                
+                if( x+w+6 > orgImage.cols){
+                    w = w;
+                }
+                else {
+                    w = w + 6;
+                }
+                
+                if( y+h+6 > orgImage.rows){
+                    h = h;
+                }
+                else {
+                    h = h + 6;
+                }
+                
+                cv::Rect tempRect = cv::Rect(x,y,w,h);
+                orgImage(tempRect).copyTo(tmpMat); //resized rect
+                
+                [UIRects addObject:[UIImage imageWithCVMat:tmpMat]];
+                
+                //rectangle(drawing, tempRect.tl(), tempRect.br(), Scalar(0,0,255), 1, 8, 0 ); // draw rectangles
+                
             }
-            else {
-                w = w + 6;
+            else{
+                //NSLog(@"nothing to draw: %d",i);
             }
-            
-            if( y+h+6 > orgImage.rows){
-                h = h;
-            }
-            else {
-                h = h + 6;
-            }
-            
-            cv::Rect tempRect = cv::Rect(x,y,w,h);
-            orgImage(tempRect).copyTo(tmpMat); //resized rect
-            
-            [UIRects addObject:[UIImage imageWithCVMat:tmpMat]];
-            
-            rectangle(drawing, tempRect.tl(), tempRect.br(), Scalar(0,0,255), 1, 8, 0 ); // draw rectangles
-            
         }
-        else{
-            //NSLog(@"nothing to draw: %d",i);
-        }
+        //[UIRects addObject:[UIImage imageWithCVMat:drawing]];//add overview img to the end of the array
     }
-    [UIRects addObject:[UIImage imageWithCVMat:drawing]];//add overview img to the end of the array
-    
     return UIRects;
     
     
@@ -259,6 +266,7 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
     
 }
 
+
 -(vector<cv::Rect>)mergeNeighbors:(vector<cv::Rect>)rects{
     
     int index = 0;
@@ -273,6 +281,7 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
         
         for(int index_in=0;index_in<rects.size();index_in++){
             
+            
             if(index == 0){//first rect
                 
                 newRects[0] = rects[0];
@@ -283,7 +292,7 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
             cv::Point pl1 = rects[index_in].tl();
             //cv::Point br1 = rects[index_in].br();
             int distance_x = abs(br0.x-pl1.x);
-            int distance_y = abs(pl0.y-pl1.y);
+            //int distance_y = abs(pl0.y-pl1.y);
             int distance_mid = abs(pl0.y+rects[index].height/2 - (pl1.y+rects[index_in].height/2));
             
             if( distance_x <40 && distance_mid < (rects[index].height/2-3) && index != index_in)
@@ -294,7 +303,6 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
                 
                 tempRect |= rects[index_in];
                 flag += 1;
-                
             }
             else{
                 //if current rect is far from the second rect, then count ++
@@ -310,6 +318,7 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
     }
     return newRects;
 }
+
 
 //-----------/find contour
 

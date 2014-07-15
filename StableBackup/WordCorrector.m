@@ -7,17 +7,27 @@
 //
 
 #import "WordCorrector.h"
-
+#import "Flurry.h"
 @implementation WordCorrector: NSObject
 
 
 
 -(NSString*)correctWord: (NSString*)input{
     
+    
+
     UITextChecker *checker = [[UITextChecker alloc] init];
     NSString *testString = input;
     NSString *output = testString;
+    
+    output = [output stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    output= [[output componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@" "];
+    output = [output stringByReplacingOccurrencesOfString:@"  " withString:@" "];//replace .
+    output = [output stringByReplacingOccurrencesOfString:@"," withString:@""];//replace ,
+    output = [output stringByReplacingOccurrencesOfString:@"." withString:@""];//replace .
+    
     int mark=0;
+    
     NSRange checkRange = NSMakeRange(0, testString.length);
     NSRange misspelledRange = [checker rangeOfMisspelledWordInString:testString
                                                                range:checkRange
@@ -27,47 +37,40 @@
     NSArray *arrGuessed = [checker guessesForWordRange:misspelledRange inString:testString language:@"en_US"];
     
     if ((NSNull *)arrGuessed == [NSNull null]){
-         //NSLog(@"Word correction: Correct!");
+        //donothing
     }else
     {
-        int count = [arrGuessed count];
+        int count = (int)[arrGuessed count];
         if (count > 20){
             count = 20;
         }
         
         testString = [self replaceWord:testString];
-        //NSLog(@"Word correction 0.0: %@", testString);
         
         for (int i=0; i<count; i++) {
             NSString *originalString = arrGuessed[i];
-            //NSLog(@"Word correction0: %@",arrGuessed[i]);
-            // Method Start
-            // MutableArray of String-pairs Arrays
             originalString = [self replaceWord: originalString];
-            
-            //NSLog(@"Word correction 01: %@", originalString);
-                  
-            if ([originalString isEqualToString:testString]){
-                //NSLog(@"Word correction1: %@",arrGuessed[i]);
+            if ([originalString isEqualToString:testString]||[originalString isEqualToString:[testString substringFromIndex:([testString length]-1)]]){
+                
                 output = arrGuessed[i];
-                //NSLog(@"Word correction2: %@",output);
+                
                 mark = 1;
             }
         }
-//        if(mark==0){
-//            output = arrGuessed[0];
-//        }
+
     }
-   
-    //NSLog(@"Word correction3: %@",output);
+    
+    
     return output;
     
+    [Flurry logEvent:@"Word_Detector"];
 }
 
 
 -(NSString*)replaceWord: (NSString*)input{
     
     NSString *testString = input;
+    
     
     NSMutableArray *arrayOfStringsToReplace = [NSMutableArray arrayWithObjects:
                                                [NSArray arrayWithObjects:@"5",@"s",nil],
@@ -90,8 +93,10 @@
                                                [NSArray arrayWithObjects:@"Q",@"4",nil],
                                                [NSArray arrayWithObjects:@"n",@"6",nil],
                                                [NSArray arrayWithObjects:@"m",@"6",nil],
-                                               [NSArray arrayWithObjects:@"/",@"7",nil],
-                                               [NSArray arrayWithObjects:@" ",@"7",nil],
+                                               [NSArray arrayWithObjects:@"el",@"7",nil],
+                                               [NSArray arrayWithObjects:@"d",@"7",nil],
+                                               [NSArray arrayWithObjects:@"h",@"9",nil],
+                                               [NSArray arrayWithObjects:@"k",@"9",nil],
                                                nil];
     
     // For or while loop to Find and Replace strings

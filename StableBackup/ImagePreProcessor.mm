@@ -365,6 +365,8 @@ using namespace std;
     //NSLog(@"ImagePrePro: out: %d",ave_outer_pixl);
     
     
+    
+    
     if(ave_pixl <= ave_outer_pixl){
         
         return 1;// normal i.e. white paper black words
