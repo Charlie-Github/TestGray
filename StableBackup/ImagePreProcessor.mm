@@ -92,8 +92,8 @@ using namespace std;
     cv::Mat erosion_dst;
     int erosion_type;
     if( erosion_elem == 0 ){ erosion_type = cv::MORPH_RECT; }
-    else if( erosion_elem == 1 ){ erosion_type = cv::MORPH_CROSS; }
-    else if( erosion_elem == 2) { erosion_type = cv::MORPH_ELLIPSE; }
+    //else if( erosion_elem == 1 ){ erosion_type = cv::MORPH_CROSS; }
+    else { erosion_type = cv::MORPH_ELLIPSE; }
     
     cv::Mat element = getStructuringElement( erosion_type,
                                             cv::Size( 2*erosion_size + 1, 2*erosion_size+1 ),
@@ -113,8 +113,8 @@ using namespace std;
     int dilation_size = 1;
     
     if( dilation_elem == 0 ){ dilation_type = cv::MORPH_RECT; }
-    else if( dilation_elem == 1 ){ dilation_type = cv::MORPH_CROSS; }
-    else if( dilation_elem == 2) { dilation_type = cv::MORPH_ELLIPSE; }
+    else { dilation_type = cv::MORPH_CROSS; }
+    //else if( dilation_elem == 2) { dilation_type = cv::MORPH_ELLIPSE; }
     
     cv::Mat element = getStructuringElement( dilation_type,
                                             cv::Size( 2*dilation_size + 1, 2*dilation_size+1 ),
@@ -345,8 +345,8 @@ using namespace std;
     int sum_pixl = 0;
     int sum_outer_pixl = 0;
     
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
+    for (int i = 0; i < rows; i = i+2) {
+        for (int j = 0; j < cols; j = j+2) {
             uchar pixl = inputRectImg.at<uchar>(i,j);
             int pixl_int = pixl - '0';
             

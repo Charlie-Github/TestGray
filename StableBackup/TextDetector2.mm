@@ -100,31 +100,25 @@ typedef vector<vector<cv::Point> > TContours;//global
         boundRect[i] = tempRect;
     }
     
-    NSLog(@"noise times: %d",counter_noise);
+    NSLog(@"TextDetector: noise counter: %d",counter_noise);
     
     if(counter_noise < 500){
         //---remove insider rects
         vector<cv::Rect> outRect;
-        outRect = [self removeInsider:boundRect];
-    
+        outRect = [self removeInsider:boundRect];  
     
         //----merge near
         vector<cv::Rect> merged_rects;
         merged_rects = [self mergeNeighbors:outRect];
-        
         //----merge overlap
         vector<cv::Rect> sigle_rects;
         sigle_rects = [self removeOverlape:merged_rects];
-
         //----sort vectors
         std::sort(sigle_rects.begin(), sigle_rects.end(), compareLoc);
-        
-        
         
         for(int i = 0; i< sigle_rects.size(); i++){
             if(sigle_rects[i].width > 10 && sigle_rects[i].height > 15 )
             {
-                
                 cv::Mat tmpMat;
                 
                 int x = cv::max(sigle_rects[i].x-3,0);
@@ -152,7 +146,6 @@ typedef vector<vector<cv::Point> > TContours;//global
                 [UIRects addObject:[UIImage imageWithCVMat:tmpMat]];
                 
                 //rectangle(drawing, tempRect.tl(), tempRect.br(), Scalar(0,0,255), 1, 8, 0 ); // draw rectangles
-                
             }
             else{
                 //NSLog(@"nothing to draw: %d",i);
@@ -161,7 +154,6 @@ typedef vector<vector<cv::Point> > TContours;//global
         //[UIRects addObject:[UIImage imageWithCVMat:drawing]];//add overview img to the end of the array
     }
     return UIRects;
-    
     
 }
 
@@ -200,13 +192,10 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
                 if(intersection == rect0 && (rect0.area()!=rects[j].area()))//current is insider
                 {
                     flag += 1;
-                    //NSLog(@"j : %d",j);
-                    
                 }
                 else{
                     //if current rect is not a insider, then add it to newRect
                     flag += 0;
-                    
                 }
             }
         }
@@ -222,7 +211,6 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
 }
 
 -(vector<cv::Rect>)removeOverlape:(vector<cv::Rect>)rects{
-    
     cv::Rect bigRect; //temp
     vector<cv::Rect> newRects(rects.size());
     int newIndex = 0;
@@ -246,16 +234,13 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
                     flag += 1;
                     rects[j] |= rect0;
                     
-                    
                 }
                 else{
                     flag += 0;
-                    
                 }
             }
         }
         if(flag == 0){
-            //NSLog(@"newIndex: %d",newIndex);
             newRects[newIndex] = rect0;
             newIndex ++;
         }
@@ -263,12 +248,10 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
     
     return newRects;
     
-    
 }
 
 
 -(vector<cv::Rect>)mergeNeighbors:(vector<cv::Rect>)rects{
-    
     int index = 0;
     int newIndex = 0;
     int flag = 0;
@@ -280,7 +263,6 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
         cv::Rect tempRect = rects[index];
         
         for(int index_in=0;index_in<rects.size();index_in++){
-            
             
             if(index == 0){//first rect
                 
@@ -294,10 +276,8 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
             int distance_x = abs(br0.x-pl1.x);
             //int distance_y = abs(pl0.y-pl1.y);
             int distance_mid = abs(pl0.y+rects[index].height/2 - (pl1.y+rects[index_in].height/2));
-            
-            if( distance_x <40 && distance_mid < (rects[index].height/2-3) && index != index_in)
-                //(rects[index].width/1.5) || distance_x < (rects[index_in].width/1.5) )
-            {
+            int distance_threshold = (rects[index].height+rects[index_in].height)/4-3;
+            if( distance_x <40 && distance_mid < distance_threshold && index != index_in){
                 //if two rects are close, then merge the insider to the current,
                 // counter dose not increas
                 

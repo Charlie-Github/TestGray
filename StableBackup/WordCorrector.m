@@ -21,10 +21,11 @@
     NSString *output = testString;
     
     output = [output stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    output= [[output componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@" "];
-    output = [output stringByReplacingOccurrencesOfString:@"  " withString:@" "];//replace .
-    output = [output stringByReplacingOccurrencesOfString:@"," withString:@""];//replace ,
-    output = [output stringByReplacingOccurrencesOfString:@"." withString:@""];//replace .
+    output= [[output componentsSeparatedByCharactersInSet:
+              [NSCharacterSet newlineCharacterSet]]componentsJoinedByString:@" "];
+    output = [output stringByReplacingOccurrencesOfString:@"    " withString:@" "];//replace \s
+    output = [output stringByReplacingOccurrencesOfString:@"   " withString:@" "];//replace \s
+    output = [output stringByReplacingOccurrencesOfString:@"  " withString:@" "];//replace \s
     
     int mark=0;
     
@@ -73,9 +74,7 @@
     
     
     NSMutableArray *arrayOfStringsToReplace = [NSMutableArray arrayWithObjects:
-                                               [NSArray arrayWithObjects:@"5",@"s",nil],
-                                               [NSArray arrayWithObjects:@"3",@"a",nil],
-                                               [NSArray arrayWithObjects:@"0",@"o",nil],
+                                               [NSArray arrayWithObjects:@"0",@"1",nil],
                                                [NSArray arrayWithObjects:@"a",@"1",nil],
                                                [NSArray arrayWithObjects:@"e",@"1",nil],
                                                [NSArray arrayWithObjects:@"c",@"1",nil],
