@@ -1,0 +1,1367 @@
+Baked Bean
+Baked Beans
+Bean
+Beans
+Black Bean
+Black Beans
+Chickpea
+Chickpeas
+Green Bean
+Green Beans
+Kidney Bean
+Kidney Beans
+Lentil
+Lentils
+Lima Bean
+Lima Beans
+Pinto Bean
+Pinto Beans
+Quinoa
+Refried Bean
+Refried Beans
+Tofu
+Adzuki Bean
+Adzuki Beans
+Black eyed pea
+Black eyed peas
+Broad Bean
+Broad Beans
+Fava Bean
+Fava Beans
+Butter Bean
+Butter Beans
+Calico Bean
+Calico Beans
+Cannellini Bean
+Cannellini Beans
+Garbanzo Bean
+Garbanzo Beans
+Edamame
+Edamames
+Great Northern Bean
+Great Northern Beans
+Italian Bean
+Italian Beans
+Mung Bean
+Mung Beans
+Navy Bean
+Navy Beans
+Soy Bean
+Soy Beans
+Split Pea
+Split Peas
+White Bean
+White Beans
+Milk Shake
+Milk Shakes
+Orange Juice
+Orange Juices
+Red Wine
+Red Wines
+Root Beer
+Root Beers
+Bubble
+Bubbles
+Bubble Tea
+Smoothie
+Smoothies
+Coke
+Cokes
+Sprite
+Sprites
+Beer
+Beers
+highball
+martini
+margarita
+vodka
+gin
+scotch
+Irish
+rye
+bourbon
+tequila
+kahlua
+Triple Sec
+Amaretto
+Baileys
+Martini vermouth
+creme de cocao
+creme de menthe
+pepermint
+peach schnapp
+creme de banana
+blue curacao
+Melon liqueu
+Grand Marnie
+Soda
+Sodas
+Soy Milk
+Soy Milks
+Tea
+Iced Tea
+Vegetable Juice
+Vegetable Juices
+Vodka
+Vodkas
+Water
+White Wine
+White Wines
+Wine
+Wines
+Rose wine
+Rose wines
+Dessert wine
+Dessert wines
+Bread
+Breads
+Breadstick
+Breadsticks
+Bun
+Buns
+Slider
+Sliders
+Cereal
+Cereals
+Cornbread
+Cornbreads
+Croissant
+Croissants
+Muffin
+Muffins
+English Muffin
+English Muffins
+Flatbread
+Flatbreads
+Focaccia
+Focaccias
+Garlic Bread
+Garlic Breads
+Granola
+Granolas
+Muesli
+Mueslis
+Multigrain Bread
+Multigrain Breads
+Naan
+Naans
+Oatmeal
+Oatmeals
+Oat
+Oats
+Pita Bread
+Pita Breads
+Potato Bread
+Potato Breads
+Raisin Bread
+Raisin Breads
+Roll
+Rolls
+Rye Bread
+Rye Breads
+Scone
+Scones
+Sourdough Bread
+Sourdough Breads
+Toast
+Toasts
+Tortilla
+Tortillas
+Wheat Bread
+Wheat Breads
+White Bread
+White Breads
+Whole Wheat Bread
+Whole Wheat Breads
+Wrap
+Wraps
+Fruit Bread
+Fruit Breads
+Bagel
+Bagels
+Chapatti
+Chapattis
+Hearth Bread
+Hearth Breads
+Kibbled Bread
+Kibbled Breads
+Matzo Bread
+Matzo Breads
+Unleavened Bread
+Unleavened Breads
+Brown Bread
+Brown Breads
+Lavash Bread
+Lavash Breads
+Steamed Bread
+Steamed Breads
+Gluten free Bread
+Gluten free Breads
+Baguette
+Baguettes
+Ciabatta
+Ciabattas
+Damper
+Dampers
+Olive Bread
+Olive Breads
+Walnut Bread
+Walnut Breads
+Potato Dill Bread
+Potato Dill Breads
+Ricotta Polentas
+Foccacia
+Foccacias
+Pumpernickel
+Pumpernickel Bread
+Pumpernickel Breads
+Half & Half
+Cheese
+Cheeses
+Havarti
+Havartis
+Havarti Cheese
+Havarti Cheeses
+Margarine
+Margarines
+Mexican Cheese
+Mexican Cheeses
+gorgonzola cheese
+gorgonzola cheeses
+Milk
+Milks
+Cream
+Creams
+Sour cream
+Sour creams
+Smetana
+Smetanas
+Clotted cream
+Clotted creams
+Cultured buttermilk
+Cultured buttermilks
+Kefir
+Kefirs
+Milk Powder
+Condensed milk
+Condensed milks
+Baked milk
+Baked milks
+Buttermilk
+Buttermilks
+Ghee
+Curd
+Curds
+Whey
+Wheys
+Qvark
+Qvarks
+Clabber
+Clabbers
+Sour Cream
+Sour Creams
+String Cheese
+String Cheeses
+Blue Cheese
+Bleu Cheese
+Blue Cheeses
+Bleu Cheeses
+Swiss Cheese
+Swiss Cheeses
+Roquefort
+Roqueforts
+Camembert
+Camemberts
+Cotija
+Cotijas
+Chevre
+Chevres
+Feta
+Fetas
+Fetta
+Fettas
+Mozzarella
+Mozzarella Stick
+Mozzarella Sticks
+Mozzarellas
+Emmantal
+Emmentals
+Cheddar
+Cheddars
+Gouda
+Goudas
+Taleggio
+Taleggios
+Parmigiano
+Parmigiano Reggiano
+Parmigiano Reggianos
+Manchego
+Manchegos
+Monterey Jack
+Monterey Jacks
+pepper jack
+pepper jacks
+Scrambled Egg
+Scrambled Eggs
+Burger
+Burgers
+Burrito
+Burritos
+Calzone
+Calzones
+Cheese Pizza
+Cheese Pizzas
+Cheeseburger
+Cheeseburgers
+Chicken Nugget
+Chicken Nuggets
+Curry
+Curries
+Enchilada
+Enchiladas
+Fajita
+Fajitas
+Fries
+French Fry
+French Fries
+Hamburger
+Hamburgers
+Hash Brown
+Hash Browns
+Hot Dog
+Hot Dogs
+Nacho
+Nachos
+Onion Ring
+Onion Rings
+Pepperoni Pizza
+Pepperoni Pizzas
+Pizza
+Pizzas
+Quesadilla
+Quesadillas
+Taco
+Tacos
+Tostada
+Tostadas
+Veggie Burger
+Veggie Burgers
+Vermicelli
+Fusilli
+Orzo
+Ziti
+Penne
+Ruote
+Linguine
+Rigatoni
+Manicotti
+Jumbo Shells
+Farfalle
+Egg Noodles
+Ditalini
+Capellini
+Radiatore
+Tagliatelle
+Gnocchi
+Orecchiette
+fettuccine
+Conchiglie
+abalone
+Anchovy
+Anchovies
+Calamary
+Calamaries
+Calamari
+squid
+squids
+Carp
+Carps
+Catfish
+Catfishes
+Clam
+Clams
+Cod
+Cods
+Crab
+Crabs
+Crawfish
+Crawfishes
+Eel
+Eels
+Fish
+Fishes
+Flounder
+Flounders
+Haddock
+Haddocks
+Halibut
+Halibuts
+Herring
+Herrings
+Lobster
+Lobsters
+Mackerel
+Mackerels
+Mahi Mahi
+Mahi-Mahi
+Mahi Mahis
+Mussel
+Mussels
+Octopus
+Octopuses
+Octopi
+Oyster
+Oysters
+Salmon
+Salmons
+Sardine
+Sardines
+Scallop
+Scallops
+Seafood
+Seafoods
+Shrimp
+Shrimps
+Smoked Salmon
+Smoked Salmons
+Snapper
+Snappers
+Swordfish
+Swordfishes
+Tilapia
+Tilapias
+Trout
+Trouts
+Tuna
+Tunas
+Apple
+Apples
+Apricot
+Apricots
+Avocado
+Avocados
+Banana
+Bananas
+Berry
+Berries
+Blackberry
+Blackberries
+Blueberry
+Blueberries
+Cantaloupe
+Cantaloupes
+Cherry
+Cherries
+Coconut
+Coconuts
+Cranberry
+Cranberries
+Dates
+Dried Fruit
+Dried Fruits
+Fig
+Figs
+Fruit Salad
+Fruit Salads
+Grapefruit
+Grapefruits
+Grape
+Grapes
+Honeydew Melon
+Honeydew Melons
+Kiwifruit
+Kiwifruits
+lychee
+lychees
+Litchi
+Litchis
+Orange
+Oranges
+Mandarin Orange
+Mandarin Oranges
+Mango
+Mangos
+Melon
+Melons
+Lemon
+Lemons
+Lime
+Limes
+Nectarine
+Nectarines
+Papaya
+Papayas
+Peach
+Peaches
+Pear
+Pears
+Pineapple
+Pineapples
+Plum
+Plums
+Prune
+Prunes
+Raisin
+Raisins
+Raspberry
+Raspberries
+Strawberry
+Strawberries
+Watermelon
+Watermelons
+Bacon
+Bacons
+Beef
+Beefs
+Sirloin
+Bologna
+Bolognas
+Brisket
+Briskets
+Chicken
+Chickens
+Breast
+Breasts
+Chicken Breast
+Chicken Breasts
+Drumstick
+Drumsticks
+Thigh
+Thighs
+Chicken Wing
+Chicken Wings
+Wing
+Wings
+Corned Beef
+Corned Beefs
+Duck
+Ducks
+Fried Chicken
+Fried Chickens
+Grilled Chicken
+Grilled Chickens
+Ground Beef
+Ground Beefs
+Ground Chicken
+Ground Chickens
+Ground Pork
+Ground Porks
+Ground Turkey
+Ground Turkeys
+Ham
+Hams
+Lamb
+Lambs
+Lamb Chop
+Lamb Chops
+Meatball
+Meatballs
+Meatloaf
+Meatloaves
+Pastrami
+Pastramis
+Pepperoni
+Pepperonis
+Pork
+Porks
+Pork Chop
+Pork Chops
+Rib
+Ribs
+scallopini
+Roast Beef
+Roast Beefs
+Roast Chicken
+Roast Chickens
+Roast Pork
+Roast Porks
+Roast Turkey
+Roast Turkeys
+Roasted Beef
+Roasted Beefs
+Roasted Chicken
+Roasted Chickens
+Roasted Pork
+Roasted Porks
+Roasted Turkey
+Roasted Turkeys
+Salami
+Salamis
+Sausage
+Sausages
+Italian Sausage
+Italian Sausages
+prosciutto
+Steak
+Steaks
+Turkey
+Turkeys
+Turkey Bacon
+Turkey Bacons
+Turkey Breast
+Turkey Breasts
+Veal
+Veals
+Almond
+Almonds
+Brazil Nut
+Brazil Nuts
+Cashew
+Cashews
+Chestnut
+Chestnuts
+Macadamia
+Macadamia Nut
+Macadamia Nuts
+Mixed Nut
+Mixed Nuts
+Nut
+Nuts
+Peanut
+Peanuts
+Pecan
+Pecans
+Pine Nut
+Pine Nuts
+Pistachio
+Pistachios
+Seed
+Seeds
+Soy Nut
+Soy Nuts
+Sunflower
+Sunflower Seed
+Sunflower Seeds
+Walnut
+Walnuts
+Brown Rice
+Brown Rices
+Couscous
+Couscouses
+Fried Rice
+Fried Rices
+Gnocco
+Gnocchi
+Jambalaya
+Jambalayas
+Lasagna
+Lasagnas
+Macaroni
+Macaronis
+Noodle
+Noodles
+Paella
+Paellas
+Pasta
+Pastas
+Pilaf
+Pilafs
+Polenta
+Polentas
+Ravioli
+Raviolo
+Rice
+Risotto
+Risottos
+Spaghettis
+Spaghetti
+Tortellini
+Tortellinis
+White Rice
+White Rices
+Wild Rice
+Wild Rices
+Caesar Salad
+Caesar Salads
+Chicken Salad
+Chicken Salads
+Coleslaw
+Coleslaws
+Egg Salad
+Egg Salads
+Garden Salad
+Garden Salads
+Greek Salad
+Greek Salads
+Pasta Salad
+Pasta Salads
+Potato Salad
+Potato Salads
+Salad
+Salads
+Taco Salad
+Taco Salads
+Tuna Salad
+Tuna Salads
+Applesauce
+Applesauces
+Barbecue Sauce
+Barbecue Sauces
+Caesar Dressing
+Caesar Dressings
+Chutney
+Chutneys
+Dip
+Dips
+French Dressing
+French Dressings
+Gravy
+Gravies
+Guacamole
+Guacamoles
+Honey
+Honeys
+Hummus
+Italian Dressing
+Italian Dressings
+Jam
+Jams
+Ketchup
+Ketchups
+Maple Syrup
+Maple Syrups
+Mayonnaise
+Mayonnaises
+Mayo
+Mayos
+Mustard
+Mustards
+Oil
+Oils
+Olive Oil
+Olive Oils
+Pasta Sauce
+Pasta Sauces
+Peanut Butter
+Peanut Butters
+Peanut Sauce
+Peanut Sauces
+Pepper
+Peppers
+Ranch Dressing
+Ranch Dressings
+Relish
+Relishes
+Salad Dressing
+Salad Dressings
+Salsa
+Salsas
+Salt
+Salts
+Sauce
+Sauces
+Seasoning
+Seasonings
+Soy Sauce
+Soy Sauces
+Sugar
+Sugars
+Sweetener
+Sweeteners
+Syrup
+Syrups
+Tahini
+Teriyaki Sauce
+Teriyaki Sauces
+Vegetable Oil
+Vegetable Oils
+Vinaigrette
+Vinaigrettes
+Vinegar
+Vinegars
+Cereal Bar
+Cereal Bars
+Chip
+Chips
+Corn Chip
+Corn Chips
+Cracker
+Crackers
+Crispbread
+Crispbreads
+Granola Bar
+Granola Bars
+Gum
+Gums
+Jerky
+Jerkies
+Nutrition Bar
+Nutrition Bars
+Popcorn
+Popcorns
+Potato Chip
+Potato Chips
+Pretzel
+Pretzels
+Rice Cake
+Rice Cakes
+Sandwich
+Sandwiches
+Sushi
+Sushis
+Tortilla Chip
+Tortilla Chips
+Trail Mix
+Trail Mixes
+Bisque
+Bisques
+Broth
+Broths
+Chicken Soup
+Chicken Soups
+Chili
+Chilis
+Chowder
+Chowders
+Gumbo
+Gumbos
+arugula
+arugulas
+Miso Soup
+Miso Soups
+Noodle Soup
+Noodle Soups
+Soup
+Soups
+Stew
+Stews
+Tomato Soup
+Tomato Soups
+Browny
+Brownies
+Cake
+Cakes
+Candy
+Candies
+Cheesecake
+Cheesecakes
+Chocolate
+Chocolates
+Cookies
+Cookie
+Crepe
+Crepes
+Cupcake
+Cupcakes
+Custard
+Custards
+Dark Chocolate
+Dark Chocolates
+Donut
+Donuts
+Frozen Yogurt
+Frozen Yogurts
+Fudge
+Fudges
+Cone
+Cones
+Ice Cream Cone
+Ice Cream Cones
+Ice Cream
+Ice Creams
+Ice Pop
+Ice Pops
+Licorice
+Licorices
+Marshmallow
+Marshmallows
+Pancake
+Pancakes
+Pastry
+Pastries
+Pie
+Pies
+Pudding
+Puddings
+Soft Serve Ice Cream
+Soft Serve Ice Creams
+Sorbet
+Sorbets
+Souffle
+Souffles
+Strudel
+Strudels
+Sundae
+Sundaes
+Sweet Roll
+Sweet Rolls
+Wafer
+Wafers
+Waffle
+Waffles
+Artichoke
+Artichokes
+Asparagus
+Asparaguses
+Baby Carrot
+Baby Carrots
+Baked Potato
+Baked Potatoes
+Beet
+Beets
+Romaine
+Romaines
+Broccoli
+Broccolis
+Brussels Sprout
+Brussels Sprouts
+Cabbage
+Cabbages
+Carrot
+Carrots
+Cauliflower
+Cauliflowers
+Celery
+Celeries
+Cherry Tomato
+Cherry Tomatoes
+Corn
+Corns
+Corn on the Cob
+Corn on the Cobs
+Cucumber
+Cucumbers
+Edamame
+Edamames
+Eggplant
+Eggplants
+Garlic
+Garlics
+Green Pea
+Green Peas
+Jalapeno
+Jalapenos
+Kale
+Kales
+Leek
+Leeks
+Lettuce
+Lettuces
+Mashed Potato
+Mashed Potatoes
+Mixed Vegetable
+Mixed Vegetables
+Mushroom
+Mushrooms
+Okra
+Okras
+Olive
+Olives
+Onion
+Onions
+Parsnip
+Parsnips
+Pepper
+Peppers
+Pea
+Peas
+Pickle
+Pickles
+Potato
+Potatoes
+Pumpkin
+Pumpkins
+Radish
+Radishes
+Spinach
+Spinaches
+Squash
+Squashes
+Succotash
+Sweet Potato
+Sweet Potatoes
+Scallion
+Sesame
+Tomato
+Tomatoes
+Turnip
+Turnips
+Yam
+Yams
+Zucchini
+Zucchinis
+vanilla
+Alfalfa
+Alfalfas
+chard
+chards
+rhubarb
+Almond Butter
+Almond Butters
+Almond Milk
+Almond Milks
+Apple Cider
+Apple Ciders
+Apple Pie
+Apple Pies
+Barley
+Barleys
+Beverage
+Beverages
+Bison
+Bisons
+Blueberry Pie
+Blueberry Pies
+Bread Crumb
+Bread Crumbs
+Breakfast
+Brown Sugar
+Brown Sugars
+Bulgur
+Caper
+Capers
+Carrot Cake
+Carrot Cakes
+Casserole
+Casseroles
+Challah
+Challahs
+Champagne
+Champagnes
+Cherry Pie
+Cherry Pies
+Chilaquile
+Chilaquiles
+Chimichanga
+Chimichangas
+Chocolate Cake
+Chocolate Cakes
+Chocolate Chip Cookies
+Chow Mein
+Chow Meins
+Cobbler
+Cobblers
+Coffee Creamer
+Coffee Creamers
+Collard
+Collards
+Corn Dog
+Corn Dogs
+Cornmeal
+Cornmeals
+Crouton
+Croutons
+Dessert
+Desserts
+Dumpling
+Dumplings
+Egg Roll
+Egg Rolls
+Eggnog
+Eggnogs
+Empanada
+Empanadas
+Falafel
+Falafels
+Fish Oil
+Fish Oils
+Flour
+Flours
+French Toast
+French Toasts
+Fritter
+Fritters
+Frosting
+Frostings
+Frozen Drink
+Frozen Drinks
+Fruit
+Fruits
+Fruit Cocktail
+Fruit Cocktails
+Gelatin
+Gelatins
+Goulash
+Goulashes
+Grape Juice
+Grape Juices
+Grapefruit Juice
+Grapefruit Juices
+Grit
+Grits
+Gyro
+Gyros
+Hominy
+Hominies
+Horseradish
+Horseradishes
+Hot Chocolate
+Hot Chocolates
+Lo Mein
+Lo Meins
+Malt Drink
+Malt Drinks
+Meatless Food
+Meatless Foods
+Melt Sandwich
+Melt Sandwiches
+Mousse
+Mousses
+Nectar
+Nectars
+Nougat
+Nougats
+Nutrition Drink
+Nutrition Drinks
+Pecan Pie
+Pecan Pies
+Crust
+Pie Crust
+Pie Crusts
+Potato Skin
+Potato Skins
+Protein Powder
+Protein Powders
+Quiche
+Quiches
+Raisin Bran
+Raisin Brans
+Red Potato
+Red Potatoes
+Rice Noodle
+Rice Noodles
+Roasted Potato
+Roasted Potatoes
+Rum
+Rums
+Samosa
+Samosas
+Sandwich Cookies
+Sauerkraut
+Sauerkrauts
+Seaweed
+Seaweeds
+Shallot
+Shallots
+Sherbet
+Sherbets
+Side
+Sides
+Snack
+Snacks
+Snow Pea
+Snow Peas
+Soy Yogurt
+Soy Yogurts
+Spread
+Spreads
+Spring Roll
+Spring Rolls
+Stir Fry
+Stir Frys
+Stuffing
+Stuffings
+Sun Dried Tomato
+Sun Dried Tomatoes
+Supplement
+Supplements
+Tabouli
+Taco Shell
+Taco Shells
+Tamale
+Tamales
+Taquito
+Taquitos
+Tempeh
+Tempura
+Tempuras
+Topping
+Toppings
+Turnover
+Turnovers
+Vegetable
+Vegetables
+Water Chestnut
+Water Chestnuts
+Garlic Powder
+Garlic Powders
+Whole Peppercorn
+Whole Peppercorns
+Oregano
+Oreganos
+Basil
+Basils
+Dill
+Dill Weed
+Dill Weeds
+Cumin
+Cumins
+Cinnamon
+Cinnamons
+Nutmeg
+Nutmegs
+Rosemary
+Rosemaries
+Saffron
+Saffrons
+Sage
+Sages
+Thyme
+Thymes
+Parsley
+Parsleys
+Bay Leaf
+Bay Leafs
+Tarragon
+Tarragons
+Onion Powder
+Onion Powders
+Chile Powder
+Chile Powders
+Celery Seed
+Celery Seeds
+Arrowroot
+Arrowroots
+Tomato Sauce
+Tomato Sauces
+Gorgonzola Sauce
+Gorgonzola Sauces
+Pesto Sauce
+Pesto Sauces
+Meat Sauce
+Meat Sauces
+Tomato Cream Sauce
+Tomato Cream Sauces
+Alfredo Sauce
+Alfredo Sauces
+Marinara
+Marinara Sauce
+Marinara Sauces
+Bacon & Cheese Sauce
+Bacon & Cheese Sauces
+Chunky Traditional Sauce
+Chunky Traditional Sauces
+Mushroom Sauce
+Mushroom Sauces
+Roasted Garlic Sauce
+Roasted Garlic Sauces
+Spicy Marinara Sauce
+Spicy Marinara Sauces
+Sweet Peppers Sauce
+Sweet Peppers Sauces
+Three Cheese Sauce
+Three Cheese Sauces
+Tomato & Basil Sauce
+Tomato & Basil Sauces
+Traditional Sauce
+Traditional Sauces
+Tuscan Herb Sauce
+Tuscan Herb Sauces
+Onion gravy
+Onion gravies
+Bow Wow Sauce
+Bow Wow Sauces
+Marie Rose sauce
+Marie Rose sauces
+Brown sauce
+Brown sauces
+White sauce
+White sauces
+Cheddar sauce
+Cheddar sauces
+Whisky sauce
+Whisky sauces
+Worchestershire sauce
+Worchestershire sauces
+Redcurrant sauce
+Redcurrant sauces
+Albert sauce
+Albert sauces
+Cumberland sauce
+Cumberland sauces
+Oxford sauce
+Oxford sauces
+Mint sauce
+Mint sauces
+Apple sauce
+Apple sauces
+Horseradish sauce
+Horseradish sauces
+hollandaise sauce
+hollandaise sauces
+Tewkesbury mustard
+Tewkesbury mustards
+Comeback sauce
+Comeback sauces
+Henry Bain sauce
+Henry Bain sauces
+Mumbo sauce
+Mumbo sauces
+Red eye gravy
+Red eye gravies
+Sausage gravy
+Sausage gravies
+cognac
+Grilled
+Roasted
+Baked
+Gratined
+Broiled
+Pan broiled
+Deep Fried
+Pan Fried
+Stir fried
+butterflied
+Sauted
+Boiled
+Simmered
+Steamed
+Blanched
+Poached
+Braised
+Stewed
+Marinaded
+Smoked
+Pureed
+Seasoned
+Basting
+Grilling
+Girdling
+Glazing
+Saute
+spicy
+yummy
+sweet
+sour
+salty
+mince
+tendre
+fondu
+veloute
+soyeux
+souplesse
+rondeur
+plein
+charnu
+onctueux
+murs
+corse
+solide
+maigreur
+creux
+anemique
+bref
+maigris
+brut
+raide
+acerbe
+acide
+verdelet
+vert
+aigreur
+dur
+ferme
+reche
+rugueur
+moelleux
+fraicheur
+pateux
+salee
+alcaline
+doucereux
+douceatres
+mielleux
+pommade
+Creamy
+succulent
+Tropical
