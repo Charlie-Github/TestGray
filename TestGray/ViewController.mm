@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "GrayScale.h"
 #import "UIImage+vImage.h"
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
@@ -21,6 +20,8 @@
 @interface ViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
+
 
 @end
 
@@ -34,15 +35,11 @@
     
     
     NSDate *tdStart = [NSDate date];
-    
-    
-    
-    
     // Test Cases
     
-//    NSString *image_0 = @"lena.png";
-//    NSString *image_1 = @"Menu_1.JPG";
-//    NSString *image_2 = @"Menu_2.JPG";
+    NSString *image_0 = @"image_gauss_blur.png";
+    NSString *image_1 = @"IMG_0559.JPG";
+    NSString *image_2 = @"Menu_2.JPG";
     NSString *image_3 = @"image_black.jpg";
     NSString *image_4 = @"Menu_4.PNG";
     NSString *image_5 = @"Menu_5.JPG";
@@ -54,7 +51,7 @@
     NSString *image_11 = @"IMG_black_test.JPG";
     
     // Load image
-    UIImage *img = [UIImage imageNamed: image_7];
+    UIImage *img = [UIImage imageNamed: image_11];
 	cv::Mat tempMat = [img CVMat];
     
     
@@ -63,34 +60,20 @@
     tempMat = [ipp processImage:tempMat];
     img = [UIImage imageWithCVMat:tempMat]; //convert UIimage into CV mat
     //charlie's image pre pro ends here
+   
     
-     
-    
-    /*
     //charlie's text detection call
     TextDetector2 *td = [[TextDetector2 alloc]init];
-    tempMat = [td findTextArea:tempMat]; //putting the image in an UIImage format
+    tempMat = [td findTextArea:img]; //putting the image in an UIImage format
     //text detection call end here
-    */
+    
     
     img = [UIImage imageWithCVMat:tempMat]; //convert the mat back into UIImage format
 	
-    /*
-    //Text corrector
-    NSString *wrong_word = @"tost";
-    WordCorrector *wc = [[WordCorrector alloc]init];
-    NSString *correct_word = [wc correctWord: wrong_word];
-    NSLog(@"correct_word is: %@", correct_word);
-    // text corrector ends here
-    */
     
     NSDate *tdFinish = [NSDate date];
     NSTimeInterval tdTime = [tdFinish timeIntervalSinceDate:tdStart];
     NSLog(@"-----------------ImagePrePro Time = %f", tdTime);
-    
-    UIReferenceLibraryViewController *referenceLibraryViewController =
-    [[UIReferenceLibraryViewController alloc] initWithTerm:@"apple"];
-
     
     
     /************************************* End OpenCV test *******************************************************/

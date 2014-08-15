@@ -15,36 +15,32 @@ using namespace std;
 
 @implementation TextDetector2
 
--(NSMutableArray*)findTextArea: (UIImage*)inputImage{
+-(Mat)findTextArea: (UIImage*)inputImage{
     
     NSLog(@"TextDetector: Called!");
     
-    cv::Mat inputMat = [inputImage CVMat];
+    Mat inputMat = [inputImage CVMat];
     NSMutableArray *imgUIArray = [[NSMutableArray alloc] init];;
-    imgUIArray = [self findContour:inputMat:inputMat];
+    inputMat = [self findContour:inputMat:inputMat];
     
-    //NSArray *imgArray = [NSArray arrayWithArray:imgUIArray]; // output
-    //UIImage* testUIImage = [imgUIArray objectAtIndex:0];
-    //inputImage = [testUIImage CVMat];
-    
-    return imgUIArray;
+    return inputMat;
 }
 
 
 //-----------find contour
 
 typedef vector<vector<cv::Point> > TContours;//global
--(NSMutableArray*)findContour:(cv::Mat)inputImg :(cv::Mat)orgImage{
+-(Mat)findContour:(Mat)inputImg :(Mat)orgImage{
     
-    cv::cvtColor( inputImg, inputImg, cv::COLOR_BGR2GRAY );
+    cvtColor( inputImg, inputImg, COLOR_BGR2GRAY );
     
     //cv::fastNlMeansDenoising(inputImg, inputImg, 3.0f, 7, 21);
     
-    double high_thres = cv::threshold( inputImg, inputImg, 0, 255, THRESH_BINARY+THRESH_OTSU );
+    double high_thres = threshold( inputImg, inputImg, 0, 255, THRESH_BINARY+THRESH_OTSU );
     
-    cv::Mat canny_output;
+    Mat canny_output;
     NSMutableArray *UIRects = [[NSMutableArray alloc] init];
-    vector<cv::Vec4i> hierarchy;
+    vector<Vec4i> hierarchy;
     
     /// Detect edges using canny
     Canny( inputImg, canny_output, high_thres*0.5, high_thres, 3 );
@@ -70,11 +66,11 @@ typedef vector<vector<cv::Point> > TContours;//global
     int counter_tempRect = 0;
     for( int i = 0; i < contours.size();i++)
     {
-        //drawContours( drawing, contours, i, Scalar(255,0,0), 1, 8, hierarchy, 0, cv::Point() );
+        drawContours( drawing, contours, i, Scalar(255,0,0), 1, 8, hierarchy, 0, cv::Point() );
         approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
-        cv::Rect tempRect = boundingRect( Mat(contours_poly[i]));
+        cv::Rect tempRect = boundingRect(Mat(contours_poly[i]));
         
-        if(tempRect.width < 3 || tempRect.height < 3){
+        if(tempRect.width < 2 || tempRect.height < 3){
             counter_noise ++;
             
         }else{
@@ -86,7 +82,7 @@ typedef vector<vector<cv::Point> > TContours;//global
     
     NSLog(@"TextDetector: noise counter: %d",counter_noise);
     
-    if(counter_noise < 800){
+    if(counter_noise < 1500){
         //---remove insider rects
         vector<cv::Rect> outRect;
         outRect = [self removeInsider:boundRect];
@@ -103,10 +99,10 @@ typedef vector<vector<cv::Point> > TContours;//global
         for(int i = 0; i< sigle_rects.size(); i++){
             if(sigle_rects[i].width > 10 && sigle_rects[i].height > 15 )
             {
-                cv::Mat tmpMat;
+                Mat tmpMat;
                 
-                int x = cv::max(sigle_rects[i].x-3,0);
-                int y = cv::max(sigle_rects[i].y-3,0);
+                int x = max(sigle_rects[i].x-3,0);
+                int y = max(sigle_rects[i].y-3,0);
                 int w = sigle_rects[i].width;
                 int h = sigle_rects[i].height;
                 
@@ -129,16 +125,16 @@ typedef vector<vector<cv::Point> > TContours;//global
                 
                 [UIRects addObject:[UIImage imageWithCVMat:tmpMat]];
                 
-                //rectangle(drawing, tempRect.tl(), tempRect.br(), Scalar(0,0,255), 1, 8, 0 ); // draw rectangles
+                rectangle(drawing, tempRect.tl(), tempRect.br(), Scalar(0,0,255), 1, 8, 0 ); // draw rectangles
             }
             else{
                 //NSLog(@"nothing to draw: %d",i);
             }
         }
-        //[UIRects addObject:[UIImage imageWithCVMat:drawing]];//add overview img to the end of the array
+
     }
-    return UIRects;
-    
+    //return UIRects;
+    return drawing;
 }
 
 //Comparison function for std::sort
@@ -163,7 +159,7 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
     for( int i = 0; i< rects.size(); i++ )
     {
         flag = 0;
-        cv::Rect rect0 = rects[i]; //temp
+        cv::Rect rect0 = rects[i]; //temp Rect
         
         if(rect0.height==0 || rect0.width == 0){
             break;

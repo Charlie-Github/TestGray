@@ -2,7 +2,7 @@
 //  TextDetector.h
 //  TestGray
 //
-//  Created by CharlieGao on 5/22/14.
+//  Created by CharlieGao on 7/01/14.
 //  Copyright (c) 2014 Edible Innovations LLC. All rights reserved.
 //
 
@@ -10,6 +10,6 @@
 
 @interface TextDetector2 : NSObject
 
--(NSMutableArray*)findTextArea: (UIImage*)inputImage; // main
+-(cv::Mat)findTextArea: (UIImage*)inputImage; // main
 
 @end
