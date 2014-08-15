@@ -20,7 +20,7 @@ using namespace std;
     NSLog(@"TextDetector: Called!");
     
     Mat inputMat = [inputImage CVMat];
-    NSMutableArray *imgUIArray = [[NSMutableArray alloc] init];;
+    //NSMutableArray *imgUIArray = [[NSMutableArray alloc] init];;
     inputMat = [self findContour:inputMat:inputMat];
     
     return inputMat;

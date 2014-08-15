@@ -20,7 +20,6 @@
 @interface ViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 
 @end
@@ -36,7 +35,7 @@
     
     NSDate *tdStart = [NSDate date];
     // Test Cases
-    
+    /*
     NSString *image_0 = @"image_gauss_blur.png";
     NSString *image_1 = @"IMG_0559.JPG";
     NSString *image_2 = @"Menu_2.JPG";
@@ -48,6 +47,7 @@
     NSString *image_8 = @"IMG_0533.JPG";
     NSString *image_9 = @"IMG_0513.jpg";
     NSString *image_10 = @"image_book.jpg";
+    */
     NSString *image_11 = @"IMG_black_test.JPG";
     
     // Load image
