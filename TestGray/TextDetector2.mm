@@ -58,9 +58,9 @@ typedef vector<vector<cv::Point> > TContours;//global
     
     /// Approximate contours to polygons + get bounding rects and circles
     vector<vector<cv::Point> > contours_poly( contours.size() );
-    vector<cv::Rect> boundRect(contours.size() );
-    vector<Point2f>center(contours.size() );
-    vector<float>radius(contours.size() );
+    vector<cv::Rect> boundRect(contours.size());
+    vector<Point2f>center(contours.size());
+    vector<float>radius(contours.size());
     
     int counter_noise = 0;
     int counter_tempRect = 0;
