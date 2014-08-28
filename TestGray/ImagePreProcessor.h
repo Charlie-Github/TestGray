@@ -22,4 +22,6 @@
 
 -(cv::Mat)increaseContrast:(cv::Mat)inputMat;
 
+-(cv::Mat)process:(cv::Mat)inputRectImg;
+
 @end

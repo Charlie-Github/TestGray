@@ -21,9 +21,8 @@ using namespace std;
     NSLog(@"ImagePrePro: Called!");
     
     Mat output;
-    int backGround = 1;
-    backGround = [self checkBackground2:inputImage];
-    
+    output = [self process:inputImage];
+/*
     if (backGround == 0) {
         NSLog(@"ImagePrePro: Black Backgroud");
         
@@ -53,8 +52,8 @@ using namespace std;
         NSLog(@"ImagePrePro: Test mode 2");
         
     }
-    
-    return inputImage;
+*/
+    return output;
     
     
     
@@ -192,11 +191,11 @@ using namespace std;
     size.width = 3;
     
     GaussianBlur(channels[0], channels[0], size, 0.5);
-    threshold(channels[0], channels[0], 0,255, THRESH_TRUNC | THRESH_OTSU);
+    threshold(channels[0], channels[0], 0,255, THRESH_OTSU);
     
     //--Simple end here
     
-    adaptiveThreshold(channels[0], channels[0], 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY,11, 2);
+//    adaptiveThreshold(channels[0], channels[0], 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY,11, 2);
     merge(channels,img_threshold); //merge 3 channels including the modified 1st channel into one image
     cvtColor(img_threshold, img_threshold, COLOR_YCrCb2BGR); //change the color image from YCrCb to BGR format
     
@@ -230,11 +229,11 @@ using namespace std;
     
     bitwise_not(channels[0], channels[0]);
     
-    threshold(channels[0], channels[0], 0,255, THRESH_TRUNC | THRESH_OTSU);
+    threshold(channels[0], channels[0], 0,255, THRESH_OTSU);
     
     //--Simple ends here
     
-    adaptiveThreshold(channels[0], channels[0], 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY,11, 2);
+//    adaptiveThreshold(channels[0], channels[0], 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY,11, 2);
     merge(channels,img_threshold); //merge 3 channels including the modified 1st channel into one image
     cvtColor(img_threshold, img_threshold, COLOR_YCrCb2BGR); //change the color image from YCrCb to BGR format
     
@@ -245,59 +244,63 @@ using namespace std;
 //------/Threshold method
 
 
--(int)checkBackground2:(Mat)inputRectImg{
+-(Mat)process:(Mat)inputRectImg
+{
+//    imwrite("/Users/canoee/Documents/BlueCheese/code/TestGray/input.png", inputRectImg);
     
     vector<Mat> channels;
     cvtColor(inputRectImg, inputRectImg, COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
     split(inputRectImg,channels); //split the image into channels
     
-    inputRectImg = channels[0]; //keep gray channel
+//    inputRectImg = channels[0]; //keep gray channel
+    
+    //binarize the image, and find out which is more, black or white, and what is occupying the corners
+    threshold(channels[0], channels[0], 0, 255, THRESH_OTSU);
+//    imwrite("/Users/canoee/Documents/BlueCheese/code/TestGray/inputBW.png", inputRectImg);
     
     int rows = inputRectImg.rows;
     int cols = inputRectImg.cols;
     
     //count the sum of the pixl for the whole rect img
-    int sum_pixl = 0;
-    int sum_outer_pixl = 0;
-    int counter_outer = 1;
-    int counter_inner = 1;
-    
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            uchar pixl = inputRectImg.at<uchar>(i,j);
+    int counter_outer = 0;
+    int counter_inner = 0;
+
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            uchar pixl = channels[0].at<uchar>(i,j);
             int pixl_int = pixl - '0';
             
-            if(i < 3 || j < 3 || i > (rows - 4) || j > (cols - 4)){
-                sum_outer_pixl = sum_outer_pixl + pixl_int;
-                counter_outer++;
+            if(pixl_int > 100)
+            {
+                counter_inner++;
                 
             }
-            
-            sum_pixl = sum_pixl + pixl_int;
-            counter_inner++;
-            
-            
+            else
+            {
+                counter_outer++;
+            }
         }
     }
-    //count the average of the pixels
-    int ave_pixl = sum_pixl/counter_inner;
-    int ave_outer_pixl = sum_outer_pixl/counter_outer;
+
+    NSLog(@"ImagePrePro: all: %u",counter_inner);
+    NSLog(@"ImagePrePro: out: %u",counter_outer);
     
-    NSLog(@"ImagePrePro: all: %u",ave_pixl);
-    NSLog(@"ImagePrePro: out: %u",ave_outer_pixl);
-    
-    
-    if(ave_pixl <= ave_outer_pixl){
-        
-        return 1;// normal i.e. white paper black words
-    }
-    if(ave_pixl > ave_outer_pixl){
-        return 0;// black paper white words
-    }
-    else{
-        return 1;//test mode
+    //if the image is black background
+    if(counter_inner <= counter_outer)
+    {
+        bitwise_not(channels[0], channels[0]);
     }
     
+    merge(channels,inputRectImg); //merge 3 channels including the modified 1st channel into one image
+    cvtColor(inputRectImg, inputRectImg, COLOR_YCrCb2BGR); //change the color image from YCrCb to BGR format
+ 
+    
+//    inputRectImg = [self erode:inputRectImg];
+//    inputRectImg = [self dilate:inputRectImg];
+    
+    return inputRectImg;
 }
 
 @end
