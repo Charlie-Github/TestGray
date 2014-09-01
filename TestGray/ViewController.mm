@@ -46,7 +46,7 @@
     NSString *image_7 = @"IMG_2018.JPG";
     NSString *image_8 = @"IMG_0533.JPG";
     NSString *image_9 = @"IMG_0513.jpg";
-    NSString *image_10 = @"IMG_0908.jpg";
+    NSString *image_10 = @"IMG_20.jpg";
     NSString *image_11 = @"IMG_black_test.JPG";
     
     // Load image

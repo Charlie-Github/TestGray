@@ -70,7 +70,7 @@ typedef vector<vector<cv::Point> > TContours;//global
         approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
         cv::Rect tempRect = boundingRect(Mat(contours_poly[i]));
         
-        if(tempRect.width < 2 || tempRect.height < 3){
+        if(tempRect.width < 2 || tempRect.height < 2){
             counter_noise ++;
             
         }else{
@@ -125,7 +125,7 @@ typedef vector<vector<cv::Point> > TContours;//global
                 
                 [UIRects addObject:[UIImage imageWithCVMat:tmpMat]];
                 
-                rectangle(drawing, tempRect.tl(), tempRect.br(), Scalar(0,0,255), 1, 8, 0 ); // draw rectangles
+                rectangle(drawing, tempRect.tl(), tempRect.br(), Scalar(0,0,255), 2, 8, 0 ); // draw rectangles
             }
             else{
                 //NSLog(@"nothing to draw: %d",i);
