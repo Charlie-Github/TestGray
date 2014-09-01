@@ -266,17 +266,20 @@ using namespace std;
     {
         for (int j = 0; j < cols; j++)
         {
-            uchar pixl = channels[0].at<uchar>(i,j);
-            int pixl_int = pixl - '0';
-            
-            if(pixl_int > 100)
+            if((i<10||i>rows-11)&&(j<10||j>cols-11))
             {
-                counter_inner++;
+                uchar pixl = channels[0].at<uchar>(i,j);
+                int pixl_int = pixl - '0';
                 
-            }
-            else
-            {
-                counter_outer++;
+                if(pixl_int > 100)
+                {
+                    counter_inner++;
+                    
+                }
+                else
+                {
+                    counter_outer++;
+                }
             }
         }
     }

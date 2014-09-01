@@ -44,7 +44,7 @@ typedef vector<vector<cv::Point> > TContours;//global
     Mat temp;
     threshold(inputImg, input_th, 0, 255, THRESH_OTSU);
     
-//    imwrite("/Users/canoee/Documents/BlueCheese/code/TestGray/input_th.png", input_th);
+    imwrite("/Users/canoee/Documents/BlueCheese/code/TestGray/input_th.png", input_th);
     
     TContours contours;
 
@@ -108,13 +108,13 @@ typedef vector<vector<cv::Point> > TContours;//global
     
     //----sort vectors
     vector<cv::Rect> result_rects;
-    result_rects = merged_rects;
+    result_rects =merged_rects;
     
     std::sort(result_rects.begin(), result_rects.end(), compareLoc);
     
     for(int i = 0; i< result_rects.size(); i++)
     {
-        if(result_rects[i].width > 10 && result_rects[i].height > 15 )
+//        if(result_rects[i].width > 10 && result_rects[i].height > 15 )
         {
             Mat tmpMat;
             
@@ -259,40 +259,42 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b)
             
             //find the distances between
             //need more thinking about the signs
-            int dist_x_center = abs(c1.x - c0.x);        //distance between centers in x
-            int dist_x = dist_x_center - (tempRect.width+rects[j].width)/2;    //the distance should be the center minus the half width sum.
-            
             int dist_y_center = abs(c1.y - c0.y);   //distance between centers in y
             int dist_th = min(rects[j].height,tempRect.height)/2;           //threshold is set at half of mean height
-            int diff_height = abs(tempRect.height - rects[j].height);       //difference of heights
             
-            bool flag_x = false;                //used to determine the x directions
-            bool flag_y = false;
-            
-            //determine the x direction
-            if(dist_x < 40)                     //the number NEED to be changed maybe
+            if(dist_y_center<dist_th)               //Do nothing for the words not on the same line
             {
-                flag_x = true;
-            }
-            
-            //determine the y direction
-            if(dist_y_center < dist_th)
-            {
-                flag_y = true;
-            }
-            
-            if( flag_x && flag_y && i != j && diff_height < (dist_th))
-            {
-                //if two rects are close, then merge the insider to the current,
-                //delete the merged one,
-                tempRect |= rects[j];
-                rects.erase(rects.begin()+j);
-                j = -1;                             //whenever a merge is found, start from beginning
-                rectSize --;
-            }
-            else
-            {
-                //Empty
+                int diff_height = abs(tempRect.height - rects[j].height);       //difference of heights
+                int dist_x_center = abs(c1.x - c0.x);        //distance between centers in x
+                int dist_x = dist_x_center - (tempRect.width+rects[j].width)/2;    //the distance should be the center minus the half width sum.
+                
+                bool flag_x = false;                //used to determine the x directions
+                bool flag_h = false;                //used to determine the height
+                
+                //determine the x direction
+                if(dist_x < 40)                     //the number NEED to be changed maybe
+                {
+                    flag_x = true;
+                }
+                
+                if(diff_height<dist_th || (tl0.y<tl1.y&&br0.y>br1.y) ||  (tl0.y>tl1.y&&br0.y<br1.y))
+                {
+                    flag_h = true;
+                }
+                
+                if( flag_x && i != j && flag_h )
+                {
+                    //if two rects are close, then merge the insider to the current,
+                    //delete the merged one,
+                    tempRect |= rects[j];
+                    rects.erase(rects.begin()+j);
+                    j = -1;                             //whenever a merge is found, start from beginning
+                    rectSize --;
+                }
+                else
+                {
+                    //Empty
+                }
             }
         }
         //only if the current shape is independent, that it will be put into the result vector
