@@ -151,7 +151,7 @@ typedef vector<vector<cv::Point> > TContours;//global
     }    
     
     //return UIRects;
-    imwrite("/Users/canoee/Documents/BlueCheese/code/TestGray/drawing.png", drawing);
+    //imwrite("/Users/canoee/Documents/BlueCheese/code/TestGray/drawing.png", drawing);
     return drawing;
 }
 

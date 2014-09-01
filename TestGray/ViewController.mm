@@ -41,27 +41,29 @@
     NSString *image_2 = @"Menu_2.JPG";
     NSString *image_3 = @"image_black.jpg";
     NSString *image_4 = @"Menu_4.PNG";
-    NSString *image_5 = @"Menu_5.JPG";
+    NSString *image_5 = @"Menu_6.PNG";
     NSString *image_6 = @"IMG_2227.JPG";
     NSString *image_7 = @"IMG_2018.JPG";
     NSString *image_8 = @"IMG_0533.JPG";
     NSString *image_9 = @"IMG_0519.jpg";
-    NSString *image_10 = @"image_book.jpg";
+    NSString *image_10 = @"IMG_0909.JPG";
     
     NSString *image_11 = @"IMG_black_test.JPG";
     NSString *image_12 = @"IMG_0551.JPG";
     
+    NSString *image_13 = @"IMG_19.jpg";
+    
     // Load image
-    UIImage *img = [UIImage imageNamed: image_9];
+    UIImage *img = [UIImage imageNamed: image_13];
 	cv::Mat tempMat = [img CVMat];
     
-    
+    /*
     //charlie's image pre pro starts here
     ImagePreProcessor *ipp = [[ImagePreProcessor alloc]init];
     tempMat = [ipp processImage:tempMat];
     img = [UIImage imageWithCVMat:tempMat]; //convert UIimage into CV mat
     //charlie's image pre pro ends here
-   
+    */
     
     //charlie's text detection call
     TextDetector2 *td = [[TextDetector2 alloc]init];
