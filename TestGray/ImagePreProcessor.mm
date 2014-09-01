@@ -252,11 +252,8 @@ using namespace std;
     cvtColor(inputRectImg, inputRectImg, COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
     split(inputRectImg,channels); //split the image into channels
     
-//    inputRectImg = channels[0]; //keep gray channel
-    
     //binarize the image, and find out which is more, black or white, and what is occupying the corners
     threshold(channels[0], channels[0], 0, 255, THRESH_OTSU);
-//    imwrite("/Users/canoee/Documents/BlueCheese/code/TestGray/inputBW.png", inputRectImg);
     
     int rows = inputRectImg.rows;
     int cols = inputRectImg.cols;
@@ -296,10 +293,6 @@ using namespace std;
     merge(channels,inputRectImg); //merge 3 channels including the modified 1st channel into one image
     cvtColor(inputRectImg, inputRectImg, COLOR_YCrCb2BGR); //change the color image from YCrCb to BGR format
  
-    
-//    inputRectImg = [self erode:inputRectImg];
-//    inputRectImg = [self dilate:inputRectImg];
-    
     return inputRectImg;
 }
 

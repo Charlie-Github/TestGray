@@ -15,12 +15,12 @@ using namespace std;
 
 @implementation TextDetector2
 
--(Mat)findTextArea: (UIImage*)inputImage{
+-(Mat)findTextArea: (UIImage*)inputImage
+{
     
     NSLog(@"TextDetector: Called!");
     
     Mat inputMat = [inputImage CVMat];
-    //NSMutableArray *imgUIArray = [[NSMutableArray alloc] init];;
     inputMat = [self findContour:inputMat:inputMat];
     
     return inputMat;
@@ -30,31 +30,44 @@ using namespace std;
 //-----------find contour
 
 typedef vector<vector<cv::Point> > TContours;//global
--(Mat)findContour:(Mat)inputImg :(Mat)orgImage{
+-(Mat)findContour:(Mat)inputImg :(Mat)orgImage
+{
     
     cvtColor( inputImg, inputImg, COLOR_BGR2GRAY );
     
-    //cv::fastNlMeansDenoising(inputImg, inputImg, 3.0f, 7, 21);
-    
-    double high_thres = threshold( inputImg, inputImg, 0, 255, THRESH_BINARY+THRESH_OTSU );
-    
     Mat canny_output;
+    Mat input_th;
     NSMutableArray *UIRects = [[NSMutableArray alloc] init];
     vector<Vec4i> hierarchy;
     
-    /// Detect edges using canny
-    Canny( inputImg, canny_output, high_thres*0.5, high_thres, 3 );
+    /// threshold with Otsu
+    Mat temp;
+    threshold(inputImg, input_th, 0, 255, THRESH_OTSU);
     
-    //typedef cv::vector<cv::vector<cv::Point> > TContours;
+//    imwrite("/Users/canoee/Documents/BlueCheese/code/TestGray/input_th.png", input_th);
+    
     TContours contours;
-    
-    
+
     /// Find contours
-    findContours( canny_output, contours, hierarchy, RETR_LIST, CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
+    findContours( input_th, contours, hierarchy, RETR_LIST, CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
     
+    //delete the noisy part
+    int firstSize = (int)contours.size();
+    for(int i = 0; i < firstSize; i++)
+    {
+        int objectSize = (int)contours[i].size();
+        if(objectSize < 8)
+        {
+            contours.erase(contours.begin()+i);
+            i --;
+            firstSize --;
+        }
+    }
     
     Mat drawing ;//= Mat::zeros( canny_output.size(), CV_8UC3 );
     drawing = orgImage;
+    
+    int wholeArea = drawing.size().height * drawing.size().width;
     
     /// Approximate contours to polygons + get bounding rects and circles
     vector<vector<cv::Point> > contours_poly( contours.size() );
@@ -62,111 +75,113 @@ typedef vector<vector<cv::Point> > TContours;//global
     vector<Point2f>center(contours.size() );
     vector<float>radius(contours.size() );
     
-    int counter_noise = 0;
-    int counter_tempRect = 0;
     for( int i = 0; i < contours.size();i++)
     {
         drawContours( drawing, contours, i, Scalar(255,0,0), 1, 8, hierarchy, 0, cv::Point() );
         approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
         cv::Rect tempRect = boundingRect(Mat(contours_poly[i]));
-        
-        int rectArea = tempRect.area();
-        if(rectArea<30)
-        {
-            counter_noise ++;
-        }
-        else
+        int tempArea = tempRect.area();
+        if(tempArea < wholeArea/3)
         {
             boundRect.push_back(tempRect);
-            counter_tempRect++;
         }
     }
     
-    NSLog(@"TextDetector: noise counter: %d",counter_noise);
+    //---remove insider rects
+    vector<cv::Rect> outRect;
+    outRect = [self removeInsider:boundRect];
     
-    if(counter_noise < 1500){
-        //---remove insider rects
-        vector<cv::Rect> outRect;
-        outRect = [self removeInsider:boundRect];
-        
-        //if the image is empty after this, do something;
-        if(outRect.size()==0)
+    //if the image is empty after this, do something;
+    if(outRect.size()==0)
+    {
+        return drawing;
+    }
+    
+    //----merge near
+    vector<cv::Rect> merged_rects;
+    merged_rects = [self mergeNeighbors:outRect];
+    
+    if(merged_rects.size()==0)
+    {
+        return drawing;
+    }
+    
+    //----sort vectors
+    vector<cv::Rect> result_rects;
+    result_rects = merged_rects;
+    
+    std::sort(result_rects.begin(), result_rects.end(), compareLoc);
+    
+    for(int i = 0; i< result_rects.size(); i++)
+    {
+        if(result_rects[i].width > 10 && result_rects[i].height > 15 )
         {
-        }
-        
-        //----merge near
-        vector<cv::Rect> merged_rects;
-        merged_rects = [self mergeNeighbors:outRect];
-        
-        if(merged_rects.size()==0)
-        {
-        }
-        
-        //----merge overlap
-        vector<cv::Rect> single_rects;
-        single_rects = [self removeOverlape:merged_rects];
-        
-        if(single_rects.size()==0)
-        {
-        }
-
-        //----sort vectors
-        std::sort(single_rects.begin(), single_rects.end(), compareLoc);
-        
-        for(int i = 0; i< single_rects.size(); i++){
-            if(single_rects[i].width > 10 && single_rects[i].height > 15 )
+            Mat tmpMat;
+            
+            int x = max(result_rects[i].x-3,0);
+            int y = max(result_rects[i].y-3,0);
+            int w = result_rects[i].width;
+            int h = result_rects[i].height;
+            
+            if( x+w+6 > orgImage.cols)
             {
-                Mat tmpMat;
-                
-                int x = max(single_rects[i].x-3,0);
-                int y = max(single_rects[i].y-3,0);
-                int w = single_rects[i].width;
-                int h = single_rects[i].height;
-                
-                if( x+w+6 > orgImage.cols){
-                    w = w;
-                }
-                else {
-                    w = w + 6;
-                }
-                
-                if( y+h+6 > orgImage.rows){
-                    h = h;
-                }
-                else {
-                    h = h + 6;
-                }
-                
-                cv::Rect tempRect = cv::Rect(x,y,w,h);
-                orgImage(tempRect).copyTo(tmpMat); //resized rect
-                
-                [UIRects addObject:[UIImage imageWithCVMat:tmpMat]];
-                
-                rectangle(drawing, tempRect.tl(), tempRect.br(), Scalar(0,0,255), 1, 8, 0 ); // draw rectangles
+                w = w;
             }
-            else{
-                //NSLog(@"nothing to draw: %d",i);
+            else
+            {
+                w = w + 6;
             }
+            
+            if( y+h+6 > orgImage.rows)
+            {
+                h = h;
+            }
+            else
+            {
+                h = h + 6;
+            }
+            
+            cv::Rect tempRect = cv::Rect(x,y,w,h);
+            orgImage(tempRect).copyTo(tmpMat); //resized rect
+            
+            [UIRects addObject:[UIImage imageWithCVMat:tmpMat]];
+            
+            rectangle(drawing, tempRect.tl(), tempRect.br(), Scalar(0,0,255), 1, 8, 0 ); // draw rectangles
         }
-
-    }
+    }    
+    
     //return UIRects;
+    imwrite("/Users/canoee/Documents/BlueCheese/code/TestGray/drawing.png", drawing);
     return drawing;
 }
 
 //Comparison function for std::sort
 //Sort regions y-axis desc. and x-axis asce.
-bool compareLoc(const cv::Rect &a,const cv::Rect &b){
-    if (a.y < b.y) return true;
+bool compareLoc(const cv::Rect &a,const cv::Rect &b)
+{
+    if (a.y < b.y)
+    {
+        return true;
+    }
     else if (a.y == b.y)
     {
-        if(a.x < b.x) return true;
-        else return false;
+        if(a.x < b.x)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
-    else return false;
+    else
+    {
+        return false;
+    }
 }
 
--(vector<cv::Rect>)removeInsider:(vector<cv::Rect>)rects{
+-(vector<cv::Rect>)removeInsider:(vector<cv::Rect>)rects
+{
     vector<cv::Rect> newRects;
     bool flag = false;          //true if the current rect is inside the other
     
@@ -210,44 +225,6 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
     return newRects;
 }
 
--(vector<cv::Rect>)removeOverlape:(vector<cv::Rect>)rects{
-    vector<cv::Rect> newRects;
-    bool flag = false;          //true if the current rect is inside the other
-    
-    int rectSize = int(rects.size());
-    if(rectSize==0)
-    {
-        //if the rects is empty
-        return newRects;
-    }
-    
-    for( int i = 0; i< rectSize; i++ )
-    {
-        flag = false;
-        cv::Rect tempRect = rects[i]; //temp Rect
-        
-        for(int j = i+1; j< rectSize; j++)
-        {
-            cv::Rect intersection = tempRect & rects[j];
-            
-            if(intersection.area() > 0)//current is insider
-            {
-                rects[j] |= tempRect;
-                flag = true;
-            }
-        }
-        //only if the current shape is independent, that it will be put into the result vector
-        if(!flag)
-        {
-            newRects.push_back(tempRect);
-        }
-    }
-    
-    return newRects;
-    
-}
-
-
 -(vector<cv::Rect>)mergeNeighbors:(vector<cv::Rect>)rects
 {
     vector<cv::Rect> newRects;
@@ -266,27 +243,56 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
         flag = false;
         cv::Rect tempRect = rects[i];
         
-        for(int j = i+1; j< rectSize; j++)
+        for(int j = 0; j< rectSize; j++)
         {
-            cv::Point pl0 = rects[i].tl();
-            cv::Point br0 = rects[i].br();
-            cv::Point pl1 = rects[j].tl();
-            //cv::Point br1 = rects[index_in].br();
-            int distance_x = abs(br0.x-pl1.x);
-            int distance_mid = abs(pl0.y+rects[i].height/2 - (pl1.y+rects[j].height/2));
-            int distance_threshold = (rects[i].height)/2;
+            //find the landmark points
+            cv::Point tl0 = tempRect.tl();      //top left of first    THIS NEEDS TO BE UPDATED
+            cv::Point br0 = tempRect.br();      //bot right of first   THIS NEEDS TO BE UPDATED
+            cv::Point tl1 = rects[j].tl();      //top left of second
+            cv::Point br1 = rects[j].br();      //bot right of second
+            cv::Point c0;                       //center of first
+            c0.x = (tl0.x+br0.x)/2;
+            c0.y = (tl0.y+br0.y)/2;
+            cv::Point c1;                       //center of second
+            c1.x = (tl1.x+br1.x)/2;
+            c1.y = (tl1.y+br1.y)/2;
             
-            int diff_height = abs(rects[i].height - rects[j].height);
+            //find the distances between
+            //need more thinking about the signs
+            int dist_x_center = abs(c1.x - c0.x);        //distance between centers in x
+            int dist_x = dist_x_center - (tempRect.width+rects[j].width)/2;    //the distance should be the center minus the half width sum.
             
-            if( distance_x < 35 && distance_mid < distance_threshold
-               && i != j && diff_height < (distance_threshold*1.5))
+            int dist_y_center = abs(c1.y - c0.y);   //distance between centers in y
+            int dist_th = min(rects[j].height,tempRect.height)/2;           //threshold is set at half of mean height
+            int diff_height = abs(tempRect.height - rects[j].height);       //difference of heights
+            
+            bool flag_x = false;                //used to determine the x directions
+            bool flag_y = false;
+            
+            //determine the x direction
+            if(dist_x < 40)                     //the number NEED to be changed maybe
+            {
+                flag_x = true;
+            }
+            
+            //determine the y direction
+            if(dist_y_center < dist_th)
+            {
+                flag_y = true;
+            }
+            
+            if( flag_x && flag_y && i != j && diff_height < (dist_th))
             {
                 //if two rects are close, then merge the insider to the current,
                 //delete the merged one,
                 tempRect |= rects[j];
                 rects.erase(rects.begin()+j);
-                j --;
+                j = -1;                             //whenever a merge is found, start from beginning
                 rectSize --;
+            }
+            else
+            {
+                //Empty
             }
         }
         //only if the current shape is independent, that it will be put into the result vector
@@ -294,9 +300,5 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
     }
     return newRects;
 }
-
-
-//-----------/find contour
-
 
 @end
