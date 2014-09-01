@@ -35,7 +35,7 @@
     
     NSDate *tdStart = [NSDate date];
     // Test Cases
-    /*
+    
     NSString *image_0 = @"image_gauss_blur.png";
     NSString *image_1 = @"IMG_0559.JPG";
     NSString *image_2 = @"Menu_2.JPG";
@@ -46,21 +46,20 @@
     NSString *image_7 = @"IMG_2018.JPG";
     NSString *image_8 = @"IMG_0533.JPG";
     NSString *image_9 = @"IMG_0513.jpg";
-    NSString *image_10 = @"image_book.jpg";
-    */
+    NSString *image_10 = @"IMG_0908.jpg";
     NSString *image_11 = @"IMG_black_test.JPG";
     
     // Load image
-    UIImage *img = [UIImage imageNamed: image_11];
+    UIImage *img = [UIImage imageNamed: image_10];
 	cv::Mat tempMat = [img CVMat];
     
-    
+    /*
     //charlie's image pre pro starts here
     ImagePreProcessor *ipp = [[ImagePreProcessor alloc]init];
     tempMat = [ipp processImage:tempMat];
     img = [UIImage imageWithCVMat:tempMat]; //convert UIimage into CV mat
     //charlie's image pre pro ends here
-   
+   */
     
     //charlie's text detection call
     TextDetector2 *td = [[TextDetector2 alloc]init];
