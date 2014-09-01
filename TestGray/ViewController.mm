@@ -52,7 +52,7 @@
     NSString *image_12 = @"IMG_0551.JPG";
     
     // Load image
-    UIImage *img = [UIImage imageNamed: image_7];
+    UIImage *img = [UIImage imageNamed: image_9];
 	cv::Mat tempMat = [img CVMat];
     
     
