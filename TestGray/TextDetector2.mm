@@ -146,7 +146,7 @@ typedef vector<vector<cv::Point> > TContours;//global
             
             [UIRects addObject:[UIImage imageWithCVMat:tmpMat]];
             
-            rectangle(drawing, tempRect.tl(), tempRect.br(), Scalar(0,0,255), 1, 8, 0 ); // draw rectangles
+            rectangle(drawing, tempRect.tl(), tempRect.br(), Scalar(0,0,255), 2, 8, 0 ); // draw rectangles
         }
     }    
     

@@ -50,18 +50,18 @@
     
     NSString *image_11 = @"IMG_black_test.JPG";
     NSString *image_12 = @"IMG_0551.JPG";
-    
+    NSString *image_13 = @"IMG_20.jpg";
     // Load image
-    UIImage *img = [UIImage imageNamed: image_9];
+    UIImage *img = [UIImage imageNamed: image_13];
 	cv::Mat tempMat = [img CVMat];
     
-    
+    /*
     //charlie's image pre pro starts here
     ImagePreProcessor *ipp = [[ImagePreProcessor alloc]init];
     tempMat = [ipp processImage:tempMat];
     img = [UIImage imageWithCVMat:tempMat]; //convert UIimage into CV mat
     //charlie's image pre pro ends here
-   
+    */
     
     //charlie's text detection call
     TextDetector2 *td = [[TextDetector2 alloc]init];
