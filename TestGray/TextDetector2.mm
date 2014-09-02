@@ -39,9 +39,6 @@ typedef vector<vector<cv::Point> > TContours;//global
     
     int wholeArea = drawing.size().height * drawing.size().width;
     
-    //resize the input image
-//    resize(inputImg,inputImg,cv::Size(),0.2,0.2);
-    
     Mat canny_output;
     Mat input_th;
     NSMutableArray *UIRects = [[NSMutableArray alloc] init];
@@ -51,7 +48,7 @@ typedef vector<vector<cv::Point> > TContours;//global
     Mat temp;
     threshold(inputImg, input_th, 0, 255, THRESH_OTSU);
     
-    imwrite("/Users/canoee/Documents/BlueCheese/code/TestGray/input_th.png", input_th);
+//    imwrite("/Users/canoee/Documents/BlueCheese/code/TestGray/input_th.png", input_th);
     
     TContours contours;
 
@@ -84,9 +81,18 @@ typedef vector<vector<cv::Point> > TContours;//global
         }
     }
     
+    //----merge near
+    vector<cv::Rect> merged_rects;
+    merged_rects = [self mergeNeighbors:boundRect];
+    
+    if(merged_rects.size()==0)
+    {
+        return drawing;
+    }
+    
     //---remove insider rects
     vector<cv::Rect> outRect;
-    outRect = [self removeInsider:boundRect];
+    outRect = [self removeInsider:merged_rects];
     
     //if the image is empty after this, do something;
     if(outRect.size()==0)
@@ -94,18 +100,9 @@ typedef vector<vector<cv::Point> > TContours;//global
         return drawing;
     }
     
-    //----merge near
-    vector<cv::Rect> merged_rects;
-    merged_rects = [self mergeNeighbors:outRect];
-    
-    if(merged_rects.size()==0)
-    {
-        return drawing;
-    }
-    
     //----sort vectors
     vector<cv::Rect> result_rects;
-    result_rects = merged_rects;
+    result_rects = outRect;
     
     std::sort(result_rects.begin(), result_rects.end(), compareLoc);
     
@@ -148,7 +145,7 @@ typedef vector<vector<cv::Point> > TContours;//global
     }    
     
     //return UIRects;
-    imwrite("/Users/canoee/Documents/BlueCheese/code/TestGray/drawing.png", drawing);
+//    imwrite("/Users/canoee/Documents/BlueCheese/code/TestGray/drawing.png", drawing);
     return drawing;
 }
 
@@ -269,7 +266,7 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b)
                 bool flag_h = false;                //used to determine the height
                 
                 //determine the x direction
-                if(dist_x < 90)                     //the number NEED to be changed maybe
+                if(dist_x < 50)                     //the number NEED to be changed maybe
                 {
                     flag_x = true;
                 }
