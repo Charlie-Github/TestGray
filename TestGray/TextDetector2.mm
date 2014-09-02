@@ -34,6 +34,13 @@ typedef vector<vector<cv::Point> > TContours;//global
 {
     
     cvtColor( inputImg, inputImg, COLOR_BGR2GRAY );
+    Mat drawing ;
+    drawing = orgImage;
+    
+    int wholeArea = drawing.size().height * drawing.size().width;
+    
+    //resize the input image
+//    resize(inputImg,inputImg,cv::Size(),0.2,0.2);
     
     Mat canny_output;
     Mat input_th;
@@ -51,24 +58,6 @@ typedef vector<vector<cv::Point> > TContours;//global
     /// Find contours
     findContours( input_th, contours, hierarchy, RETR_LIST, CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
     
-    //delete the noisy part
-    int firstSize = (int)contours.size();
-    for(int i = 0; i < firstSize; i++)
-    {
-        int objectSize = (int)contours[i].size();
-        if(objectSize < 8)
-        {
-            contours.erase(contours.begin()+i);
-            i --;
-            firstSize --;
-        }
-    }
-    
-    Mat drawing ;//= Mat::zeros( canny_output.size(), CV_8UC3 );
-    drawing = orgImage;
-    
-    int wholeArea = drawing.size().height * drawing.size().width;
-    
     /// Approximate contours to polygons + get bounding rects and circles
     vector<vector<cv::Point> > contours_poly( contours.size() );
     vector<cv::Rect> boundRect;
@@ -80,8 +69,16 @@ typedef vector<vector<cv::Point> > TContours;//global
         drawContours( drawing, contours, i, Scalar(255,0,0), 1, 8, hierarchy, 0, cv::Point() );
         approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
         cv::Rect tempRect = boundingRect(Mat(contours_poly[i]));
+        double tempHeight = tempRect.height;
+        double tempWidth = tempRect.width;
+        double tempRatio = tempHeight/tempWidth;
         int tempArea = tempRect.area();
-        if(tempArea < wholeArea/3)
+        bool flagNoise = false;                      //used to eleminate noisy points
+        if(tempRatio>5||tempRatio<0.2)
+        {
+            flagNoise = true;
+        }
+        if(tempArea < wholeArea/3 && tempArea>wholeArea/10000 && !flagNoise)
         {
             boundRect.push_back(tempRect);
         }
@@ -108,13 +105,13 @@ typedef vector<vector<cv::Point> > TContours;//global
     
     //----sort vectors
     vector<cv::Rect> result_rects;
-    result_rects =merged_rects;
+    result_rects = merged_rects;
     
     std::sort(result_rects.begin(), result_rects.end(), compareLoc);
     
     for(int i = 0; i< result_rects.size(); i++)
     {
-//        if(result_rects[i].width > 10 && result_rects[i].height > 15 )
+        if(result_rects[i].width > 10 && result_rects[i].height > 15 )
         {
             Mat tmpMat;
             
@@ -146,7 +143,7 @@ typedef vector<vector<cv::Point> > TContours;//global
             
             [UIRects addObject:[UIImage imageWithCVMat:tmpMat]];
             
-            rectangle(drawing, tempRect.tl(), tempRect.br(), Scalar(0,0,255), 1, 8, 0 ); // draw rectangles
+            rectangle(drawing, tempRect.tl(), tempRect.br(), Scalar(0,0,255), 2, 8, 0 ); // draw rectangles
         }
     }    
     
@@ -272,12 +269,16 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b)
                 bool flag_h = false;                //used to determine the height
                 
                 //determine the x direction
-                if(dist_x < 40)                     //the number NEED to be changed maybe
+                if(dist_x < 90)                     //the number NEED to be changed maybe
                 {
                     flag_x = true;
                 }
                 
-                if(diff_height<dist_th || (tl0.y<tl1.y&&br0.y>br1.y) ||  (tl0.y>tl1.y&&br0.y<br1.y))
+                //the difference in height either smaller than the threshold,
+                //or one include the other with higher threshold
+                if(diff_height<dist_th
+                   || (tl0.y<tl1.y&&br0.y>br1.y&&diff_height<dist_th*2.2)
+                   ||  (tl0.y>tl1.y&&br0.y<br1.y&&diff_height<dist_th*2.2))
                 {
                     flag_h = true;
                 }
