@@ -49,6 +49,7 @@
 		3AF9C133195DF98F0011339E /* WordCorrector.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF9C132195DF98F0011339E /* WordCorrector.m */; };
 		3AFE5A7E1964B631000B9526 /* IMG_2227.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 3AFE5A7D1964B631000B9526 /* IMG_2227.JPG */; };
 		3AFE5A801965B02B000B9526 /* IMG_black_test.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 3AFE5A7F1965B02B000B9526 /* IMG_black_test.JPG */; };
+		79D4480819B68C1100874B4B /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 79D4480719B68C1100874B4B /* 1.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,7 @@
 		3AF9C132195DF98F0011339E /* WordCorrector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordCorrector.m; sourceTree = "<group>"; };
 		3AFE5A7D1964B631000B9526 /* IMG_2227.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_2227.JPG; sourceTree = "<group>"; };
 		3AFE5A7F1965B02B000B9526 /* IMG_black_test.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_black_test.JPG; sourceTree = "<group>"; };
+		79D4480719B68C1100874B4B /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,7 @@
 		3A73B0D3192BF4B1006230B5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				79D4480719B68C1100874B4B /* 1.jpg */,
 				3A94350419B4FE63005465E2 /* IMG_20.jpg */,
 				3AFE5A7F1965B02B000B9526 /* IMG_black_test.JPG */,
 				3AFE5A7D1964B631000B9526 /* IMG_2227.JPG */,
@@ -356,6 +359,7 @@
 				3A5654D01937ABE10085CC87 /* IMG_0543.JPG in Resources */,
 				3A5654CE1937ABE10085CC87 /* IMG_0537.JPG in Resources */,
 				3A85B61F192D3378003571F2 /* image_book.jpg in Resources */,
+				79D4480819B68C1100874B4B /* 1.jpg in Resources */,
 				3A5654CB1937ABE10085CC87 /* IMG_0519.JPG in Resources */,
 				3AF9C12A195DD0930011339E /* IMG_2018.JPG in Resources */,
 				3A85B621192D3ABF003571F2 /* image_blue_poster.jpg in Resources */,

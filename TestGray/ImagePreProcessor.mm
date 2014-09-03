@@ -16,8 +16,8 @@ using namespace std;
 
 
 
--(Mat)processImage: (Mat)inputImage
-{
+-(Mat)processImage: (Mat)inputImage{
+    
     NSLog(@"ImagePrePro: Called!");
     
     Mat output;
@@ -89,8 +89,7 @@ using namespace std;
 }
 
 
--(Mat)dilate:(Mat)img
-{
+-(Mat)dilate:(Mat)img{
     
     Mat dilation_dst;
     int dilation_type;
@@ -113,8 +112,7 @@ using namespace std;
 
 
 
--(Mat)gaussianBlur:(Mat)inputImage :(int)h :(int)w
-{
+-(Mat)gaussianBlur:(Mat)inputImage :(int)h :(int)w{
     
     Mat output;
     cv::Size size;
@@ -125,8 +123,7 @@ using namespace std;
     
 }
 
--(Mat)laplacian:(Mat)inputImage
-{
+-(Mat)laplacian:(Mat)inputImage{
     
     Mat output;
     Mat kernel = (Mat_<float>(3, 3) << 0, -1, 0, -1, 4, -1, 0, -1, 0); //Laplacian operator
@@ -135,8 +132,7 @@ using namespace std;
     
 }
 
--(Mat)sharpen:(Mat)inputImage
-{
+-(Mat)sharpen:(Mat)inputImage{
     Mat output;
     GaussianBlur(inputImage, output, cv::Size(0, 0), 10);
     addWeighted(inputImage, 1.5, output, -0.5, 0, output);
@@ -145,8 +141,7 @@ using namespace std;
 
 
 
--(Mat)increaseContrast:(Mat)inputMat
-{
+-(Mat)increaseContrast:(Mat)inputMat{
     //input mat is in BGR format
     //ouput mat is in BGR format
     //the function converts BGR into YCrCb format, and then takes care of the first channel of it.
@@ -174,8 +169,7 @@ using namespace std;
 
 //------Threshold method
 
--(Mat)adaptiveThreshold:(Mat)inputMat
-{
+-(Mat)adaptiveThreshold:(Mat)inputMat{
     //input mat is in BGR format
     //ouput mat is in BGR format
     //the function converts BGR into YCrCb format, and then takes care of the first channel of it.
@@ -209,8 +203,7 @@ using namespace std;
 }
 
 
--(Mat)adaptiveThresholdBlack:(Mat)inputMat
-{
+-(Mat)adaptiveThresholdBlack:(Mat)inputMat{
     //input mat is in BGR format
     //ouput mat is in BGR format
     //the function converts BGR into YCrCb format, and then takes care of the first channel of it.
@@ -240,7 +233,7 @@ using namespace std;
     
     //--Simple ends here
     
-//    adaptiveThreshold(channels[0], channels[0], 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY,11, 2);
+    //    adaptiveThreshold(channels[0], channels[0], 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY,11, 2);
     merge(channels,img_threshold); //merge 3 channels including the modified 1st channel into one image
     cvtColor(img_threshold, img_threshold, COLOR_YCrCb2BGR); //change the color image from YCrCb to BGR format
     
@@ -281,6 +274,7 @@ using namespace std;
                 if(pixl_int > 100)
                 {
                     counter_inner++;
+                    
                 }
                 else
                 {

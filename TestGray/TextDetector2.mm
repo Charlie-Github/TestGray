@@ -37,49 +37,9 @@ typedef vector<vector<cv::Point> > TContours;//global
     Mat drawing ;
     drawing = orgImage;
     
-    int wholeArea = drawing.size().height * drawing.size().width;
-    
-    Mat canny_output;
-    Mat input_th;
     NSMutableArray *UIRects = [[NSMutableArray alloc] init];
-    vector<Vec4i> hierarchy;
     
-    /// threshold with Otsu
-    Mat temp;
-    threshold(inputImg, input_th, 0, 255, THRESH_OTSU);
-    
-//    imwrite("/Users/canoee/Documents/BlueCheese/code/TestGray/input_th.png", input_th);
-    
-    TContours contours;
-
-    /// Find contours
-    findContours( input_th, contours, hierarchy, RETR_LIST, CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
-    
-    /// Approximate contours to polygons + get bounding rects and circles
-    vector<vector<cv::Point> > contours_poly( contours.size() );
-    vector<cv::Rect> boundRect;
-    vector<Point2f>center(contours.size() );
-    vector<float>radius(contours.size() );
-    
-    for( int i = 0; i < contours.size();i++)
-    {
-        drawContours( drawing, contours, i, Scalar(255,0,0), 1, 8, hierarchy, 0, cv::Point() );
-        approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
-        cv::Rect tempRect = boundingRect(Mat(contours_poly[i]));
-        double tempHeight = tempRect.height;
-        double tempWidth = tempRect.width;
-        double tempRatio = tempHeight/tempWidth;
-        int tempArea = tempRect.area();
-        bool flagNoise = false;                      //used to eleminate noisy points
-        if(tempRatio>5||tempRatio<0.2)
-        {
-            flagNoise = true;
-        }
-        if(tempArea < wholeArea/3 && tempArea>wholeArea/10000 && !flagNoise)
-        {
-            boundRect.push_back(tempRect);
-        }
-    }
+    vector<cv::Rect> boundRect = findRects:(inputImg);
     
     //----merge near
     vector<cv::Rect> merged_rects;
@@ -147,6 +107,65 @@ typedef vector<vector<cv::Point> > TContours;//global
     //return UIRects;
 //    imwrite("/Users/canoee/Documents/BlueCheese/code/TestGray/drawing.png", drawing);
     return drawing;
+}
+
+-(std::vector<cv::Rect>)findRects:(cv::Mat)inputImg
+{
+    vector<cv::Rect> resultRect;
+
+    Mat drawing ;
+    drawing = inputImg;
+    
+    int wholeArea = drawing.size().height * drawing.size().width;
+    
+    Mat input_th;
+    vector<Vec4i> hierarchy;
+    
+    /// threshold with Otsu
+    Mat temp;
+    threshold(inputImg, input_th, 0, 255, THRESH_OTSU);
+    //    adaptiveThreshold(inputImg, input_th, 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY,11, 2);
+    
+    //    imwrite("/Users/canoee/Documents/BlueCheese/code/TestGray/input_th.png", input_th);
+    
+    TContours contours;
+    
+    /// Find contours
+    findContours( input_th, contours, hierarchy, RETR_LIST, CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
+    
+    /// Approximate contours to polygons + get bounding rects and circles
+    vector<vector<cv::Point> > contours_poly( contours.size() );
+    vector<cv::Rect> boundRect;
+    vector<Point2f>center(contours.size() );
+    vector<float>radius(contours.size() );
+    
+    for( int i = 0; i < contours.size();i++)
+    {
+        drawContours( drawing, contours, i, Scalar(255,0,0), 1, 8, hierarchy, 0, cv::Point() );
+        approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
+        cv::Rect tempRect = boundingRect(Mat(contours_poly[i]));
+        double tempHeight = tempRect.height;
+        double tempWidth = tempRect.width;
+        double tempRatio = tempHeight/tempWidth;
+        int tempArea = tempRect.area();
+        bool flagNoise = false;                      //used to eleminate noisy points
+        if(tempRatio>5||tempRatio<0.2)
+        {
+            flagNoise = true;
+        }
+        if(tempArea < wholeArea/3 && tempArea>wholeArea/10000 && !flagNoise)
+        {
+            boundRect.push_back(tempRect);
+        }
+        if(tempArea > wholeArea/10)
+        {
+            cout<<"adaptive threshold needed"<<endl;
+        }
+    }
+    
+    
+    
+    return resultRect;
 }
 
 //Comparison function for std::sort

@@ -12,4 +12,6 @@
 
 -(cv::Mat)findTextArea: (UIImage*)inputImage; // main
 
+-(std::vector<cv::Rect>)findRects:(cv::Mat)inputImg;
+
 @end

@@ -51,9 +51,10 @@
     NSString *image_11 = @"IMG_black_test.JPG";
     NSString *image_12 = @"IMG_0551.JPG";
     NSString *image_13 = @"IMG_20.jpg";
+    NSString *image_14 = @"1.jpg";
     // Load image
     
-    UIImage *img = [UIImage imageNamed: image_13];
+    UIImage *img = [UIImage imageNamed: image_12];
 
 	cv::Mat tempMat = [img CVMat];
     
