@@ -10,29 +10,29 @@
 	<string>TestGray</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>C74122FD-67F6-4C12-AF42-F4899BFFFFB3</key>
+		<key>13436BD548768CB1107FEC00372B841423B5F489</key>
 		<string>https://github.com/Charlie-Github/TestGray.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>TestGray.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>C74122FD-67F6-4C12-AF42-F4899BFFFFB3</key>
+		<key>13436BD548768CB1107FEC00372B841423B5F489</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/Charlie-Github/TestGray.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>C74122FD-67F6-4C12-AF42-F4899BFFFFB3</string>
+	<string>13436BD548768CB1107FEC00372B841423B5F489</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>C74122FD-67F6-4C12-AF42-F4899BFFFFB3</string>
+			<string>13436BD548768CB1107FEC00372B841423B5F489</string>
 			<key>IDESourceControlWCCName</key>
 			<string>TestGray</string>
 		</dict>
